@@ -17,7 +17,7 @@ module.exports = {
             id: 'string'
         });
 
-        File.findOne(req.param('id')).exec(function (err, file){
+        File.findOne(req.params.id).exec(function (err, file){
             if (err) return res.negotiate(err);
             if (!file) return res.notFound();
 
@@ -36,6 +36,19 @@ module.exports = {
                     return res.serverError(err);
                 })
                 .pipe(res);
+        });
+    },
+
+    /**
+     * Destroy File
+     * @param req
+     * @param res
+     */
+    destroy: function (req, res) {
+        File.destroy(req.params.id).then(function () {
+            return res.ok();
+        }).catch(function (err) {
+            return res.negotiate(err);
         });
     }
 

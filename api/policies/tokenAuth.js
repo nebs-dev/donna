@@ -21,16 +21,17 @@ module.exports = function (req, res, next) {
         return res.unauthorized('No Authorization header was found');
     }
 
-    sailsTokenAuth.verifyToken(token, function (err, token) {
+    sailsTokenAuth.verifyToken(token, function (err, newToken) {
         if (err) return res.unauthorized('The token is not valid');
 
         // Check user secret
-        User.findOne(token.userId).then(function (user) {
-            if (user.secret != token.secret) {
+        User.findOne(newToken.userId).then(function (user) {
+            if (user.secret != newToken.secret) {
                 return res.unauthorized('The token is not valid');
             }
 
-            req.token = token;
+            req.token = newToken;
+            req.originalToken = token;
             next();
 
         }).catch(function (err) {

@@ -15,10 +15,6 @@ module.exports = {
         url: {
             type: 'string',
             required: true
-        },
-
-        news: {
-            model: 'news'
         }
     },
 
@@ -31,12 +27,22 @@ module.exports = {
     afterDestroy: function (destroyedRecords, cb) {
         if (!destroyedRecords.length) return cb();
 
-        var filePath = 'uploads/' + destroyedRecords[0].url;
+        async.each(destroyedRecords, function(file, callback) {
+            var filePath = 'uploads/' + file.url;
 
-        fs.remove(filePath, function (err) {
+            fs.remove(filePath, function (err) {
+                if (err) return callback(err);
+                return callback();
+            });
+
+        }, function(err){
             if (err) return cb(err);
-
-            cb();
+            return cb();
         });
+    },
+
+    beforeValidate: function (values, cb) {
+        //console.log(values);
+        cb();
     }
 };

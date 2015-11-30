@@ -103,7 +103,7 @@ module.exports.routes = {
      *
      * @apiParam {string} title News title (required)
      * @apiParam {text} text News text (required)
-     * @apiParam {file} file News file URL
+     * @apiParam {file} file News file
      */
     'POST /api/news/create': 'News.create',
 
@@ -113,7 +113,7 @@ module.exports.routes = {
      *
      * @apiParam {string} title News title
      * @apiParam {text} text News text
-     * @apiParam {file} file News file URL
+     * @apiParam {file} file News file
      */
     'POST /api/news/update/:id': 'News.update',
 
@@ -167,9 +167,47 @@ module.exports.routes = {
     ////////////
 
     /**
-     * @api {post} /api/file/:id get one File
+     * @api {get} /api/file/:id get one File
      * @apiGroup File
      */
-    'GET /api/file/:id': 'File.getOne'
+    'GET /api/file/:id': 'File.getOne',
+
+    /**
+     * @api {post} /api/file/destroy/:id destroy
+     * @apiGroup File
+     */
+    'POST /api/file/destroy/:id': 'File.destroy',
+
+
+    ///////////////
+    /// Gallery ///
+    ///////////////
+
+    /**
+     * @api {post} /api/gallery/create create
+     * @apiGroup Gallery
+     *
+     * @apiParam {string} title Gallery title (required)
+     * @apiParam {file} file Gallery file
+     */
+    'POST /api/gallery/create': 'Gallery.create',
+
+    /**
+     * @api {post} /api/gallery/addFile/:id addFile
+     * @apiGroup Gallery
+     */
+    'POST /api/gallery/addFile/:id': 'Gallery.addFile',
+
+    /**
+     * @api {post} /api/gallery/destroy/:id destroy
+     * @apiGroup Gallery
+     */
+    'POST /api/gallery/destroy/:id': 'Gallery.destroy',
+
+    /**
+     * @api {get} /api/gallery/show/:id show
+     * @apiGroup Gallery
+     */
+    'GET /api/gallery/show/:id': 'Gallery.show'
 
 };

@@ -175,6 +175,86 @@
     "name": "PostApiCommentReportId"
   },
   {
+    "type": "get",
+    "url": "/api/file/:id",
+    "title": "get one File",
+    "group": "File",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "File",
+    "name": "GetApiFileId"
+  },
+  {
+    "type": "post",
+    "url": "/api/file/destroy/:id",
+    "title": "destroy",
+    "group": "File",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "File",
+    "name": "PostApiFileDestroyId"
+  },
+  {
+    "type": "get",
+    "url": "/api/gallery/show/:id",
+    "title": "show",
+    "group": "Gallery",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Gallery",
+    "name": "GetApiGalleryShowId"
+  },
+  {
+    "type": "post",
+    "url": "/api/gallery/addFile/:id",
+    "title": "addFile",
+    "group": "Gallery",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Gallery",
+    "name": "PostApiGalleryAddfileId"
+  },
+  {
+    "type": "post",
+    "url": "/api/gallery/create",
+    "title": "create",
+    "group": "Gallery",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Gallery title (required)</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>file</p> ",
+            "optional": false,
+            "field": "file",
+            "description": "<p>Gallery file</p> "
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Gallery",
+    "name": "PostApiGalleryCreate"
+  },
+  {
+    "type": "post",
+    "url": "/api/gallery/destroy/:id",
+    "title": "destroy",
+    "group": "Gallery",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Gallery",
+    "name": "PostApiGalleryDestroyId"
+  },
+  {
     "type": "post",
     "url": "/api/news/addComment/:id",
     "title": "addComment",
@@ -231,7 +311,7 @@
             "type": "<p>file</p> ",
             "optional": false,
             "field": "file",
-            "description": "<p>News file URL</p> "
+            "description": "<p>News file</p> "
           }
         ]
       }
@@ -298,7 +378,7 @@
             "type": "<p>file</p> ",
             "optional": false,
             "field": "file",
-            "description": "<p>News file URL</p> "
+            "description": "<p>News file</p> "
           }
         ]
       }

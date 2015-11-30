@@ -38,9 +38,6 @@ module.exports = {
         toJSON: function () {
             var obj = this.toObject();
             obj.likesNum = obj.likes.length;
-
-            console.log(obj);
-
             //obj.file = UploadHelper.getFullUrl('news', obj.file.url);
             return obj;
         }
@@ -54,12 +51,15 @@ module.exports = {
     beforeUpdate: function (valuesToUpdate, cb) {
         if (!valuesToUpdate.file) return cb();
 
-        News.findOne(valuesToUpdate.id).then(function (newsOld) {
-            var filePath = 'uploads/news/' + newsOld.file;
+        News.findOne(valuesToUpdate.id).populate('file').then(function (newsOld) {
+            // destroy old file in database && file
+            File.destroy(newsOld.file.id).then(function () {
+                var filePath = 'uploads/' + newsOld.file.url;
 
-            fs.remove(filePath, function (err) {
-                if (err) return cb(err);
-                cb();
+                fs.remove(filePath, function (err) {
+                    if (err) return cb(err);
+                    cb();
+                });
             });
 
         }).catch(function (err) {

@@ -18,12 +18,11 @@ module.exports = {
 
             return [news, UploadHelper.uploadFile(req, 'news')];
 
-        }).spread(function (news, file) {
+        }).spread(function (news, files) {
+            news.file = files[0].id;
 
-            news.file = file.id;
             news.save(function (err, news) {
-                if (!err) return res.negotiate('TEST');
-
+                if (err) return res.negotiate(err);
                 return res.json(news);
             });
 
@@ -42,10 +41,16 @@ module.exports = {
 
         News.update(req.params.id, params).then(function (news) {
 
-            return UploadHelper.uploadFile(req, 'news', news[0]);
+            return [news[0], UploadHelper.uploadFile(req, 'news')];
 
-        }).then(function (item) {
-            return res.json(item);
+        }).spread(function (news, files) {
+            if (file) news.file = file[0].id;
+
+            news.save(function (err, news) {
+                if (err) return res.negotiate(err);
+                return res.json(news);
+            });
+
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -89,6 +94,8 @@ module.exports = {
 
         News.findOne(req.params.id).then(function (news) {
             if (!news) return res.notFound('News with that ID not found');
+
+            delete params.id;
 
             // Create comment and add it to news
             Comment.create(params).then(function (comment) {
