@@ -17,11 +17,11 @@ module.exports = {
             unique: true
         },
 
-        firstName: {
+        name: {
             type: 'string'
         },
 
-        lastName: {
+        surename: {
             type: 'string'
         },
 
@@ -50,8 +50,8 @@ module.exports = {
             model: 'role'
         },
 
-        commentsNews: {
-            collection: 'commentNews',
+        comments: {
+            collection: 'comment',
             via: 'user'
         },
 

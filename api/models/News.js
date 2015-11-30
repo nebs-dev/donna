@@ -22,13 +22,27 @@ module.exports = {
             required: true
         },
 
-        file: {
-            type: 'string'
+        likes: {
+            type: 'array',
+            defaultsTo: []
         },
 
         comments: {
-            collection: 'commentNews',
-            via: 'news'
+            collection: 'comment'
+        },
+
+        file: {
+            model: 'file'
+        },
+
+        toJSON: function () {
+            var obj = this.toObject();
+            obj.likesNum = obj.likes.length;
+
+            console.log(obj);
+
+            //obj.file = UploadHelper.getFullUrl('news', obj.file.url);
+            return obj;
         }
     },
 
@@ -38,7 +52,7 @@ module.exports = {
      * @returns {*}
      */
     beforeUpdate: function (valuesToUpdate, cb) {
-        if(!valuesToUpdate.file) return cb();
+        if (!valuesToUpdate.file) return cb();
 
         News.findOne(valuesToUpdate.id).then(function (newsOld) {
             var filePath = 'uploads/news/' + newsOld.file;
@@ -49,7 +63,7 @@ module.exports = {
             });
 
         }).catch(function (err) {
-           return cb(err);
+            return cb(err);
         });
     },
 

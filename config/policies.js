@@ -26,7 +26,11 @@ module.exports.policies = {
      *                                                                          *
      ***************************************************************************/
 
-    '*': true,
+    '*': ['tokenAuth'],
+
+    'AuthController': {
+        '*': true
+    },
 
     'UserController': {
         'show': ['tokenAuth', 'ownUser'],

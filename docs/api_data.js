@@ -25,14 +25,14 @@ define({ "api": [
             "group": "Parameter",
             "type": "<p>string</p> ",
             "optional": false,
-            "field": "firstName",
-            "description": "<p>User first name</p> "
+            "field": "name",
+            "description": "<p>User name</p> "
           },
           {
             "group": "Parameter",
             "type": "<p>string</p> ",
             "optional": false,
-            "field": "lastName",
+            "field": "surename",
             "description": "<p>User last name</p> "
           }
         ]
@@ -156,6 +156,56 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/api/comment/like/:id",
+    "title": "like/unlike Comment",
+    "group": "Comment",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Comment",
+    "name": "PostApiCommentLikeId"
+  },
+  {
+    "type": "post",
+    "url": "/api/comment/report/:id",
+    "title": "report/unreport Comment",
+    "group": "Comment",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Comment",
+    "name": "PostApiCommentReportId"
+  },
+  {
+    "type": "post",
+    "url": "/api/news/addComment/:id",
+    "title": "addComment",
+    "group": "News",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>integer</p> ",
+            "optional": false,
+            "field": "news",
+            "description": "<p>News ID</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>text</p> ",
+            "optional": false,
+            "field": "text",
+            "description": "<p>News text</p> "
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "News",
+    "name": "PostApiNewsAddcommentId"
+  },
+  {
+    "type": "post",
     "url": "/api/news/create",
     "title": "create",
     "group": "News",
@@ -200,6 +250,26 @@ define({ "api": [
     "filename": "config/routes.js",
     "groupTitle": "News",
     "name": "PostApiNewsDestroyId"
+  },
+  {
+    "type": "post",
+    "url": "/api/news/like/:id",
+    "title": "like/unlike News",
+    "group": "News",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "News",
+    "name": "PostApiNewsLikeId"
+  },
+  {
+    "type": "post",
+    "url": "/api/news/show/:id",
+    "title": "show",
+    "group": "News",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "News",
+    "name": "PostApiNewsShowId"
   },
   {
     "type": "post",

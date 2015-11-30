@@ -76,8 +76,8 @@ module.exports.routes = {
      *
      * @apiParam {string} facebookId Facebook ID (required)
      * @apiParam {string} email User email
-     * @apiParam {string} firstName User first name
-     * @apiParam {string} lastName User last name
+     * @apiParam {string} name User name
+     * @apiParam {string} surename User last name
      */
     'POST /api/auth/facebook': 'Auth.facebook',
 
@@ -124,11 +124,52 @@ module.exports.routes = {
     'POST /api/news/destroy/:id': 'News.destroy',
 
     /**
-     * @api {post} /api/news/addComment addComment
+     * @api {post} /api/news/show/:id show
+     * @apiGroup News
+     */
+    'POST /api/news/show/:id': 'News.show',
+
+    /**
+     * @api {post} /api/news/like/:id like/unlike News
+     * @apiGroup News
+     */
+    'POST /api/news/like/:id': 'News.like',
+
+    /**
+     * @api {post} /api/news/addComment/:id addComment
      * @apiGroup News
      *
      * @apiParam {integer} news News ID
      * @apiParam {text} text News text
      */
-    'POST /api/news/addComment': 'News.addComment'
+    'POST /api/news/addComment/:id': 'News.addComment',
+
+
+    ///////////////
+    /// COMMENT ///
+    ///////////////
+
+    /**
+     * @api {post} /api/comment/like/:id like/unlike Comment
+     * @apiGroup Comment
+     */
+    'POST /api/comment/like/:id': 'Comment.like',
+
+    /**
+     * @api {post} /api/comment/report/:id report/unreport Comment
+     * @apiGroup Comment
+     */
+    'POST /api/comment/report/:id': 'Comment.report',
+
+
+    ////////////
+    /// FILE ///
+    ////////////
+
+    /**
+     * @api {post} /api/file/:id get one File
+     * @apiGroup File
+     */
+    'GET /api/file/:id': 'File.getOne'
+
 };
