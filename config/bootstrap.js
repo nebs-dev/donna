@@ -12,6 +12,30 @@
 var grunt = require('grunt');
 var moment = require('moment');
 
+
+
+/*
+ var socket = io('http://localhost:1337', {query: "token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInNlY3JldCI6IjRqcGF3MDl0M3hyIiwiaWF0IjoxNDQ4OTY4MjE3fQ.LNzUISN-3NZyxwih5NtAiWEegI0b5NMl67CahtMcZr8"});
+
+
+ socket.on('msg', function(data) {
+ console.log("new msg: ", data);
+ });
+
+ socket.on('notification', function(data) {
+ console.log("notification: ", data);
+ });
+
+ socket.on('connect', function () {
+ console.log("jsm");
+ });
+
+
+ socket.emit('newMsg', {text: "hej mala"})
+
+ */
+
+
 module.exports.bootstrap = function (cb) {
 
     sails.io.on('connection', function (socket) {
