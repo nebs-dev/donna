@@ -55,6 +55,11 @@ module.exports = {
             via: 'user'
         },
 
+        messages: {
+            collection: 'message',
+            via: 'user'
+        },
+
         toJSON: function () {
             var obj = this.toObject();
             delete obj.encryptedPassword;
