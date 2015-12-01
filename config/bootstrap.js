@@ -10,77 +10,11 @@
  */
 
 var grunt = require('grunt');
-var moment = require('moment');
-
-
-
-/*
- var socket = io('http://localhost:1337', {query: "token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInNlY3JldCI6IjRqcGF3MDl0M3hyIiwiaWF0IjoxNDQ4OTY4MjE3fQ.LNzUISN-3NZyxwih5NtAiWEegI0b5NMl67CahtMcZr8"});
-
-
- socket.on('msg', function(data) {
- console.log("new msg: ", data);
- });
-
- socket.on('notification', function(data) {
- console.log("notification: ", data);
- });
-
- socket.on('connect', function () {
- console.log("jsm");
- });
-
-
- socket.emit('newMsg', {text: "hej mala"})
-
- */
-
 
 module.exports.bootstrap = function (cb) {
-
-    sails.io.on('connection', function (socket) {
-        if (!socket.handshake || !socket.handshake.query || !socket.handshake.query.token) return socket.disconnect();
-
-        var token = socket.handshake.query.token;
-
-        sailsTokenAuth.verifyToken(token, function (err, parsedToken) {
-            if (err) return socket.disconnect();
-
-            socket.join('donna');
-            sails.sockets.broadcast('donna', 'notification', {join: 'User joined', user: parsedToken.userId}, socket);
-
-            socket.on('newMsg', function (data) {
-
-                if (!data.text || !parsedToken.userId) return socket.emit('notification', {error: 'Not enought data!'});
-
-                var time = moment().subtract(1, 'minute');
-
-                Message.find({where: {createdAt: {'>=': time.format()}}}).then(function (messages) {
-                    if (messages.length >= 3) return socket.emit('notification', {error: 'SPAM!'});
-
-                    Message.create({
-                        text: data.text,
-                        user: parsedToken.userId
-                    }).then(function (message) {
-                        socket.broadcast.to('donna').emit('msg', message);
-                    });
-
-                }).catch(function (err) {
-                    socket.emit(socket, 'notification', {error: 'last message not sent!'});
-                });
-            });
-
-            socket.on('disconnect', function () {
-                sails.sockets.broadcast('donna', 'notification', {left: 'User left', user: parsedToken.userId}, socket);
-                socket.leave('donna');
-            });
-
-
-        });
-    });
-
 
     grunt.tasks('default', {}, function () {
         cb();
     });
+
 };

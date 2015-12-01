@@ -299,6 +299,25 @@ module.exports.routes = {
      * @api {get} /api/events list of events
      * @apiGroup Event
      */
-    'GET /api/events': 'Event.list'
+    'GET /api/events': 'Event.list',
+
+
+    ////////////////
+    /// MESSAGES ///
+    ////////////////
+
+    /**
+     * @api {get} /api/messages/show list of messages + subscribe to model
+     * @apiGroup Messages
+     */
+    'GET /api/messages/show': 'Message.show',
+
+    /**
+     * @api {post} /api/messages/create Create new message
+     * @apiGroup Messages
+     *
+     * @apiParam {string} text message text
+     */
+    'POST /api/messages/create': 'Message.create'
 
 };

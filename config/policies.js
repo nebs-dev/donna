@@ -41,6 +41,10 @@ module.exports.policies = {
 
     'NewsController': {
         '*': ['tokenAuth', 'isSuperadmin']
+    },
+
+    'MessageController': {
+        '*': ['tokenAuth']
     }
 
 
