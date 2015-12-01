@@ -32,7 +32,7 @@ module.exports = {
         },
 
         file: {
-            model: 'file'
+            model: 'media'
         },
 
         toJSON: function () {
@@ -52,7 +52,7 @@ module.exports = {
 
         News.findOne(valuesToUpdate.id).populate('file').then(function (newsOld) {
             // destroy old file in database && file
-            File.destroy(newsOld.file.id).then(function () {
+            Media.destroy(newsOld.file.id).then(function () {
                 var filePath = 'uploads/' + newsOld.file.url;
 
                 fs.remove(filePath, function (err) {

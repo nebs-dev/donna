@@ -10,6 +10,7 @@
  */
 
 var grunt = require('grunt');
+var moment = require('moment');
 
 module.exports.bootstrap = function (cb) {
 
@@ -21,16 +22,35 @@ module.exports.bootstrap = function (cb) {
         sailsTokenAuth.verifyToken(token, function (err, parsedToken) {
             if (err) return socket.disconnect();
 
-            sails.sockets.join(socket, 'donnaroom');
+            socket.join('donna');
+            sails.sockets.broadcast('donna', 'notification', {join: 'User joined', user: parsedToken.userId}, socket);
 
-            console.log(socket.post);
+            socket.on('newMsg', function (data) {
 
-            socket.on('disconnect', function () {
-                sails.sockets.leave(socket, 'donnaroom');
+                if (!data.text || !parsedToken.userId) return socket.emit('notification', {error: 'Not enought data!'});
+
+                var time = moment().subtract(1, 'minute');
+
+                Message.find({where: {createdAt: {'>=': time.format()}}}).then(function (messages) {
+                    if (messages.length >= 3) return socket.emit('notification', {error: 'SPAM!'});
+
+                    Message.create({
+                        text: data.text,
+                        user: parsedToken.userId
+                    }).then(function (message) {
+                        socket.broadcast.to('donna').emit('msg', message);
+                    });
+
+                }).catch(function (err) {
+                    socket.emit(socket, 'notification', {error: 'last message not sent!'});
+                });
             });
 
+            socket.on('disconnect', function () {
+                sails.sockets.broadcast('donna', 'notification', {left: 'User left', user: parsedToken.userId}, socket);
+                socket.leave('donna');
+            });
 
-            //sails.sockets.broadcast("donaroom", "poruka", newOne, null);
 
         });
     });

@@ -40,7 +40,7 @@ module.exports = {
         },
 
         file: {
-            model: 'file'
+            model: 'media'
         },
 
         toJSON: function () {
@@ -62,7 +62,7 @@ module.exports = {
             if (!eventOld.file) return cb();
 
             // destroy old file in database && file
-            File.destroy(eventOld.file.id).then(function () {
+            Media.destroy(eventOld.file.id).then(function () {
                 var filePath = 'uploads/' + eventOld.file.url;
 
                 fs.remove(filePath, function (err) {

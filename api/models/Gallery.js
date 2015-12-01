@@ -17,7 +17,7 @@ module.exports = {
         },
 
         files: {
-            collection: 'file'
+            collection: 'media'
         },
 
         likes: {
@@ -41,7 +41,7 @@ module.exports = {
             var ids = _.pluck(gallery.files, 'id');
             if (!ids.length) return cb();
 
-            File.destroy({id: ids}).then(function () {
+            Media.destroy({id: ids}).then(function () {
                 return cb();
             });
 
