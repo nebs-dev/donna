@@ -13,7 +13,7 @@ var moment = require('moment');
 // kako koristiti
 
 //var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInNlY3JldCI6InpldWx2dW5taSIsImlhdCI6MTQ0OTAwNzM4Nn0.ee5uLvgtsLhuy7SoozF85eo-Kp7a_z5CbYSnwWmBLak";
-//var socket = io.connect('http://localhost:1337', {query: "__sails_io_sdk_version=0.11.0&__sails_io_sdk_platform=browser&__sails_io_sdk_language=javascript"});
+//var socket = io.connect('http://localhost:1337', {query: "__sails_io_sdk_version=0.11.0"});
 //
 //socket.on('connect', function () {
 //    socket.emit("get", {url: "/api/messages/show", data: {token: token}}, function (data) {
