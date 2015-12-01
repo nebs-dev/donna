@@ -38,7 +38,6 @@ module.exports = {
         toJSON: function () {
             var obj = this.toObject();
             obj.likesNum = obj.likes.length;
-            //obj.file = UploadHelper.getFullUrl('news', obj.file.url);
             return obj;
         }
     },

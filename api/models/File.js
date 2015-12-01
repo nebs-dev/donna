@@ -15,6 +15,21 @@ module.exports = {
         url: {
             type: 'string',
             required: true
+        },
+
+        likes: {
+            type: 'array',
+            defaultsTo: []
+        },
+
+        comments: {
+            collection: 'comment'
+        },
+
+        toJSON: function () {
+            var obj = this.toObject();
+            obj.likesNum = obj.likes.length;
+            return obj;
         }
     },
 
@@ -39,10 +54,5 @@ module.exports = {
             if (err) return cb(err);
             return cb();
         });
-    },
-
-    beforeValidate: function (values, cb) {
-        //console.log(values);
-        cb();
     }
 };

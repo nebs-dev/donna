@@ -13,9 +13,7 @@ module.exports = {
      * @param res
      */
     show: function (req, res) {
-        Gallery.findOne(req.params.id).populate('files').then(function (gallery) {
-
-
+        Gallery.findOne(req.params.id).populateAll().then(function (gallery) {
             return res.json(UploadHelper.getFullUrl(req, gallery));
         }).catch(function (err) {
             return res.negotiate(err);
@@ -79,6 +77,47 @@ module.exports = {
                 return res.json(gallery);
             });
 
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
+    },
+
+    /**
+     * Add comment to gallery
+     * @param req
+     * @param res
+     */
+    addComment: function (req, res) {
+        var params = req.params.all();
+        params.user = req.token.userId;
+
+        Gallery.findOne(req.params.id).then(function (gallery) {
+            if (!gallery) return res.notFound('Gallery with that ID not found');
+
+            delete params.id;
+
+            // Create comment and add it to file
+            Comment.create(params).then(function (comment) {
+                gallery.comments.add(comment);
+                gallery.save(function (err, gallery) {
+                    if (err) return res.negotiate(err);
+                    return res.json(comment);
+                });
+            })
+
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
+    },
+
+    /**
+     * Like/unlike file
+     * @param req
+     * @param res
+     */
+    like: function (req, res) {
+        Social.likeUnlike(req, 'gallery').then(function (file) {
+            return res.json(file);
         }).catch(function (err) {
             return res.negotiate(err);
         });

@@ -176,6 +176,140 @@
   },
   {
     "type": "get",
+    "url": "/api/event/show/:id",
+    "title": "show",
+    "group": "Event",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Event",
+    "name": "GetApiEventShowId"
+  },
+  {
+    "type": "post",
+    "url": "/api/event/addComment/:id",
+    "title": "addComment",
+    "group": "Event",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>integer</p> ",
+            "optional": false,
+            "field": "event",
+            "description": "<p>event ID</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>text</p> ",
+            "optional": false,
+            "field": "text",
+            "description": "<p>Comment text</p> "
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Event",
+    "name": "PostApiEventAddcommentId"
+  },
+  {
+    "type": "post",
+    "url": "/api/event/create",
+    "title": "create",
+    "group": "Event",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "title",
+            "description": "<p>event title (required)</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>text</p> ",
+            "optional": false,
+            "field": "text",
+            "description": "<p>event text (required)</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>file</p> ",
+            "optional": false,
+            "field": "file",
+            "description": "<p>event file</p> "
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Event",
+    "name": "PostApiEventCreate"
+  },
+  {
+    "type": "post",
+    "url": "/api/event/destroy/:id",
+    "title": "destroy",
+    "group": "Event",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Event",
+    "name": "PostApiEventDestroyId"
+  },
+  {
+    "type": "post",
+    "url": "/api/event/like/:id",
+    "title": "like/unlike Event",
+    "group": "Event",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Event",
+    "name": "PostApiEventLikeId"
+  },
+  {
+    "type": "post",
+    "url": "/api/event/update/:id",
+    "title": "update",
+    "group": "Event",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "title",
+            "description": "<p>event title</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>text</p> ",
+            "optional": false,
+            "field": "text",
+            "description": "<p>event text</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>file</p> ",
+            "optional": false,
+            "field": "file",
+            "description": "<p>event file</p> "
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Event",
+    "name": "PostApiEventUpdateId"
+  },
+  {
+    "type": "get",
     "url": "/api/file/:id",
     "title": "get one File",
     "group": "File",
@@ -183,6 +317,36 @@
     "filename": "config/routes.js",
     "groupTitle": "File",
     "name": "GetApiFileId"
+  },
+  {
+    "type": "post",
+    "url": "/api/file/addComment/:id",
+    "title": "addComment",
+    "group": "File",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>integer</p> ",
+            "optional": false,
+            "field": "news",
+            "description": "<p>File ID</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>text</p> ",
+            "optional": false,
+            "field": "text",
+            "description": "<p>Comment text</p> "
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "File",
+    "name": "PostApiFileAddcommentId"
   },
   {
     "type": "post",
@@ -195,6 +359,16 @@
     "name": "PostApiFileDestroyId"
   },
   {
+    "type": "post",
+    "url": "/api/file/like/:id",
+    "title": "like/unlike File",
+    "group": "File",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "File",
+    "name": "PostApiFileLikeId"
+  },
+  {
     "type": "get",
     "url": "/api/gallery/show/:id",
     "title": "show",
@@ -203,6 +377,46 @@
     "filename": "config/routes.js",
     "groupTitle": "Gallery",
     "name": "GetApiGalleryShowId"
+  },
+  {
+    "type": "post",
+    "url": "/api/file/like/:id",
+    "title": "like/unlike Gallery",
+    "group": "Gallery",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Gallery",
+    "name": "PostApiFileLikeId"
+  },
+  {
+    "type": "post",
+    "url": "/api/gallery/addComment/:id",
+    "title": "addComment",
+    "group": "Gallery",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>integer</p> ",
+            "optional": false,
+            "field": "news",
+            "description": "<p>Gallery ID</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>text</p> ",
+            "optional": false,
+            "field": "text",
+            "description": "<p>Comment text</p> "
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Gallery",
+    "name": "PostApiGalleryAddcommentId"
   },
   {
     "type": "post",
@@ -255,6 +469,16 @@
     "name": "PostApiGalleryDestroyId"
   },
   {
+    "type": "get",
+    "url": "/api/news/show/:id",
+    "title": "show",
+    "group": "News",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "News",
+    "name": "GetApiNewsShowId"
+  },
+  {
     "type": "post",
     "url": "/api/news/addComment/:id",
     "title": "addComment",
@@ -274,7 +498,7 @@
             "type": "<p>text</p> ",
             "optional": false,
             "field": "text",
-            "description": "<p>News text</p> "
+            "description": "<p>Comment text</p> "
           }
         ]
       }
@@ -340,16 +564,6 @@
     "filename": "config/routes.js",
     "groupTitle": "News",
     "name": "PostApiNewsLikeId"
-  },
-  {
-    "type": "post",
-    "url": "/api/news/show/:id",
-    "title": "show",
-    "group": "News",
-    "version": "0.0.0",
-    "filename": "config/routes.js",
-    "groupTitle": "News",
-    "name": "PostApiNewsShowId"
   },
   {
     "type": "post",

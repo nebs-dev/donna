@@ -50,6 +50,47 @@ module.exports = {
         }).catch(function (err) {
             return res.negotiate(err);
         });
+    },
+
+    /**
+     * Add comment to file
+     * @param req
+     * @param res
+     */
+    addComment: function (req, res) {
+        var params = req.params.all();
+        params.user = req.token.userId;
+
+        File.findOne(req.params.id).then(function (file) {
+            if (!file) return res.notFound('File with that ID not found');
+
+            delete params.id;
+
+            // Create comment and add it to file
+            Comment.create(params).then(function (comment) {
+                file.comments.add(comment);
+                file.save(function (err, file) {
+                    if (err) return res.negotiate(err);
+                    return res.json(comment);
+                });
+            })
+
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
+    },
+
+    /**
+     * Like/unlike file
+     * @param req
+     * @param res
+     */
+    like: function (req, res) {
+        Social.likeUnlike(req, 'file').then(function (file) {
+            return res.json(file);
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
     }
 
 };

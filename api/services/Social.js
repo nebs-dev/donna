@@ -5,6 +5,7 @@ module.exports = {
 
             sails.models[model].findOne(req.params.id).then(function (item) {
                 if (!item) return reject('Not found!');
+                if (!item.likes) return reject();
 
                 // LIKE
                 if (item.likes.indexOf(req.token.userId) === -1) {

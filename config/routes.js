@@ -124,10 +124,10 @@ module.exports.routes = {
     'POST /api/news/destroy/:id': 'News.destroy',
 
     /**
-     * @api {post} /api/news/show/:id show
+     * @api {get} /api/news/show/:id show
      * @apiGroup News
      */
-    'POST /api/news/show/:id': 'News.show',
+    'GET /api/news/show/:id': 'News.show',
 
     /**
      * @api {post} /api/news/like/:id like/unlike News
@@ -140,7 +140,7 @@ module.exports.routes = {
      * @apiGroup News
      *
      * @apiParam {integer} news News ID
-     * @apiParam {text} text News text
+     * @apiParam {text} text Comment text
      */
     'POST /api/news/addComment/:id': 'News.addComment',
 
@@ -178,9 +178,24 @@ module.exports.routes = {
      */
     'POST /api/file/destroy/:id': 'File.destroy',
 
+    /**
+     * @api {post} /api/file/addComment/:id addComment
+     * @apiGroup File
+     *
+     * @apiParam {integer} news File ID
+     * @apiParam {text} text Comment text
+     */
+    'POST /api/file/addComment/:id': 'File.addComment',
+
+    /**
+     * @api {post} /api/file/like/:id like/unlike File
+     * @apiGroup File
+     */
+    'POST /api/file/like/:id': 'File.like',
+
 
     ///////////////
-    /// Gallery ///
+    /// GALLERY ///
     ///////////////
 
     /**
@@ -208,6 +223,72 @@ module.exports.routes = {
      * @api {get} /api/gallery/show/:id show
      * @apiGroup Gallery
      */
-    'GET /api/gallery/show/:id': 'Gallery.show'
+    'GET /api/gallery/show/:id': 'Gallery.show',
+
+    /**
+     * @api {post} /api/gallery/addComment/:id addComment
+     * @apiGroup Gallery
+     *
+     * @apiParam {integer} news Gallery ID
+     * @apiParam {text} text Comment text
+     */
+    'POST /api/gallery/addComment/:id': 'Gallery.addComment',
+
+    /**
+     * @api {post} /api/file/like/:id like/unlike Gallery
+     * @apiGroup Gallery
+     */
+    'POST /api/gallery/like/:id': 'Gallery.like',
+
+    ////////////
+    /// EVENT ///
+    ////////////
+
+    /**
+     * @api {post} /api/event/create create
+     * @apiGroup Event
+     *
+     * @apiParam {string} title event title (required)
+     * @apiParam {text} text event text (required)
+     * @apiParam {file} file event file
+     */
+    'POST /api/event/create': 'Event.create',
+
+    /**
+     * @api {post} /api/event/update/:id update
+     * @apiGroup Event
+     *
+     * @apiParam {string} title event title
+     * @apiParam {text} text event text
+     * @apiParam {file} file event file
+     */
+    'POST /api/event/update/:id': 'Event.update',
+
+    /**
+     * @api {post} /api/event/destroy/:id destroy
+     * @apiGroup Event
+     */
+    'POST /api/event/destroy/:id': 'Event.destroy',
+
+    /**
+     * @api {get} /api/event/show/:id show
+     * @apiGroup Event
+     */
+    'GET /api/event/show/:id': 'Event.show',
+
+    /**
+     * @api {post} /api/event/like/:id like/unlike Event
+     * @apiGroup Event
+     */
+    'POST /api/event/like/:id': 'Event.like',
+
+    /**
+     * @api {post} /api/event/addComment/:id addComment
+     * @apiGroup Event
+     *
+     * @apiParam {integer} event event ID
+     * @apiParam {text} text Comment text
+     */
+    'POST /api/event/addComment/:id': 'Event.addComment'
 
 };

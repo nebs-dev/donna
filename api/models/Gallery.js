@@ -18,6 +18,21 @@ module.exports = {
 
         files: {
             collection: 'file'
+        },
+
+        likes: {
+            type: 'array',
+            defaultsTo: []
+        },
+
+        comments: {
+            collection: 'comment'
+        },
+
+        toJSON: function () {
+            var obj = this.toObject();
+            obj.likesNum = obj.likes.length;
+            return obj;
         }
     },
 
