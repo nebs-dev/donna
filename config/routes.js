@@ -250,6 +250,8 @@ module.exports.routes = {
      *
      * @apiParam {string} title event title (required)
      * @apiParam {text} text event text (required)
+     * @apiParam {date} date event date (required)
+     * @apiParam {text} string event location
      * @apiParam {file} file event file
      */
     'POST /api/event/create': 'Event.create',
@@ -260,6 +262,8 @@ module.exports.routes = {
      *
      * @apiParam {string} title event title
      * @apiParam {text} text event text
+     * @apiParam {date} date event date
+     * @apiParam {text} string event location
      * @apiParam {file} file event file
      */
     'POST /api/event/update/:id': 'Event.update',
@@ -289,6 +293,12 @@ module.exports.routes = {
      * @apiParam {integer} event event ID
      * @apiParam {text} text Comment text
      */
-    'POST /api/event/addComment/:id': 'Event.addComment'
+    'POST /api/event/addComment/:id': 'Event.addComment',
+
+    /**
+     * @api {get} /api/events list of events
+     * @apiGroup Event
+     */
+    'GET /api/events': 'Event.list'
 
 };

@@ -5,6 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var moment = require('moment');
 module.exports = {
 
     /**
@@ -20,6 +21,7 @@ module.exports = {
             return [event, UploadHelper.uploadFile(req, 'event')];
 
         }).spread(function (event, files) {
+            console.log(files);
             event.file = files[0].id;
 
             event.save(function (err, event) {
@@ -123,6 +125,22 @@ module.exports = {
             return res.json(event);
         }).catch(function (err) {
             return res.negotiate(err);
+        });
+    },
+
+    /**
+     * List of events
+     * @param req
+     * @param res
+     */
+    list: function (req, res) {
+        var fromDate = moment().subtract(1, 'month');
+        console.log(fromDate.format());
+
+        Event.find({date: {'>=': fromDate}}).then(function (events) {
+            return res.json(events);
+        }).catch(function(err) {
+           return res.negotiate(err);
         });
     }
 };

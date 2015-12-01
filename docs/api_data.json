@@ -185,6 +185,16 @@
     "name": "GetApiEventShowId"
   },
   {
+    "type": "get",
+    "url": "/api/events",
+    "title": "list of events",
+    "group": "Event",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Event",
+    "name": "GetApiEvents"
+  },
+  {
     "type": "post",
     "url": "/api/event/addComment/:id",
     "title": "addComment",
@@ -235,6 +245,20 @@
             "optional": false,
             "field": "text",
             "description": "<p>event text (required)</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>date</p> ",
+            "optional": false,
+            "field": "date",
+            "description": "<p>event date (required)</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>text</p> ",
+            "optional": false,
+            "field": "string",
+            "description": "<p>event location</p> "
           },
           {
             "group": "Parameter",
@@ -292,6 +316,20 @@
             "optional": false,
             "field": "text",
             "description": "<p>event text</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>date</p> ",
+            "optional": false,
+            "field": "date",
+            "description": "<p>event date</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>text</p> ",
+            "optional": false,
+            "field": "string",
+            "description": "<p>event location</p> "
           },
           {
             "group": "Parameter",

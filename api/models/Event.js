@@ -21,6 +21,15 @@ module.exports = {
             required: true
         },
 
+        date: {
+            type: 'date',
+            required: true
+        },
+
+        location: {
+            type: 'string'
+        },
+
         likes: {
             type: 'array',
             defaultsTo: []
@@ -50,6 +59,8 @@ module.exports = {
         if (!valuesToUpdate.file) return cb();
 
         Event.findOne(valuesToUpdate.id).populate('file').then(function (eventOld) {
+            if (!eventOld.file) return cb();
+
             // destroy old file in database && file
             File.destroy(eventOld.file.id).then(function () {
                 var filePath = 'uploads/' + eventOld.file.url;
