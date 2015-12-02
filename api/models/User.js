@@ -17,11 +17,11 @@ module.exports = {
             unique: true
         },
 
-        name: {
+        firstName: {
             type: 'string'
         },
 
-        lastname: {
+        lastName: {
             type: 'string'
         },
 

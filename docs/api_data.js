@@ -25,14 +25,14 @@ define({ "api": [
             "group": "Parameter",
             "type": "<p>string</p> ",
             "optional": false,
-            "field": "name",
-            "description": "<p>User name</p> "
+            "field": "firstName",
+            "description": "<p>User first name</p> "
           },
           {
             "group": "Parameter",
             "type": "<p>string</p> ",
             "optional": false,
-            "field": "surname",
+            "field": "lastName",
             "description": "<p>User last name</p> "
           }
         ]
