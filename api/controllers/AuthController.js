@@ -20,13 +20,13 @@ module.exports = {
         if (!email || !password) return res.customBadRequest('Missing Parameters.');
 
         User.findOneByEmail(email, function (err, user) {
-            if (!user) return res.accessDenied('Invalid email or password');
+            if (!user) return res.ok('Invalid email or password');
 
             User.validPassword(password, user, function (err, valid) {
                 if (err) return res.accessDenied();
 
                 if (!valid) {
-                    return res.accessDenied('invalid email or password');
+                    return res.ok('invalid email or password');
                 } else {
                     res.json({user: user, token: sailsTokenAuth.issueToken({userId: user.id, secret: user.secret})});
                 }
