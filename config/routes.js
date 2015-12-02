@@ -64,9 +64,11 @@ module.exports.routes = {
      * @api {post} /api/auth/register Register
      * @apiGroup Auth
      *
-     * @apiParam {string} email User email (required)
+     * @apiParam {email} email User email (required)
      * @apiParam {string} password User password (required)
      * @apiParam {string} confirmPassword Repeated password (required)
+     * @apiParam {string} firstName User first name (required)
+     * @apiParam {string} lastName User last name (required)
      */
     'POST /api/auth/register': 'Auth.register',
 
