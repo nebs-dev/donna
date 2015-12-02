@@ -32,7 +32,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "<p>string</p> ",
             "optional": false,
-            "field": "surename",
+            "field": "surname",
             "description": "<p>User last name</p> "
           }
         ]

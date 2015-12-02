@@ -21,7 +21,7 @@ module.exports = {
             type: 'string'
         },
 
-        surname: {
+        lastname: {
             type: 'string'
         },
 

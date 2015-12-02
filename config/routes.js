@@ -76,8 +76,8 @@ module.exports.routes = {
      *
      * @apiParam {string} facebookId Facebook ID (required)
      * @apiParam {string} email User email
-     * @apiParam {string} name User name
-     * @apiParam {string} surname User last name
+     * @apiParam {string} firstName User first name
+     * @apiParam {string} lastName User last name
      */
     'POST /api/auth/facebook': 'Auth.facebook',
 
