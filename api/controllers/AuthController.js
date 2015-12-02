@@ -40,18 +40,28 @@ module.exports = {
      * @param res
      */
     register: function (req, res) {
-        if (req.body.password !== req.body.confirmPassword) {
+        var params = req.params.all();
+
+        if (params.password !== params.confirmPassword) {
             return res.customBadRequest('Password doesn\'t match');
         }
 
-        User.create({email: req.body.email, password: req.body.password}).exec(function (err, user) {
-            if (err) {
-                res.json(err.status, {err: err});
-                return;
-            }
-            if (user) {
-                res.json({user: user, token: sailsTokenAuth.issueToken({userId: user.id, secret: user.secret})});
-            }
+        // Create user and attach role "user" to him
+        User.create(params).then(function (user) {
+            Role.findOne({name: 'user'}).then(function (role) {
+               if (!role) return res.notFound('Role "user" not found');
+
+                user.role = role;
+                user.save(function (err, user) {
+                   if (err) return res.negotiate(err);
+
+                    var token = sailsTokenAuth.issueToken({userId: user.id, secret: user.secret});
+                    res.json({user: user, token: token});
+                });
+            });
+
+        }).catch(function (err) {
+           return res.negotiate(err);
         });
     },
 
