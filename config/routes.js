@@ -146,6 +146,12 @@ module.exports.routes = {
      */
     'POST /api/news/addComment/:id': 'News.addComment',
 
+    /**
+     * @api {post} /api/news list of news
+     * @apiGroup News
+     */
+    'POST /api/news': 'News.list',
+
 
     ///////////////
     /// COMMENT ///
@@ -301,6 +307,13 @@ module.exports.routes = {
      * @api {get} /api/events list of events
      * @apiGroup Event
      */
-    'GET /api/events': 'Event.list'
+    'GET /api/events': 'Event.list',
+
+
+    ///////////////
+    /// GENERAL ///
+    ///////////////
+
+    'GET /api/general/dashboardData': 'General.getDashboardData'
 
 };

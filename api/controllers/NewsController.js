@@ -123,6 +123,19 @@ module.exports = {
         }).catch(function (err) {
             return res.negotiate(err);
         });
+    },
+
+    /**
+     * List of news
+     * @param req
+     * @param res
+     */
+    list: function (req, res) {
+        News.find().then(function (news) {
+            return res.json(news);
+        }).catch(function(err) {
+            return res.negotiate(err);
+        });
     }
 
 };

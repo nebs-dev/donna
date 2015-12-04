@@ -19,7 +19,7 @@ module.exports = {
 
         if (!email || !password) return res.customBadRequest('Missing Parameters.');
 
-        User.findOneByEmail(email, function (err, user) {
+        User.findOne({email: email}).populate('role').then(function (user) {
             if (!user) return res.accessDenied('Invalid email or password');
 
             User.validPassword(password, user, function (err, valid) {
@@ -31,7 +31,9 @@ module.exports = {
                     res.json({user: user, token: sailsTokenAuth.issueToken({userId: user.id, secret: user.secret})});
                 }
             });
-        })
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
     },
 
     /**

@@ -40,7 +40,28 @@ module.exports.policies = {
     },
 
     'NewsController': {
-        '*': ['tokenAuth', 'isSuperadmin']
+        'create': ['tokenAuth', 'isSuperadmin'],
+        'update': ['tokenAuth', 'isSuperadmin'],
+        'destroy': ['tokenAuth', 'isSuperadmin']
+    },
+
+    'EventController': {
+        'create': ['tokenAuth', 'isSuperadmin'],
+        'update': ['tokenAuth', 'isSuperadmin'],
+        'destroy': ['tokenAuth', 'isSuperadmin']
+    },
+
+    'GalleryController': {
+        'create': ['tokenAuth', 'isSuperadmin'],
+        'destroy': ['tokenAuth', 'isSuperadmin']
+    },
+
+    'MediaController': {
+        'destroy': ['tokenAuth', 'isSuperadmin']
+    },
+
+    'GeneralController': {
+        'getDashboardData': ['tokenAuth', 'isSuperadmin']
     }
 
 

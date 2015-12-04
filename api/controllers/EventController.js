@@ -59,7 +59,7 @@ module.exports = {
     },
 
     /**
-     * Destroy News
+     * Destroy Event
      * @param req
      * @param res
      */
@@ -72,7 +72,7 @@ module.exports = {
     },
 
     /**
-     * Show single News
+     * Show single Event
      * @param req
      * @param res
      */
@@ -95,11 +95,11 @@ module.exports = {
         params.user = req.token.userId;
 
         Event.findOne(req.params.id).then(function (event) {
-            if (!news) return res.notFound('Event with that ID not found');
+            if (!event) return res.notFound('Event with that ID not found');
 
             delete params.id;
 
-            // Create comment and add it to news
+            // Create comment and add it to event
             Comment.create(params).then(function (comment) {
 
                 event.comments.add(comment);
@@ -115,7 +115,7 @@ module.exports = {
     },
 
     /**
-     * Like/unlike news
+     * Like/unlike event
      * @param req
      * @param res
      */
