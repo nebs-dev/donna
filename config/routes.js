@@ -307,10 +307,10 @@ module.exports.routes = {
     ////////////////
 
     /**
-     * @api {get} /api/messages/show list of messages + subscribe to model
+     * @api {get} /api/messages/connect list of messages + subscribe to model
      * @apiGroup Messages
      */
-    'GET /api/messages/show': 'Message.show',
+    'GET /api/messages/connect': 'Message.connect',
 
     /**
      * @api {post} /api/messages/create Create new message

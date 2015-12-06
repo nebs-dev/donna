@@ -16,7 +16,7 @@ var moment = require('moment');
 //var socket = io.connect('http://localhost:1337', {query: "__sails_io_sdk_version=0.11.0"});
 //
 //socket.on('connect', function () {
-//    socket.emit("get", {url: "/api/messages/show", data: {token: token}}, function (data) {
+//    socket.emit("get", {url: "/api/messages/connect", data: {token: token}}, function (data) {
 //        console.log(data);
 //    });
 //
@@ -28,14 +28,11 @@ var moment = require('moment');
 
 
 module.exports = {
-    show: function (req, res) {
+    connect: function (req, res) {
         Message.find().populate('user').then(function (messages) {
 
-            // uzeto iz blueprint logike sailsa
-            if (req.isSocket) {
-                Message.subscribe(req, messages);
-                Message.watch(req);
-            }
+            // subscribe this req to message model create events
+            Message.watch(req);
 
             res.ok(messages);
 
@@ -61,14 +58,8 @@ module.exports = {
                 // fill data for user... create doesn't populate
                 message.user = req.options.user.toJSON();
 
-                // uzeto iz blueprint logike sailsa
-                if (req.isSocket) {
-                    Message.subscribe(req, message);
-                    Message.introduce(message);
-                }
-
-                Message.publishCreate(message, !req.options.mirror && req);
-
+                // emit created event to all sockets subscribed to this model not including req
+                Message.publishCreate(message, req);
 
                 res.ok(message)
 

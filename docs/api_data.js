@@ -508,13 +508,13 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/api/messages/show",
+    "url": "/api/messages/connect",
     "title": "list of messages + subscribe to model",
     "group": "Messages",
     "version": "0.0.0",
     "filename": "config/routes.js",
     "groupTitle": "Messages",
-    "name": "GetApiMessagesShow"
+    "name": "GetApiMessagesConnect"
   },
   {
     "type": "post",
