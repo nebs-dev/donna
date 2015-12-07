@@ -30,11 +30,11 @@ module.exports = function (req, res, next) {
                 return res.unauthorized('The token is not valid');
             }
 
+
             req.token = newToken;
             req.originalToken = token;
+            req.user = user;
 
-            // ovo gore meni ne radi lol...
-            req.options.user = user;
             next();
 
         }).catch(function (err) {
