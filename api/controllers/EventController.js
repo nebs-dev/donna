@@ -134,7 +134,6 @@ module.exports = {
      */
     list: function (req, res) {
         var fromDate = moment().subtract(1, 'month');
-        console.log(fromDate.format());
 
         Event.find({date: {'>=': fromDate}}).then(function (events) {
             return res.json(events);

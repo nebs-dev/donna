@@ -42,6 +42,12 @@
                 controller: 'NewsController',
                 controllerAs: 'newsCtrl'
             })
+            .state('user.events', {
+                url: '/events',
+                templateUrl: 'app/components/event/events.html',
+                controller: 'EventController',
+                controllerAs: 'eventCtrl'
+            })
         ;
 
         $urlRouterProvider.otherwise('/');

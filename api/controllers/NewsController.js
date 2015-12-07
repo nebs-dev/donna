@@ -19,7 +19,7 @@ module.exports = {
             return [news, UploadHelper.uploadFile(req, 'news')];
 
         }).spread(function (news, files) {
-            news.file = files[0].id;
+            if (files) news.file = files[0].id;
 
             news.save(function (err, news) {
                 if (err) return res.negotiate(err);

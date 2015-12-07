@@ -2,7 +2,7 @@
     <div class="col-xs-12">
         <div class="panel">
             <header class="panel-heading">
-                News
+                Events
             </header>
             <!-- <div class="box-header"> -->
             <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
@@ -25,16 +25,20 @@
                         <th>ID</th>
                         <th>Title</th>
                         <th>Text</th>
+                        <th>Date</th>
+                        <th>Location</th>
                         <th>Likes</th>
                         <th>Actions</th>
                     </tr>
-                    <tr ng-repeat="news in newsCtrl.news">
-                        <td>{{ news.id }}</td>
-                        <td>{{ news.title }}</td>
-                        <td>{{ news.text }}</td>
-                        <td>{{ news.likesNum }}</td>
+                    <tr ng-repeat="events in eventsCtrl.events">
+                        <td>{{ event.id }}</td>
+                        <td>{{ event.title }}</td>
+                        <td>{{ event.text }}</td>
+                        <td>{{ event.date }}</td>
+                        <td>{{ event.location }}</td>
+                        <td>{{ event.likesNum }}</td>
                         <td>
-                            <button ng-click="newsCtrl.destroy(news.id)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
+                            <button class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
                             <button class="btn btn-sm btn-info"><i class="fa fa-pencil-square-o"></i></button>
                         </td>
                     </tr>

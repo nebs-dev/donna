@@ -10,7 +10,10 @@
                 <div class="form-group">
                     <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Email</label>
                     <div class="col-lg-10">
-                        <input ng-model="user.email" type="email" class="form-control" id="inputEmail1" placeholder="Email">
+                        <div class="input-group m-b-10">
+                            <span class="input-group-addon">@</span>
+                            <input ng-model="user.email" type="email" class="form-control" id="inputEmail1" placeholder="Email">
+                        </div>
                         <p class="help-block">Example block-level help text here.</p>
                     </div>
                 </div>
