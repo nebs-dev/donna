@@ -12,7 +12,7 @@ var moment = require('moment');
 
 // kako koristiti
 
-//var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInNlY3JldCI6InpldWx2dW5taSIsImlhdCI6MTQ0OTAwNzM4Nn0.ee5uLvgtsLhuy7SoozF85eo-Kp7a_z5CbYSnwWmBLak";
+//var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInNlY3JldCI6IjRqcGF3MDl0M3hyIiwiaWF0IjoxNDQ5NDc3MDg1fQ.S_D75-kku-DQZ1oEFRHdFrcXynP9jtqPIgJ6PNtMJmk";
 //var socket = io.connect('http://localhost:1337', {query: "__sails_io_sdk_version=0.11.0"});
 //
 //socket.on('connect', function () {
@@ -25,6 +25,8 @@ var moment = require('moment');
 //        console.log(data);
 //    });
 //});
+// slanje
+// socket.emit('post', {url: '/api/messages/create', data: {token: token, text: "porukaaa"}}, function(data) {console.log("ode", data);})
 
 
 module.exports = {
@@ -56,7 +58,7 @@ module.exports = {
             }).then(function (message) {
 
                 // fill data for user... create doesn't populate
-                message.user = req.options.user.toJSON();
+                message.user = req.user.toJSON();
 
                 // emit created event to all sockets subscribed to this model not including req
                 Message.publishCreate(message, req);

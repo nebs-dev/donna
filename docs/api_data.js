@@ -522,6 +522,39 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/api/messages/connect",
+    "title": "list of messages + subscribe to model",
+    "group": "Messages",
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Messages",
+    "name": "GetApiMessagesConnect"
+  },
+  {
+    "type": "post",
+    "url": "/api/messages/create",
+    "title": "Create new message",
+    "group": "Messages",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "text",
+            "description": "<p>message text</p> "
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "config/routes.js",
+    "groupTitle": "Messages",
+    "name": "PostApiMessagesCreate"
+  },
+  {
+    "type": "get",
     "url": "/api/news/show/:id",
     "title": "show",
     "group": "News",
