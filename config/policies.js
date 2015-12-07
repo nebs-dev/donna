@@ -61,7 +61,12 @@ module.exports.policies = {
     },
 
     'GeneralController': {
-        'getDashboardData': ['tokenAuth', 'isSuperadmin']
+        'getDashboardData': ['tokenAuth', 'isSuperadmin'],
+        '*': ['tokenAuth', 'isSuperadmin']
+    },
+
+    'MessageController': {
+        '*': ['tokenAuth']
     }
 
 

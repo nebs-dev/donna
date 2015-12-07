@@ -32,6 +32,9 @@ module.exports = function (req, res, next) {
 
             req.token = newToken;
             req.originalToken = token;
+
+            // ovo gore meni ne radi lol...
+            req.options.user = user;
             next();
 
         }).catch(function (err) {

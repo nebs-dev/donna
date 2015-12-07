@@ -310,10 +310,31 @@ module.exports.routes = {
     'GET /api/events': 'Event.list',
 
 
+
     ///////////////
     /// GENERAL ///
     ///////////////
 
-    'GET /api/general/dashboardData': 'General.getDashboardData'
+    'GET /api/general/dashboardData': 'General.getDashboardData',
+
+
+
+    ////////////////
+    /// MESSAGES ///
+    ////////////////
+
+    /**
+     * @api {get} /api/messages/connect list of messages + subscribe to model
+     * @apiGroup Messages
+     */
+    'GET /api/messages/connect': 'Message.connect',
+
+    /**
+     * @api {post} /api/messages/create Create new message
+     * @apiGroup Messages
+     *
+     * @apiParam {string} text message text
+     */
+    'POST /api/messages/create': 'Message.create'
 
 };
