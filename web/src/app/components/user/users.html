@@ -3,7 +3,7 @@
         <!--breadcrumbs start -->
         <ul class="breadcrumb">
             <li><a href="#/"><i class="fa fa-home"></i> Dashboard</a></li>
-            <li class="active">News</li>
+            <li class="active">Users</li>
         </ul>
         <!--breadcrumbs end -->
     </div>
@@ -13,7 +13,7 @@
     <div class="col-xs-12">
         <div class="panel">
             <header class="panel-heading">
-                News
+                Users
             </header>
             <!-- <div class="box-header"> -->
             <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
@@ -34,20 +34,20 @@
                     <tbody>
                     <tr>
                         <th>ID</th>
-                        <th>Title</th>
-                        <th>Text</th>
-                        <th>Likes</th>
-                        <th>Actions</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                        <!--<th>Actions</th>-->
                     </tr>
-                    <tr ng-repeat="news in newsCtrl.news">
-                        <td>{{ news.id }}</td>
-                        <td>{{ news.title }}</td>
-                        <td>{{ news.text }}</td>
-                        <td>{{ news.likesNum }}</td>
-                        <td>
-                            <button ng-click="newsCtrl.destroy(news.id)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
-                            <button class="btn btn-sm btn-info"><i class="fa fa-pencil-square-o"></i></button>
-                        </td>
+                    <tr ng-repeat="user in userCtrl.users">
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.email }}</td>
+                        <!--<td>-->
+                            <!--<button ng-click="newsCtrl.destroy(news.id)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>-->
+                            <!--<button class="btn btn-sm btn-info"><i class="fa fa-pencil-square-o"></i></button>-->
+                        <!--</td>-->
                     </tr>
                     </tbody>
                 </table>

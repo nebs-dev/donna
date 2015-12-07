@@ -96,6 +96,17 @@ module.exports.routes = {
 
 
     ////////////
+    /// USER ///
+    ////////////
+
+    /**
+     * @api {post} /api/user list of users
+     * @apiGroup User
+     */
+    'POST /api/users': 'User.list',
+
+
+    ////////////
     /// NEWS ///
     ////////////
 
@@ -324,17 +335,17 @@ module.exports.routes = {
     ////////////////
 
     /**
-     * @api {get} /api/messages/connect list of messages + subscribe to model
+     * @api {get} /api/message/connect list of messages + subscribe to model
      * @apiGroup Messages
      */
-    'GET /api/messages/connect': 'Message.connect',
+    'GET /api/message/connect': 'Message.connect',
 
     /**
-     * @api {post} /api/messages/create Create new message
+     * @api {post} /api/message/create Create new message
      * @apiGroup Messages
      *
      * @apiParam {string} text message text
      */
-    'POST /api/messages/create': 'Message.create'
+    'POST /api/message/create': 'Message.create'
 
 };

@@ -35,6 +35,7 @@ module.exports.policies = {
     'UserController': {
         'show': ['tokenAuth', 'ownUser'],
         'update': ['tokenAuth', 'ownUser'],
+        'list': ['tokenAuth', 'isSuperadmin'],
         'create': true,
         '*': false
     },

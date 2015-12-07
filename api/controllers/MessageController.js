@@ -54,14 +54,14 @@ module.exports = {
 
             Message.create({
                 text: params.text,
-                user: req.options.user
+                user: req.user
             }).then(function (message) {
 
                 // fill data for user... create doesn't populate
                 message.user = req.user.toJSON();
 
                 // emit created event to all sockets subscribed to this model not including req
-                Message.publishCreate(message, req);
+                Message.publishCreate(message);
 
                 res.ok(message)
 

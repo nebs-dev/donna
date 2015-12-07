@@ -48,6 +48,18 @@
                 controller: 'EventController',
                 controllerAs: 'eventCtrl'
             })
+            .state('user.users', {
+                url: '/users',
+                templateUrl: 'app/components/user/users.html',
+                controller: 'UserController',
+                controllerAs: 'userCtrl'
+            })
+            .state('user.chat', {
+                url: '/chat',
+                templateUrl: 'app/components/chat/chat.html',
+                controller: 'ChatController',
+                controllerAs: 'chatCtrl'
+            })
         ;
 
         $urlRouterProvider.otherwise('/');

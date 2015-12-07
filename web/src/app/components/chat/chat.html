@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-12">
+        <!--breadcrumbs start -->
+        <ul class="breadcrumb">
+            <li><a href="#/"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li class="active">Chat</li>
+        </ul>
+        <!--breadcrumbs end -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Chat Feed
+            </header>
+            <div class="panel-body">
+                <ul class="media-list">
+                    <li ng-repeat="message in chatCtrl.messages" class="media">
+                        <div class="pull-left">
+                            <img src="img/26115.jpg" alt="Avatar" class="img-circle" width="64" height="64">
+                        </div>
+                        <div class="media-body">
+                            <span class="text-muted pull-right">
+                                <small><em>{{ message.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</em></small>
+                            </span>
+
+                            <strong>{{ message.user.email }}</strong>
+
+                            <p>
+                                {{ message.text }}
+                            </p>
+                        </div>
+                    </li>
+
+                </ul>
+
+                <div class="twt-area">
+                    <form role="form" ng-submit="chatCtrl.send(message)">
+                        <textarea class="form-control" ng-model="message.text"
+                                  placeholder="Share something on Twitter.." rows="3"></textarea>
+
+                        <div class="clearfix">
+                            <button class="btn btn-sm btn-primary pull-right" type="submit">
+                                <i class="fa fa-send-o"></i>
+                                Send
+                            </button>
+                            <!--<a class="btn btn-link btn-icon fa fa-location-arrow" data-original-title="Add Location" data-placement="bottom" data-toggle="tooltip" href="#" style="text-decoration:none;" title=""></a>-->
+                            <!--<a class="btn btn-link btn-icon fa fa-camera" data-original-title="Add Photo" data-placement="bottom" data-toggle="tooltip" href="#" style="text-decoration:none;" title=""></a>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
