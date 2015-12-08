@@ -21,6 +21,8 @@ module.exports = {
         }).spread(function (news, files) {
             if (files) news.file = files[0].id;
 
+            console.log(news);
+
             news.save(function (err, news) {
                 if (err) return res.negotiate(err);
                 return res.json(news);
