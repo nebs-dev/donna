@@ -9,7 +9,7 @@
     function News ($http, API) {
         return {
             getNewsList: function () {
-                return $http.post(API.URL + '/api/news');
+                return $http.get(API.URL + '/api/news');
             },
 
             destroyNews: function (id) {
