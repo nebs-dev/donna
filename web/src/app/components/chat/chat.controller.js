@@ -16,6 +16,8 @@
             vm.messages = data.body;
             $scope.$apply();
 
+            console.log(vm.messages);
+
             Chat.onMsg(function (data) {
                 vm.messages.push(data.data);
                 $scope.$apply();
