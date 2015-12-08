@@ -17,7 +17,7 @@ module.exports = {
             id: 'string'
         });
 
-        File.findOne(req.params.id).exec(function (err, file){
+        Media.findOne(req.params.id).exec(function (err, file){
             if (err) return res.negotiate(err);
             if (!file) return res.notFound();
 
@@ -45,7 +45,7 @@ module.exports = {
      * @param res
      */
     destroy: function (req, res) {
-        File.destroy(req.params.id).then(function () {
+        Media.destroy(req.params.id).then(function () {
             return res.ok();
         }).catch(function (err) {
             return res.negotiate(err);
@@ -61,7 +61,7 @@ module.exports = {
         var params = req.params.all();
         params.user = req.token.userId;
 
-        File.findOne(req.params.id).then(function (file) {
+        Media.findOne(req.params.id).then(function (file) {
             if (!file) return res.notFound('File with that ID not found');
 
             delete params.id;

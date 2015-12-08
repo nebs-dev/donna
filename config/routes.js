@@ -189,13 +189,13 @@ module.exports.routes = {
      * @api {get} /api/file/:id get one File
      * @apiGroup File
      */
-    'GET /api/file/:id': 'File.getOne',
+    'GET /api/file/:id': 'Media.getOne',
 
     /**
      * @api {post} /api/file/destroy/:id destroy
      * @apiGroup File
      */
-    'POST /api/file/destroy/:id': 'File.destroy',
+    'POST /api/file/destroy/:id': 'Media.destroy',
 
     /**
      * @api {post} /api/file/addComment/:id addComment
@@ -204,13 +204,13 @@ module.exports.routes = {
      * @apiParam {integer} news File ID
      * @apiParam {text} text Comment text
      */
-    'POST /api/file/addComment/:id': 'File.addComment',
+    'POST /api/file/addComment/:id': 'Media.addComment',
 
     /**
      * @api {post} /api/file/like/:id like/unlike File
      * @apiGroup File
      */
-    'POST /api/file/like/:id': 'File.like',
+    'POST /api/file/like/:id': 'Media.like',
 
 
     ///////////////
