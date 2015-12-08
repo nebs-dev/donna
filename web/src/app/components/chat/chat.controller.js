@@ -16,7 +16,7 @@
 
             Chat.onMsg(function (data) {
                 console.log(data);
-                vm.messages.push(data.body);
+                vm.messages.push(data.data);
                 $scope.$apply();
             });
         });
