@@ -10,13 +10,15 @@
         var vm = this;
         vm.messages = [];
 
+        vm.scrollOptions = {
+            height: 700, railOpacity: 0.1, start: 'bottom'
+        };
+
         Chat.connect(function (data) {
             if (data.statusCode != 200) return SweetAlert.swal(data);
 
             vm.messages = data.body;
             $scope.$apply();
-
-            console.log(vm.messages);
 
             Chat.onMsg(function (data) {
                 vm.messages.push(data.data);

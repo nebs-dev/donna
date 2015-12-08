@@ -12,3 +12,8 @@ body .header .logo {
     z-index: 9999;
     top: 1px;
 }
+
+.chat-panel {
+    overflow: auto;
+    max-height: 500px;
+}
