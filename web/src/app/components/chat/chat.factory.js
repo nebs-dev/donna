@@ -17,6 +17,10 @@
                 });
             },
 
+            onMsg: function(cb) {
+                return socket.on("message", cb);
+        },
+
             sendMsg: function (message, cb) {
                 return socket.emit('post', {
                     url: '/api/message/create',

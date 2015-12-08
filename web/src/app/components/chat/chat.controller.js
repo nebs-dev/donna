@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -13,11 +13,18 @@
         Chat.connect(function (data) {
             vm.messages = data.body;
             $scope.$apply();
+
+            Chat.onMsg(function (data) {
+                console.log(data);
+                vm.messages.push(data.body);
+                $scope.$apply();
+            });
         });
 
         vm.send = function (message) {
             Chat.sendMsg(message, function (data) {
-                if(data.statusCode != 200) return SweetAlert.swal(data);
+                console.log(data);
+                if (data.statusCode != 200) return SweetAlert.swal(data);
 
                 vm.messages.push(data.body);
                 $scope.$apply();
