@@ -17,7 +17,7 @@
 
         vm.send = function (message) {
             Chat.sendMsg(message, function (data) {
-                if(data.statusCode != 200) return SweetAlert.swal(data.error, data.summary);
+                if(data.statusCode != 200) return SweetAlert.swal(data);
 
                 vm.messages.push(data.body);
                 $scope.$apply();
