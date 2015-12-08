@@ -23,7 +23,6 @@
 
         vm.send = function (message) {
             Chat.sendMsg(message, function (data) {
-                console.log(data);
                 if (data.statusCode != 200) return SweetAlert.swal(data);
 
                 vm.messages.push(data.body);
