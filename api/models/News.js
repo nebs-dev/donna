@@ -51,6 +51,8 @@ module.exports = {
         if (!valuesToUpdate.file) return cb();
 
         News.findOne(valuesToUpdate.id).populate('file').then(function (newsOld) {
+            if (!newsOld.file) return cb();
+
             // destroy old file in database && file
             Media.destroy(newsOld.file.id).then(function () {
                 var filePath = 'uploads/' + newsOld.file.url;
