@@ -21,7 +21,7 @@ module.exports = {
                         'url': model + '/' + path.basename(file.fd)
                     };
 
-                    File.create(fileDb).then(function (f) {
+                    Media.create(fileDb).then(function (f) {
                         newFiles.push(f);
                         return cb(true);
                     }).catch(function (err) {
