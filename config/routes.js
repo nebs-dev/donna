@@ -158,10 +158,10 @@ module.exports.routes = {
     'POST /api/news/addComment/:id': 'News.addComment',
 
     /**
-     * @api {post} /api/news list of news
+     * @api {get} /api/news list of news
      * @apiGroup News
      */
-    'POST /api/news': 'News.list',
+    'GET /api/news': 'News.list',
 
 
     ///////////////
