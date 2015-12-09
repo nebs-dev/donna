@@ -29,8 +29,7 @@ module.exports = function (req, res, next) {
             if (user.secret != newToken.secret) {
                 return res.unauthorized('The token is not valid');
             }
-
-
+            
             req.token = newToken;
             req.originalToken = token;
             req.user = user;

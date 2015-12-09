@@ -23,8 +23,6 @@ module.exports = function notFound(msg) {
 
     msg = msg || 'Not found';
 
-    console.log(this.req);
-
     var response = {
         error: 'Not Found',
         status: 404,
