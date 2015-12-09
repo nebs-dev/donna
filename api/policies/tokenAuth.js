@@ -25,7 +25,7 @@ module.exports = function (req, res, next) {
         if (err) return res.unauthorized('The token is not valid');
 
         // Check user secret
-        User.findOne(newToken.userId).then(function (user) {
+        User.findOne(newToken.userId).populate('role').then(function (user) {
             if (user.secret != newToken.secret) {
                 return res.unauthorized('The token is not valid');
             }

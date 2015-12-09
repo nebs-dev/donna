@@ -60,7 +60,6 @@ module.exports = {
                 // fill data for user... create doesn't populate
                 message.user = req.user.toJSON();
 
-                console.log(message);
                 // emit created event to all sockets subscribed to this model not including req
                 Message.publishCreate(message);
 
