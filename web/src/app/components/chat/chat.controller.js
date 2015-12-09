@@ -8,20 +8,17 @@
     /** @ngInject */
     function ChatController($scope, Chat, SweetAlert) {
         var vm = this;
-        vm.messages = [];
 
-        vm.scrollOptions = {
-            height: 700, railOpacity: 0.1, start: 'bottom'
-        };
+        vm.messages = Chat.messageBuffer || [];
 
-        Chat.connect(function (data) {
-            if (data.statusCode != 200) return SweetAlert.swal(data);
+        Chat.connect(function (err, data) {
+            if (err) return SweetAlert.swal(err);
 
-            vm.messages = data.body;
+            vm.messages = data;
             $scope.$apply();
 
-            Chat.onMsg(function (data) {
-                vm.messages.push(data.data);
+            Chat.onMsg(function (err, data) {
+                vm.messages.push(data);
                 $scope.$apply();
             });
         });
