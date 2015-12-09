@@ -6,10 +6,10 @@
         .factory('Chat', Chat);
 
 
-    function Chat(LocalService) {
-        var socket = io.connect('http://52.16.220.86:667', {query: "__sails_io_sdk_version=0.11.0"});
+    function Chat(LocalService, API) {
+        var socket = io.connect(API.URL+'?__sails_io_sdk_version=0.11.0');
+        console.log(API.URL+'?__sails_io_sdk_version=0.11.0');
         var token = angular.fromJson(LocalService.get('auth_token')).token;
-
 
         var chat = {
             messageBuffer: [],
