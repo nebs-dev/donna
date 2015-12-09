@@ -15,9 +15,11 @@ module.exports = {
      */
     getDashboardData: function (req, res) {
         News.count().then(function (news) {
+            var fromDate = moment().subtract(1, 'month');
+
             var query = [];
             query.push(User.count());
-            query.push(Event.count());
+            query.push(Event.count({date: {'>=': fromDate}}));
             query.push(Media.count());
             query.push(news);
 

@@ -18,6 +18,19 @@ module.exports = {
         }).catch(function (err) {
             return res.negotiate(err);
         });
+    },
+
+    /**
+     * Destroy user
+     * @param req
+     * @param res
+     */
+    destroy: function (req, res) {
+        User.destroy(req.params.id).then(function () {
+            return res.ok();
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
     }
 
 };

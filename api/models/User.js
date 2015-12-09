@@ -148,6 +148,18 @@ module.exports = {
                 cb(err);
             }
         });
+    },
+
+    /**
+     * @param destroyedRecords
+     * @param cb
+     * @returns {*}
+     */
+    afterDestroy: function (destroyedRecords, cb) {
+        if (!destroyedRecords.length) return cb();
+        console.log(destroyedRecords);
+
+        cb();
     }
 };
 
