@@ -40,7 +40,6 @@
 
                     chat.socket.on('disconnect', function () {
                         console.log("UMIREM")
-                        chat.socket = false;
                         chat.connected = false;
                     });
 
