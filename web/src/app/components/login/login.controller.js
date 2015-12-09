@@ -11,7 +11,7 @@
 
         vm.login = function (user) {
             Auth.login(user).success(function (data) {
-                if (data.user.role.name != 'superadmin') {
+                if (data.user.role && data.user.role.name != 'superadmin') {
                     return SweetAlert.swal('Forbidden', 'You don\'t have permissions to access.');
                 }
 
