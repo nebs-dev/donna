@@ -10,10 +10,11 @@
         var vm = this;
 
         vm.messages = Chat.messageBuffer || [];
-        vm.chatConnected = false;
+        vm.chatConnected = Chat.connected || false;
 
 
         Chat.connect(function (err, data) {
+            if(!err && !data) return;
             if (err) return SweetAlert.swal('Chat Error', err.summary);
 
             vm.chatConnected = true;
@@ -39,6 +40,7 @@
 
         vm.send = function (message) {
             Chat.sendMsg(message, function (data) {
+                $scope.$apply();
                 if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary);
             });
         };

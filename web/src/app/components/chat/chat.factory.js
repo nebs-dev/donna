@@ -12,12 +12,15 @@
             messageBuffer: [],
             socket: false,
             token: false,
+            connected: false,
             connect: function (cb) {
-                if(!chat.socket) {
+                if(chat.socket) return cb();
 
                     chat.socket = io.connect(API.URL, {query: "__sails_io_sdk_version=0.11.0"});
                     chat.token = angular.fromJson(LocalService.get('auth_token')).token;
+                    chat.connected = true;
 
+                console.log("KLONEKTAM");
                     chat.socket.on('connect', function () {
                         chat.socket.emit("get", {url: "/api/message/connect", data: {token: chat.token}}, function (data) {
 
@@ -36,18 +39,22 @@
 
 
                     chat.socket.on('disconnect', function () {
+                        console.log("UMIREM")
                         chat.socket = false;
+                        chat.connected = false;
                     });
 
-                }
+
             },
 
             reconnect_error: function(cb) {
                 chat.socket.on('reconnect_error', cb);
+                chat.connected = false;
             },
 
             reconnect: function(cb){
                 chat.socket.on('reconnect', cb);
+                chat.connected = true;
             },
 
             onMsg: function(cb) {
