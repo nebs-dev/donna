@@ -12,7 +12,8 @@
         vm.messages = Chat.messageBuffer || [];
 
         Chat.connect(function (err, data) {
-            if (err) return SweetAlert.swal('Chat Error', err.error);
+            console.log(err);
+            if (err) return SweetAlert.swal('Chat Error', err.summary);
 
             vm.messages = data;
             $scope.$apply();

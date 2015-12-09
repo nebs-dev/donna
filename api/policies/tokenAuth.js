@@ -22,6 +22,7 @@ module.exports = function (req, res, next) {
     }
 
     sailsTokenAuth.verifyToken(token, function (err, newToken) {
+        console.log(newToken, req.ip);
         if (err || newToken.ip != req.ip) return res.unauthorized('The token is not valid');
 
         // Check user secret
