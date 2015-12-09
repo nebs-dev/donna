@@ -12,20 +12,20 @@
         vm.messages = Chat.messageBuffer || [];
 
         Chat.connect(function (err, data) {
-            if (err) return SweetAlert.swal(err);
+            if (err) return SweetAlert.swal('Chat Error', err.error);
 
             vm.messages = data;
             $scope.$apply();
 
             Chat.onMsg(function (err, data) {
-                vm.messages.push(data);
+                if (err) return SweetAlert.swal('Chat error', err.summary);
                 $scope.$apply();
             });
         });
 
         vm.send = function (message) {
             Chat.sendMsg(message, function (data) {
-                if (data.statusCode != 200) return SweetAlert.swal(data);
+                if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary);
             });
         };
     }

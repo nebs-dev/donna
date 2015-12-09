@@ -16,7 +16,8 @@
             connect: function (cb) {
                 return socket.on('connect', function () {
                     socket.emit("get", {url: "/api/message/connect", data: {token: token}}, function(data) {
-                        //if(neka greska) retrun cb(err);
+
+                        if(data.statusCode != 200) return cb(data.body);
                         chat.messageBuffer = data.body;
 
                         return cb(null, data.body);
@@ -26,7 +27,8 @@
 
             onMsg: function(cb) {
                 return socket.on("message", function(data) {
-                    //if(neka greska) retrun cb(err);
+                     if(data.statusCode && data.statusCode != 200) return cb(data.body);
+
                     chat.messageBuffer.push(data.data);
                     cb(null, data.data);
                 });
