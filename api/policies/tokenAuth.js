@@ -22,9 +22,9 @@ module.exports = function (req, res, next) {
     }
 
     sailsTokenAuth.verifyToken(token, function (err, newToken) {
-        var ipAddress = req.isSocket ? req.socket.handshake.address.address + ":" + req.socket.handshake.address.port : req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-        console.log(ipAddress);
-        if (err || newToken.ip != req.ip) return res.unauthorized('The token is not valid');
+        var ipAddress = req.isSocket ? req.socket.handshake.address : req.ip;
+
+        if (err || newToken.ip != ipAddress) return res.unauthorized('The token is not valid');
 
         // Check user secret
         User.findOne(newToken.userId).populate('role').then(function (user) {

@@ -11,24 +11,25 @@
 
         vm.messages = Chat.messageBuffer || [];
 
-        Chat.connect(function (err, data) {
-            console.log(err);
-            if (err) return SweetAlert.swal('Chat Error', err.summary);
 
-            vm.messages = data;
-            $scope.$apply();
+            Chat.connect(function (err, data) {
+                if (err) return SweetAlert.swal('Chat Error', err.summary);
 
-            Chat.onMsg(function (err, data) {
-                if (err) return SweetAlert.swal('Chat error', err.summary);
+                vm.messages = data;
                 $scope.$apply();
-            });
-        });
 
-        vm.send = function (message) {
-            Chat.sendMsg(message, function (data) {
-                if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary);
+                Chat.onMsg(function (err, data) {
+                    if (err) return SweetAlert.swal('Chat error', err.summary);
+                    $scope.$apply();
+                });
             });
-        };
+
+            vm.send = function (message) {
+                Chat.sendMsg(message, function (data) {
+                    if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary);
+                });
+            };
+
     }
 
 })();

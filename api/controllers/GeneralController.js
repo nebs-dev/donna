@@ -26,7 +26,6 @@ module.exports = {
             return query;
 
         }).spread(function (userNum, eventNum, mediaNum, newsNum) {
-            console.log(eventNum);
             var data = {userNum: userNum, eventNum: eventNum, mediaNum: mediaNum, newsNum: newsNum};
             return res.json(data);
 
