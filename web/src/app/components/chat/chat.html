@@ -37,7 +37,8 @@
                     </ul>
                 </div>
 
-                <div class="twt-area">
+                <p ng-hide="chatCtrl.chatConnected">LOST CONNECTION</p>
+                <div class="twt-area" ng-show="chatCtrl.chatConnected">
                     <form role="form" ng-submit="chatCtrl.send(message)">
                         <textarea class="form-control" ng-model="message.text"
                                   placeholder="Share something on Twitter.." rows="3"></textarea>

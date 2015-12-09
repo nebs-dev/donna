@@ -18,7 +18,7 @@
                     chat.socket = io.connect(API.URL, {query: "__sails_io_sdk_version=0.11.0"});
                     chat.token = angular.fromJson(LocalService.get('auth_token')).token;
 
-                    return chat.socket.on('connect', function () {
+                    chat.socket.on('connect', function () {
                         chat.socket.emit("get", {url: "/api/message/connect", data: {token: chat.token}}, function (data) {
 
                             if (data.statusCode === 401 || data.statusCode === 403) {
@@ -30,14 +30,24 @@
                             if (data.statusCode != 200) return cb(data.body);
                             chat.messageBuffer = data.body;
 
-                            chat.socket.on('disconnect', function () {
-                                chat.socket = false;
-                            });
-
                             return cb(null, data.body);
                         });
                     });
+
+
+                    chat.socket.on('disconnect', function () {
+                        chat.socket = false;
+                    });
+
                 }
+            },
+
+            reconnect_error: function(cb) {
+                chat.socket.on('reconnect_error', cb);
+            },
+
+            reconnect: function(cb){
+                chat.socket.on('reconnect', cb);
             },
 
             onMsg: function(cb) {

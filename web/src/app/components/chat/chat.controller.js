@@ -10,26 +10,38 @@
         var vm = this;
 
         vm.messages = Chat.messageBuffer || [];
+        vm.chatConnected = false;
 
 
-            Chat.connect(function (err, data) {
-                if (err) return SweetAlert.swal('Chat Error', err.summary);
+        Chat.connect(function (err, data) {
+            if (err) return SweetAlert.swal('Chat Error', err.summary);
 
-                vm.messages = data;
+            vm.chatConnected = true;
+
+            vm.messages = data;
+            $scope.$apply();
+
+            Chat.onMsg(function (err, data) {
+                if (err) return SweetAlert.swal('Chat error', err.summary);
                 $scope.$apply();
-
-                Chat.onMsg(function (err, data) {
-                    if (err) return SweetAlert.swal('Chat error', err.summary);
-                    $scope.$apply();
-                });
             });
 
-            vm.send = function (message) {
-                Chat.sendMsg(message, function (data) {
-                    if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary);
-                });
-            };
+            Chat.reconnect_error(function() {
+               vm.chatConnected = false;
+                $scope.$apply();
+            });
 
+            Chat.reconnect(function() {
+                vm.chatConnected = true;
+                $scope.$apply();
+            });
+        });
+
+        vm.send = function (message) {
+            Chat.sendMsg(message, function (data) {
+                if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary);
+            });
+        };
     }
 
 })();
