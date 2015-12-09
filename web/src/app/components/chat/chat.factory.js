@@ -14,7 +14,6 @@
             token: false,
             connected: false,
             connect: function (cb) {
-                if(chat.socket) return cb();
 
                     chat.socket = io.connect(API.URL, {query: "__sails_io_sdk_version=0.11.0"});
                     chat.token = angular.fromJson(LocalService.get('auth_token')).token;
