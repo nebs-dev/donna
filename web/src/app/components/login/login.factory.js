@@ -21,6 +21,7 @@
             }
         }
     }
+
     function Auth($http, LocalService, AccessLevels, API, $state, Chat) {
         return {
             authorize: function (access) {
@@ -42,9 +43,9 @@
             },
             logout: function () {
                 // The backend doesn't care about logouts, delete the token and you're good to go.
-                if(Chat.socket) Chat.socket.disconnect();
+                //if(Chat.socket) Chat.socket.disconnect();
                 LocalService.unset('auth_token');
-                $state.go('anon.login');
+                return $state.go('anon.login');
             }
         }
     }

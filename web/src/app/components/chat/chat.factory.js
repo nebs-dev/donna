@@ -8,7 +8,8 @@
 
     function Chat(LocalService, API, $state) {
         return {
-            socket: false
+            socket: false,
+            events: false
         };
 
     }
