@@ -28,7 +28,7 @@ module.exports = {
                 if (!valid) {
                     return res.accessDenied('Invalid email or password');
                 } else {
-                    res.json({user: user, token: sailsTokenAuth.issueToken({userId: user.id, ip: sailsTokenAuth.getIp(req), secret: user.secret})});
+                    res.json({user: user, token: sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret})});
                 }
             });
         }).catch(function (err) {
