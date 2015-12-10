@@ -6,72 +6,34 @@
         .controller('ChatController', ChatController);
 
     /** @ngInject */
-    function ChatController($scope, SweetAlert, LocalService, $state, API, Chat) {
-
+    function ChatController(SweetAlert, LocalService, Chat, $rootScope) {
         var vm = this;
+
         var token = angular.fromJson(LocalService.get('auth_token')).token;
 
-        vm.messages = [];
+        Chat.emit("get", {url: "/api/message/connect", data: {token: token}}, function (data) {
 
-        if (Chat.socket) {
-            getData();
-        } else {
-            Chat.socket = io.connect(API.URL, {query: "__sails_io_sdk_version=0.11.0"});
-        }
+            if (data.statusCode === 401 || data.statusCode === 403) {
+                Chat.disconnect();
+                LocalService.unset('auth_token');
+                $window.location.reload();
+            }
 
-        // eventi
-        Chat.socket.on('connect', function () {
-            console.log("KONEKTO!");
-            getData();
+            if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary);
+
+            $rootScope.messages = data.body;
         });
 
-        Chat.socket.on('disconnect', function () {
-            console.log("UMIREM");
-            vm.chatConnected = false;
-            $scope.$apply();
-        });
-
-        Chat.socket.on('reconnect', function () {
-            console.log("reconect");
-            vm.chatConnected = true;
-            $scope.$apply();
-        });
-
-        Chat.socket.on("message", function (data) {
-            if (data.statusCode && data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary);
-            console.log("ide poruka");
-            vm.messages.push(data.data);
-            $scope.$apply();
-        });
 
         //emiti
         vm.send = function (message) {
-            Chat.socket.emit('post', {
+            Chat.emit('post', {
                 url: '/api/message/create',
                 data: {token: token, text: message.text}
             }, function (data) {
                 if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary);
-                $scope.$apply();
             });
         };
-
-
-        function getData() {
-            Chat.socket.emit("get", {url: "/api/message/connect", data: {token: token}}, function (data) {
-
-                //if (data.statusCode === 401 || data.statusCode === 403) {
-                //    Chat.socket.disconnect();
-                //    LocalService.unset('auth_token');
-                //    return $state.go('anon.login');
-                //}
-
-                if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary);
-
-                vm.messages = data.body;
-                vm.chatConnected = true;
-                $scope.$apply();
-            });
-        }
 
     }
 

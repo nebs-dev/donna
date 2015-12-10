@@ -22,7 +22,7 @@
         }
     }
 
-    function Auth($http, LocalService, AccessLevels, API, $state, Chat) {
+    function Auth($http, LocalService, AccessLevels, API, Chat, $window) {
         return {
             authorize: function (access) {
                 if (access === AccessLevels.user) {
@@ -43,9 +43,9 @@
             },
             logout: function () {
                 // The backend doesn't care about logouts, delete the token and you're good to go.
-                //if(Chat.socket) Chat.socket.disconnect();
+                if(Chat) Chat.disconnect();
                 LocalService.unset('auth_token');
-                return $state.go('anon.login');
+                $window.location.reload();
             }
         }
     }

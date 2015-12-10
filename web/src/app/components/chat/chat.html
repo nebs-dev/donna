@@ -18,7 +18,7 @@
             <div class="panel-body">
                 <div class="chat-panel" scroll-glue>
                     <ul class="media-list">
-                        <li ng-repeat="message in chatCtrl.messages" class="media">
+                        <li ng-repeat="message in messages" class="media">
                             <div class="pull-left">
                                 <img src="img/26115.jpg" alt="Avatar" class="img-circle" width="64" height="64">
                             </div>
@@ -37,8 +37,8 @@
                     </ul>
                 </div>
 
-                <p ng-hide="chatCtrl.chatConnected">LOST CONNECTION</p>
-                <div class="twt-area" ng-show="chatCtrl.chatConnected">
+                <p ng-hide="mainCtrl.chatConnected">LOST CONNECTION</p>
+                <div class="twt-area" ng-show="mainCtrl.chatConnected">
                     <form role="form" ng-submit="chatCtrl.send(message)">
                         <textarea class="form-control" ng-model="message.text"
                                   placeholder="Share something on Twitter.." rows="3"></textarea>
