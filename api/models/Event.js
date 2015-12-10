@@ -40,7 +40,8 @@ module.exports = {
         },
 
         file: {
-            model: 'media'
+            model: 'media',
+            required: true
         },
 
         toJSON: function () {
@@ -60,7 +61,7 @@ module.exports = {
         if (!valuesToUpdate.file) return cb();
 
         Event.findOne(valuesToUpdate.id).populate('file').then(function (eventOld) {
-            if (!eventOld.file) return cb();
+            if (!valuesToUpdate.hasFiles || eventOld.file) return cb();
 
             // destroy old file in database && file
             Media.destroy(eventOld.file.id).then(function () {

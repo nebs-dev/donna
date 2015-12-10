@@ -70,6 +70,32 @@ module.exports = {
         }).catch(function (err) {
             res.serverError(err);
         });
+    },
+
+    /**
+     * Like/unlike chat message
+     * @param req
+     * @param res
+     */
+    like: function (req, res) {
+        Social.likeUnlike(req, 'message').then(function (comment) {
+            return res.json(comment);
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
+    },
+
+    /**
+     * Report/unreport chat message
+     * @param req
+     * @param res
+     */
+    report: function (req, res) {
+        Social.reportUnreport(req, 'message').then(function (comment) {
+            return res.json(comment);
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
     }
 };
 

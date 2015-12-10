@@ -40,16 +40,21 @@ module.exports = {
      */
     update: function (req, res) {
         var params = req.params.all();
+        delete params.file;
 
         News.update(req.params.id, params).then(function (news) {
-
             return [news[0], UploadHelper.uploadFile(req, 'news')];
 
         }).spread(function (news, files) {
-            if (file) news.file = file[0].id;
+            if(!news) return res.notFound('News not found');
+            if (files) {
+                news.hasFiles = true;
+                news.file = files[0].id;
+            }
 
             news.save(function (err, news) {
                 if (err) return res.negotiate(err);
+
                 return res.json(news);
             });
 
@@ -79,7 +84,8 @@ module.exports = {
     show: function (req, res) {
         News.findOne(req.params.id).populateAll().then(function (news) {
             if (!news) return res.notFound();
-            return res.json(news);
+
+            return res.json(UploadHelper.getFullUrl(req, news));
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -133,8 +139,8 @@ module.exports = {
      * @param res
      */
     list: function (req, res) {
-        News.find().then(function (news) {
-            return res.json(news);
+        News.find().populate('file').then(function (news) {
+            return res.json(UploadHelper.getFullUrl(req, news));
         }).catch(function(err) {
             return res.negotiate(err);
         });

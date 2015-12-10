@@ -34,6 +34,7 @@
                     <tbody>
                     <tr>
                         <th>ID</th>
+                        <th>Photo</th>
                         <th>Title</th>
                         <th>Text</th>
                         <th>Likes</th>
@@ -41,6 +42,7 @@
                     </tr>
                     <tr ng-repeat="news in newsCtrl.news">
                         <td>{{ news.id }}</td>
+                        <td><img src="{{ news.file.url }}" /></td>
                         <td>{{ news.title }}</td>
                         <td>{{ news.text }}</td>
                         <td>{{ news.likesNum }}</td>

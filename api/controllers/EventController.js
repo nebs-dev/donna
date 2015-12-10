@@ -40,13 +40,17 @@ module.exports = {
      */
     update: function (req, res) {
         var params = req.params.all();
+        delete params.file;
 
         Event.update(req.params.id, params).then(function (event) {
 
             return [event[0], UploadHelper.uploadFile(req, 'event')];
 
         }).spread(function (event, files) {
-            if (file) event.file = file[0].id;
+            if (file) {
+                event.hasFiles = true;
+                event.file = file[0].id;
+            }
 
             event.save(function (err, event) {
                 if (err) return res.negotiate(err);

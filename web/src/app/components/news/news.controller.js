@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -26,11 +26,21 @@
             vm.news = [];
 
             News.getOne($state.params.id).success(function (data) {
-                console.log(data)
                 vm.news = data;
             }).error(function (err) {
                 SweetAlert.swal(err.error, err.summary);
             });
+
+            vm.update = function () {
+                console.log('Requst:', vm.news);
+                News.update($state.params.id, vm.news).success(function (news) {
+                    console.log('Response:', news);
+
+                }).error(function (err) {
+                    console.log(err);
+                    SweetAlert.swal(err.error, err.summary);
+                });
+            };
         }
 
         vm.destroy = function (id) {
@@ -43,7 +53,6 @@
             });
         };
     }
-
 
 
 })();

@@ -18,6 +18,23 @@ module.exports = {
 
         user: {
             model: 'user'
+        },
+
+        likes: {
+            type: 'array',
+            defaultsTo: []
+        },
+
+        reports: {
+            type: 'array',
+            defaultsTo: []
+        },
+
+        toJSON: function () {
+            var obj = this.toObject();
+            obj.likesNum = obj.likes.length;
+            obj.reportsNum = obj.reports.length;
+            return obj;
         }
     }
 };

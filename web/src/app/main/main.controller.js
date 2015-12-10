@@ -10,6 +10,7 @@
 
         var vm = this;
 
+
         $rootScope.messages = [];
         vm.chatConnected = false;
 

@@ -3,8 +3,7 @@ module.exports = {
 
     uploadFile: function (req, model) {
         return new Promise(function (resolve, reject) {
-
-            req.file('file').upload({
+            req.file('fileToUpload').upload({
                 // don't allow the total upload size to exceed ~10MB
                 maxBytes: 10000000,
                 dirname: sails.config.appPath + '/uploads/' + model + '/'
@@ -44,11 +43,19 @@ module.exports = {
     getFullUrl: function(req, data) {
         var baseURL = sails.getBaseurl();
 
-        var files = data.files || data.file;
+        if(data.length) {
+            _.each(data, function (item) {
+                if (item.file) {
+                    item.file.url = baseURL + '/api/file/' + item.file.id + '?token=' + req.originalToken;
+                }
+            });
+        } else {
+            if (data.file) {
+                data.file.url = baseURL + '/api/file/' + data.file.id + '?token=' + req.originalToken;
+            }
+        }
 
-        _.map(files, function(item) {
-           item.url =  baseURL + '/api/file/' + item.id + '?token=' + req.originalToken;
-        });
+
 
         return data;
     }

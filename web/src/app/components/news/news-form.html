@@ -5,7 +5,7 @@
                 News update
             </header>
             <div class="panel-body">
-                <form class="form-horizontal tasi-form" method="get">
+                <form class="form-horizontal tasi-form" method="post" ng-submit="newsCtrl.update()" enctype="multipart/form-data">
                     <!-- Title -->
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">News title</label>
@@ -18,10 +18,27 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">News description</label>
                         <div class="col-sm-10">
-                            <textarea ng-model="newsCtrl.news.text" class="form-control" placeholder="description">
+                            <textarea ng-model="newsCtrl.news.text" class="form-control" placeholder="description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">File</label>
+                        <div class="col-sm-10">
+                            <input type="file" ng-model="newsCtrl.news.fileToUpload" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <input type="submit" class="btn btn-info" value="Save">
                         </div>
                     </div>
                 </form>
+
+                <img src="{{ newsCtrl.news.file.url }}" />
+
             </div>
         </section>
     </div>
