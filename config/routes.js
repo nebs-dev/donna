@@ -276,7 +276,7 @@ module.exports.routes = {
      * @apiParam {string} title event title (required)
      * @apiParam {text} text event text (required)
      * @apiParam {date} date event date (required)
-     * @apiParam {text} string event location
+     * @apiParam {text} location event location
      * @apiParam {file} file event file
      */
     'POST /api/event/create': 'Event.create',

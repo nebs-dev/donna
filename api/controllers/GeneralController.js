@@ -19,7 +19,7 @@ module.exports = {
 
             var query = [];
             query.push(User.count());
-            query.push(Event.count({date: {'>=': fromDate}}));
+            query.push(Event.count({date: {'>=': fromDate.format()}}));
             query.push(Media.count());
             query.push(news);
 

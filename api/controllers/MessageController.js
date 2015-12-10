@@ -50,7 +50,7 @@ module.exports = {
         if (!params.text) return res.badRequest();
 
         Message.find({where: {createdAt: {'>=': time.format()}}}).then(function (messages) {
-            if (messages.length >= 3 && (!req.user.role || req.user.role.name != 'superadmin')) return res.forbidden("Spam!");
+            //if (messages.length >= 3 && (!req.user.role || req.user.role.name != 'superadmin')) return res.forbidden("Spam!");
 
             Message.create({
                 text: params.text,

@@ -135,7 +135,7 @@ module.exports = {
     list: function (req, res) {
         var fromDate = moment().subtract(1, 'month');
 
-        Event.find({date: {'>=': fromDate}}).then(function (events) {
+        Event.find({date: {'>=': fromDate.format()}}).then(function (events) {
             return res.json(events);
         }).catch(function(err) {
            return res.negotiate(err);

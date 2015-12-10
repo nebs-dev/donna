@@ -26,12 +26,14 @@
 
         //emiti
         vm.send = function (message) {
-            Chat.emit('post', {
-                url: '/api/message/create',
-                data: {token: token, text: message.text}
-            }, function (data) {
-                if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary);
-            });
+            if (message && message.text) {
+                Chat.emit('post', {
+                    url: '/api/message/create',
+                    data: {token: token, text: message.text}
+                }, function (data) {
+                    if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.error);
+                });
+            }
         };
 
     }
