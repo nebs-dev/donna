@@ -14,7 +14,6 @@
         Chat.emit("get", {url: "/api/message/connect", data: {token: token}}, function (data) {
 
             if (data.statusCode === 401 || data.statusCode === 403) {
-                Chat.disconnect();
                 LocalService.unset('auth_token');
                 $window.location.reload();
             }
