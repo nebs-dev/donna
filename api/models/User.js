@@ -35,11 +35,13 @@ module.exports = {
         },
 
         facebookId: {
-            type: 'string'
+            type: 'string',
+            defaultsTo: null
         },
 
         googleId: {
-            type: 'string'
+            type: 'string',
+            defaultsTo: null
         },
 
         licence: {

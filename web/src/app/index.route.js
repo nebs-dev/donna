@@ -42,7 +42,15 @@
                 url: '/news',
                 templateUrl: 'app/components/news/news.html',
                 controller: 'NewsController',
-                controllerAs: 'newsCtrl'
+                controllerAs: 'newsCtrl',
+                method: 'list'
+            })
+            .state('user.newsEdit', {
+                url: '/news/:id',
+                templateUrl: 'app/components/news/news-form.html',
+                controller: 'NewsController',
+                controllerAs: 'newsCtrl',
+                method: 'edit'
             })
             .state('user.events', {
                 url: '/events',

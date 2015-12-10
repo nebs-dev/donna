@@ -29,6 +29,7 @@ module.exports = {
         toJSON: function () {
             var obj = this.toObject();
             obj.likesNum = obj.likes.length;
+            obj.fullUrl = 'TESTURL';
             return obj;
         }
     },

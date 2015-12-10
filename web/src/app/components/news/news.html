@@ -46,7 +46,7 @@
                         <td>{{ news.likesNum }}</td>
                         <td>
                             <button ng-click="newsCtrl.destroy(news.id)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
-                            <button class="btn btn-sm btn-info"><i class="fa fa-pencil-square-o"></i></button>
+                            <a ui-sref="user.newsEdit({id: news.id})" class="btn btn-sm btn-info"><i class="fa fa-pencil-square-o"></i></a>
                         </td>
                     </tr>
                     </tbody>

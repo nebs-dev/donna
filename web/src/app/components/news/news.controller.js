@@ -6,16 +6,32 @@
         .controller('NewsController', NewsController);
 
     /** @ngInject */
-    function NewsController(News, SweetAlert) {
+    function NewsController(News, SweetAlert, $state) {
         var vm = this;
 
-        vm.news = [];
-        
-        News.getNewsList().success(function (data) {
-            vm.news = data;
-        }).error(function (err) {
-            SweetAlert.swal(err.error, err.summary);
-        });
+        //console.log($state);
+
+        // LIST
+        if ($state.current.method == 'list') {
+            vm.news = [];
+
+            News.getNewsList().success(function (data) {
+                vm.news = data;
+            }).error(function (err) {
+                SweetAlert.swal(err.error, err.summary);
+            });
+        }
+
+        if ($state.current.method == 'edit') {
+            vm.news = [];
+
+            News.getOne($state.params.id).success(function (data) {
+                console.log(data)
+                vm.news = data;
+            }).error(function (err) {
+                SweetAlert.swal(err.error, err.summary);
+            });
+        }
 
         vm.destroy = function (id) {
             News.destroyNews(id).success(function () {
@@ -25,7 +41,9 @@
             }).error(function (err) {
                 SweetAlert.swal(err.error, err.summary);
             });
-        }
+        };
     }
+
+
 
 })();

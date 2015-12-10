@@ -14,6 +14,10 @@
 
             destroyNews: function (id) {
                 return $http.post(API.URL + '/api/news/destroy/' + id);
+            },
+
+            getOne: function (id) {
+                return $http.get(API.URL + '/api/news/show/' + id);
             }
         }
     }
