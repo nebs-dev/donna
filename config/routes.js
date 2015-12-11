@@ -352,6 +352,18 @@ module.exports.routes = {
      *
      * @apiParam {string} text message text
      */
-    'POST /api/message/create': 'Message.create'
+    'POST /api/message/create': 'Message.create',
+
+    /**
+     * @api {post} /api/message/like Like/unlike message
+     * @apiGroup Messages
+     */
+    'POST /api/message/like/:id': 'Message.like',
+
+    /**
+     * @api {post} /api/message/report Report/unreport message
+     * @apiGroup Messages
+     */
+    'POST /api/message/report/:id': 'Message.report'
 
 };
