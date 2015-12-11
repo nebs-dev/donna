@@ -100,13 +100,25 @@ module.exports.routes = {
     ////////////
 
     /**
-     * @api {post} /api/user list of users
+     * @api {post} /api/users list of users
      * @apiGroup User
      */
     'POST /api/users': 'User.list',
 
+    /**
+     * @api {post} /api/user/update/:id update
+     * @apiGroup User
+     *
+     * @apiParam {email} email User email
+     * @apiParam {string} firstName User first name
+     * @apiParam {string} lastName User last name
+     */
+    'POST /api/user/update/:id': 'User.update',
+
 
     'POST /api/user/destroy/:id': 'User.destroy',
+
+    'POST /api/user/show/:id': 'User.show',
 
 
     ////////////

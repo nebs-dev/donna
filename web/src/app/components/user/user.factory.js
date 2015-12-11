@@ -8,6 +8,10 @@
 
     function User ($http, API) {
         return {
+            getOne: function (id) {
+                return $http.get(API.URL + '/api/user/show/' + id);
+            },
+
             getUsersList: function () {
                 return $http.post(API.URL + '/api/users');
             },

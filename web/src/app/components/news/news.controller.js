@@ -17,14 +17,13 @@
 
             News.getNewsList().success(function (data) {
                 vm.news = data;
+                News.data = data;
             }).error(function (err) {
                 SweetAlert.swal(err.error, err.summary);
             });
         }
 
         if ($state.current.method == 'edit') {
-            vm.news = [];
-
             News.getOne($state.params.id).success(function (data) {
                 vm.news = data;
             }).error(function (err) {

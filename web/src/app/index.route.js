@@ -62,7 +62,15 @@
                 url: '/users',
                 templateUrl: 'app/components/user/users.html',
                 controller: 'UserController',
-                controllerAs: 'userCtrl'
+                controllerAs: 'userCtrl',
+                method: 'list'
+            })
+            .state('user.userEdit', {
+                url: '/user/:id',
+                templateUrl: 'app/components/user/user-form.html',
+                controller: 'UserController',
+                controllerAs: 'userCtrl',
+                method: 'edit'
             })
             .state('user.chat', {
                 url: '/chat',

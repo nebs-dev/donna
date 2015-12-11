@@ -6,7 +6,7 @@
         .factory('News', News);
 
 
-    function News ($http, API) {
+    function News($http, API) {
         return {
             getNewsList: function () {
                 return $http.get(API.URL + '/api/news');

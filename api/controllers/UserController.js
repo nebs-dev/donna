@@ -31,6 +31,19 @@ module.exports = {
         }).catch(function (err) {
             return res.negotiate(err);
         });
+    },
+
+    /**
+     * Show user
+     * @param req
+     * @param res
+     */
+    show: function (req, res) {
+        User.findOne(req.params.id).then(function (user) {
+            return res.json(user);
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
     }
 
 };

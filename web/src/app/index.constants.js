@@ -13,4 +13,6 @@
             anon: 0,
             user: 1
         })
+
+        //.constant('_', window._);
 })();
