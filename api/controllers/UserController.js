@@ -58,7 +58,26 @@ module.exports = {
 
             return res.json(user);
         }).catch(function (err) {
-           return res.negotiate(err);
+            return res.negotiate(err);
+        });
+    },
+
+
+    resetPassword: function (req, res) {
+        var params = req.params.all();
+
+        User.findOne(params.email).then(function (user) {
+            var newPassword = Math.random().toString(36).substring(7);
+
+            user.password = newPassword;
+            user.save(function (err, user) {
+                if (err) return res.negotiate(err);
+
+                user.password = newPassword;
+                return res.json(user);
+            });
+        }).catch(function (err) {
+            return res.negotiate(err);
         });
     }
 

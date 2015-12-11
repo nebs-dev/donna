@@ -40,8 +40,7 @@ module.exports = {
         },
 
         file: {
-            model: 'media',
-            required: true
+            model: 'media'
         },
 
         toJSON: function () {

@@ -63,7 +63,22 @@
                 url: '/events',
                 templateUrl: 'app/components/event/events.html',
                 controller: 'EventController',
-                controllerAs: 'eventCtrl'
+                controllerAs: 'eventCtrl',
+                method: 'list'
+            })
+            .state('user.eventUpdate', {
+                url: '/event/update/:id',
+                templateUrl: 'app/components/event/event-form.html',
+                controller: 'EventController',
+                controllerAs: 'eventCtrl',
+                method: 'update'
+            })
+            .state('user.eventCreate', {
+                url: '/event/create',
+                templateUrl: 'app/components/event/event-form.html',
+                controller: 'EventController',
+                controllerAs: 'eventCtrl',
+                method: 'create'
             })
             .state('user.users', {
                 url: '/users',

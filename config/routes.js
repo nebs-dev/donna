@@ -112,8 +112,18 @@ module.exports.routes = {
      * @apiParam {email} email User email
      * @apiParam {string} firstName User first name
      * @apiParam {string} lastName User last name
+     * @apiParam {string} password Password
+     * @apiParam {string} confirmPassword Confirm password
      */
     'POST /api/user/update/:id': 'User.update',
+
+    /**
+     * @api {post} /api/user/resetPassword reset password
+     * @apiGroup User
+     *
+     * @apiParam {email} email User email
+     */
+    'POST /api/user/resetPassword': 'User.resetPassword',
 
     'POST /api/user/create': 'User.create',
 
