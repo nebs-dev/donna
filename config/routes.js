@@ -118,7 +118,7 @@ module.exports.routes = {
 
     'POST /api/user/destroy/:id': 'User.destroy',
 
-    'POST /api/user/show/:id': 'User.show',
+    'GET /api/user/show/:id': 'User.show',
 
 
     ////////////
