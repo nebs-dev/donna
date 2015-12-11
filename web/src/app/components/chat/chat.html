@@ -20,7 +20,8 @@
                     <ul class="media-list">
                         <li ng-repeat="message in messages" class="media">
                             <div class="pull-left">
-                                <img src="http://api.adorable.io/avatars/100/{{ message.user.email }}" alt="Avatar" class="img-circle" width="64" height="64">
+                                <img src="http://api.adorable.io/avatars/100/{{ message.user.email }}" alt="Avatar"
+                                     class="img-circle" width="64" height="64">
                             </div>
                             <div class="media-body">
                                 <span class="text-muted pull-right">
@@ -38,10 +39,13 @@
                 </div>
 
                 <p ng-hide="mainCtrl.chatConnected">LOST CONNECTION</p>
+
                 <div class="twt-area" ng-show="mainCtrl.chatConnected">
                     <form role="form" ng-submit="chatCtrl.send(message)">
                         <textarea class="form-control bla" ng-model="message.text"
-                                  placeholder="Share something on Twitter.." rows="3" on-enter="chatCtrl.send(message)" enter-clean="true">
+                                  placeholder="Share something on Twitter.." rows="3" on-enter="chatCtrl.send(message)"
+                                  enter-clean="true">
+                        </textarea>
 
                         <div class="clearfix">
                             <button class="btn btn-sm btn-primary pull-right" type="submit">

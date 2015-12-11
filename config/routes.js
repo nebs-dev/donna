@@ -105,11 +105,8 @@ module.exports.routes = {
      */
     'POST /api/users': 'User.list',
 
-    /**
-     * @api {post} /api/user/destroy destroy
-     * @apiGroup User
-     */
-    'POST /api/user/destroy': 'User.destroy',
+
+    'POST /api/user/destroy/:id': 'User.destroy',
 
 
     ////////////
