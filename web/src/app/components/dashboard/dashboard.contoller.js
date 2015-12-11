@@ -12,7 +12,7 @@
         Dashboard.getData().success(function (data) {
             vm.data = data;
         }).error(function (data) {
-            SweetAlert.swal(data.error, data.summary);
+            SweetAlert.swal(data.error, data.summary, 'error');
         });
     }
 

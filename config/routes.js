@@ -115,6 +115,7 @@ module.exports.routes = {
      */
     'POST /api/user/update/:id': 'User.update',
 
+    'POST /api/user/create': 'User.create',
 
     'POST /api/user/destroy/:id': 'User.destroy',
 

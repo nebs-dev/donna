@@ -14,7 +14,7 @@
         Event.getEvents().success(function (data) {
             vm.events = data;
         }).error(function (err) {
-            SweetAlert.swal(err.error, err.summary);
+            SweetAlert.swal(err.error, err.summary, 'error');
         });
     }
 

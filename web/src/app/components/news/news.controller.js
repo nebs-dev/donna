@@ -8,39 +8,53 @@
     /** @ngInject */
     function NewsController(News, SweetAlert, $state) {
         var vm = this;
+        var stateMethod = $state.current.method;
 
-        //console.log($state);
-
-        // LIST
-        if ($state.current.method == 'list') {
+        // List
+        if (stateMethod == 'list') {
             vm.news = [];
 
             News.getNewsList().success(function (data) {
                 vm.news = data;
                 News.data = data;
             }).error(function (err) {
-                SweetAlert.swal(err.error, err.summary);
+                SweetAlert.swal(err.error, err.summary, 'error');
             });
         }
 
-        if ($state.current.method == 'edit') {
+        // Update
+        if (stateMethod == 'update') {
             News.getOne($state.params.id).success(function (data) {
                 vm.news = data;
             }).error(function (err) {
-                SweetAlert.swal(err.error, err.summary);
+                SweetAlert.swal(err.error, err.summary, 'error');
             });
-
-            vm.update = function () {
-                console.log('Requst:', vm.news);
-                News.update($state.params.id, vm.news).success(function (news) {
-                    console.log('Response:', news);
-
-                }).error(function (err) {
-                    console.log(err);
-                    SweetAlert.swal(err.error, err.summary);
-                });
-            };
         }
+
+        // Create
+        if (stateMethod == 'create') {
+            vm.news = {};
+        }
+
+
+        vm.save = function () {
+            var action = (stateMethod == 'update') ? News.update($state.params.id, vm.news) : News.create(vm.news);
+
+            action.success(function (news) {
+                SweetAlert.swal({
+                    title: 'Success',
+                    text: 'Data successfully saved',
+                    timer: 1000,
+                    showConfirmButton: false,
+                    type: 'success'
+                });
+
+                $state.go('user.news');
+
+            }).error(function (err) {
+                SweetAlert.swal(err.error, err.summary, 'error');
+            });
+        };
 
         vm.destroy = function (id) {
             News.destroyNews(id).success(function () {
@@ -48,7 +62,7 @@
                     return id == news.id;
                 });
             }).error(function (err) {
-                SweetAlert.swal(err.error, err.summary);
+                SweetAlert.swal(err.error, err.summary, 'error');
             });
         };
     }

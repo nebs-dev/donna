@@ -20,7 +20,7 @@ module.exports = function customBadRequest(msg) {
     var sails = req._sails;
 
     // Set status code
-    res.status(403);
+    res.status(400);
 
     // Set summary msg
     if (msg === undefined) msg = 'Bad Request';

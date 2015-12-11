@@ -20,6 +20,10 @@
                 return $http.get(API.URL + '/api/news/show/' + id);
             },
 
+            create: function (data) {
+                return $http.post(API.URL + '/api/news/create', data);
+            },
+
             update: function (id, data) {
                 return $http.post(API.URL + '/api/news/update/' + id, data);
             }

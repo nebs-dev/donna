@@ -18,7 +18,7 @@
                 $window.location.reload();
             }
 
-            if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary);
+            if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary, 'error');
 
             $rootScope.messages = data.body;
         });
@@ -31,7 +31,7 @@
                     url: '/api/message/create',
                     data: {token: token, text: message.text}
                 }, function (data) {
-                    if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.error);
+                    if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.error, 'error');
                 });
             }
         };

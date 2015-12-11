@@ -16,7 +16,15 @@
                 return $http.post(API.URL + '/api/users');
             },
 
-            destroyUser: function (id) {
+            create: function (data) {
+                return $http.post(API.URL + '/api/user/create', data);
+            },
+
+            update: function (id, data) {
+                return $http.post(API.URL + '/api/user/update/' + id, data);
+            },
+
+            destroy: function (id) {
                 return $http.post(API.URL + '/api/user/destroy/' + id);
             }
         }

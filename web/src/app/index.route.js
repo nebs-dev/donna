@@ -45,12 +45,19 @@
                 controllerAs: 'newsCtrl',
                 method: 'list'
             })
-            .state('user.newsEdit', {
-                url: '/news/:id',
+            .state('user.newsUpdate', {
+                url: '/news/update:id',
                 templateUrl: 'app/components/news/news-form.html',
                 controller: 'NewsController',
                 controllerAs: 'newsCtrl',
-                method: 'edit'
+                method: 'update'
+            })
+            .state('user.newsCreate', {
+                url: '/news/create',
+                templateUrl: 'app/components/news/news-form.html',
+                controller: 'NewsController',
+                controllerAs: 'newsCtrl',
+                method: 'create'
             })
             .state('user.events', {
                 url: '/events',
@@ -65,12 +72,19 @@
                 controllerAs: 'userCtrl',
                 method: 'list'
             })
-            .state('user.userEdit', {
-                url: '/user/:id',
+            .state('user.userUpdate', {
+                url: '/user/update/:id',
                 templateUrl: 'app/components/user/user-form.html',
                 controller: 'UserController',
                 controllerAs: 'userCtrl',
-                method: 'edit'
+                method: 'update'
+            })
+            .state('user.userCreate', {
+                url: '/user/create',
+                templateUrl: 'app/components/user/user-form.html',
+                controller: 'UserController',
+                controllerAs: 'userCtrl',
+                method: 'create'
             })
             .state('user.chat', {
                 url: '/chat',

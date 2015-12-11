@@ -44,6 +44,22 @@ module.exports = {
         }).catch(function (err) {
             return res.negotiate(err);
         });
+    },
+
+    update: function (req, res) {
+        var params = req.params.all();
+
+        if (params.password !== params.confirmPassword) {
+            return res.customBadRequest('Password doesn\'t match');
+        }
+
+        User.update(params.id, params).then(function (user) {
+            if (!user) res.notFound('User with that id not found!');
+
+            return res.json(user);
+        }).catch(function (err) {
+           return res.negotiate(err);
+        });
     }
 
 };
