@@ -6,7 +6,7 @@
         .controller('MainController', MainController);
 
     /** @ngInject */
-    function MainController(Chat, $rootScope, SweetAlert, $state) {
+    function MainController(Chat, $rootScope, SweetAlert, $state, LocalService) {
         var vm = this;
 
         $rootScope.messages = [];
@@ -20,6 +20,17 @@
 
         Chat.on('disconnect', function () {
             console.log("UMIREM");
+
+            var token = angular.fromJson(LocalService.get('auth_token')).token;
+            Chat.emit('post', {
+                url: '/api/message/disconnect',
+                data: {token: token}
+            }, function (data) {
+                if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.error, 'error');
+
+                console.log(data);
+            });
+
             vm.chatConnected = false;
             SweetAlert.swal('Chat error', 'Lost connection!', 'error');
             return $state.go('user.dashboard');
@@ -43,7 +54,11 @@
         });
 
         Chat.on("newUser", function (data) {
-           console.log(data);
+           //console.log(data);
+        });
+
+        Chat.on('userDisconnected', function (data) {
+            console.log(data);
         });
 
     }

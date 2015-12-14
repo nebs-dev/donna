@@ -47,6 +47,11 @@ module.exports = {
         });
     },
 
+    disconnect: function (req, res) {
+        sails.sockets.blast('userDisconnected', {user: req.user.toJSON(), total: Message.watchers().length});
+        return res.ok();
+    },
+
     create: function (req, res) {
         var params = req.params.all();
         var time = moment().subtract(1, 'minute');
