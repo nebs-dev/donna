@@ -62,9 +62,9 @@ module.exports = {
                 message.user = req.user.toJSON();
 
                 // emit created event to all sockets subscribed to this model not including req
-                Message.publishCreate(message);
+                Message.publishCreate(message.toJSON());
 
-                res.ok(message)
+                res.ok(message.toJSON());
 
             });
 
