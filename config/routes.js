@@ -373,12 +373,6 @@ module.exports.routes = {
     'GET /api/message/connect': 'Message.connect',
 
     /**
-     * @api {get} /api/message/disconnect disconnect
-     * @apiGroup Messages
-     */
-    'GET /api/message/disconnect': 'Message.disconnect',
-
-    /**
      * @api {post} /api/message/create Create new message
      * @apiGroup Messages
      *

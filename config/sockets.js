@@ -122,10 +122,16 @@ module.exports.sockets = {
   * disconnects                                                              *
   *                                                                          *
   ***************************************************************************/
-   //afterDisconnect: function(session, socket, cb) {
-   //  // By default: do nothing.
-   //  return cb();
-   //},
+   afterDisconnect: function(session, socket, cb) {
+
+      User.findOne(socket.handshake.query.user).then(function (user) {
+          console.log('uso')
+          sails.sockets.blast('ode', {user: user, total: Message.watchers().length});
+          return cb();
+      }).catch(function(err){
+          return cb(err);
+      });
+   },
 
   /***************************************************************************
   *                                                                          *
