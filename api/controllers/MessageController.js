@@ -37,7 +37,6 @@ module.exports = {
             Message.watch(req);
             Message.subscribe(req, _.pluck(messages, 'id'));
 
-            console.log(sails.sockets.subscribers());
             sails.sockets.blast('newUser', {user: req.user.toJSON(), total: Message.watchers().length});
 
             res.ok(messages);
