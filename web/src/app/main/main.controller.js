@@ -42,5 +42,9 @@
             }
         });
 
+        Chat.on("newUser", function (data) {
+           console.log(data);
+        });
+
     }
 })();

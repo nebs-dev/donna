@@ -36,6 +36,7 @@ module.exports = {
             // subscribe this req to message model create events
             Message.watch(req);
             Message.subscribe(req, _.pluck(messages, 'id'));
+            sails.socket.blast('newUser', {user: req.token.user, total: sails.sockets.subscribers()});
 
             res.ok(messages);
 
