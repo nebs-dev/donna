@@ -32,6 +32,8 @@
 
                                 <p>
                                     {{ message.text }}
+                                    <i class="fa fa-thumbs-up" ng-click="chatCtrl.like(message)"></i> {{ message.likesNum }}
+                                    <i class="fa fa-thumbs-down" ng-click="chatCtrl.report(message)"></i> {{ message.reportsNum }}
                                 </p>
                             </div>
                         </li>

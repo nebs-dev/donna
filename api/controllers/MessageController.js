@@ -35,6 +35,7 @@ module.exports = {
 
             // subscribe this req to message model create events
             Message.watch(req);
+            Message.subscribe(req, _.pluck(messages, 'id'));
 
             res.ok(messages);
 

@@ -6,7 +6,7 @@
         .controller('ChatController', ChatController);
 
     /** @ngInject */
-    function ChatController(SweetAlert, LocalService, Chat, $rootScope) {
+    function ChatController($http, API, SweetAlert, LocalService, Chat, $rootScope) {
         var vm = this;
 
         var token = angular.fromJson(LocalService.get('auth_token')).token;
@@ -24,7 +24,7 @@
         });
 
 
-        //emiti
+        // Emit
         vm.send = function (message) {
             if (message && message.text) {
                 Chat.emit('post', {
@@ -35,6 +35,24 @@
                 });
             }
         };
+
+        vm.like = function (message) {
+            Chat.emit('post', {
+                url: '/api/message/like/' + message.id,
+                data: {token: token}
+            }, function (data) {
+                if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.error, 'error');
+            });
+        };
+
+        vm.report = function (message) {
+            Chat.emit('post', {
+                url: '/api/message/report/' + message.id,
+                data: {token: token}
+            }, function (data) {
+                if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.error, 'error');
+            });
+        }
 
     }
 

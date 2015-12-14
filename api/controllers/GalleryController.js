@@ -21,6 +21,19 @@ module.exports = {
     },
 
     /**
+     * List of galleries
+     * @param req
+     * @param res
+     */
+    list: function (req, res) {
+        Gallery.find().populateAll().then(function (galleries) {
+            return res.json(galleries);
+        }).catch(function (err) {
+           return res.negotiate(err);
+        });
+    },
+
+    /**
      * Create new gallery
      * @param req
      * @param res

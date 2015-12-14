@@ -17,6 +17,7 @@ module.exports = {
                 }
 
                 item.save(function (err, itemNew) {
+                    sails.models[model].publishUpdate(itemNew.id, itemNew.toJSON());
                     return resolve(item);
                 });
 
@@ -38,10 +39,12 @@ module.exports = {
 
                 // UNREPORT
                 } else {
-                    item.reports = _.without(item.reports, req.token.reports);
+                    item.reports = _.without(item.reports, req.token.userId);
                 }
 
                 item.save(function (err, itemNew) {
+                    sails.models[model].publishUpdate(itemNew.id, itemNew.toJSON());
+
                     return resolve(item);
                 });
 

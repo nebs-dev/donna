@@ -7,9 +7,7 @@
 
     /** @ngInject */
     function MainController(Chat, $rootScope, SweetAlert, $state) {
-
         var vm = this;
-
 
         $rootScope.messages = [];
         vm.chatConnected = false;
@@ -28,9 +26,20 @@
         });
 
         Chat.on("message", function (data) {
-            console.log("ide poruka");
-            if (data.statusCode && data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary, 'error');
-            $rootScope.messages.push(data.data);
+            switch (data.verb) {
+                case 'created':
+                    if (data.statusCode && data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary, 'error');
+                    $rootScope.messages.push(data.data);
+                    break;
+                case 'updated':
+                    var msg = _.findWhere($rootScope.messages, {id: data.id});
+                    if (msg) {
+                        msg.likesNum = data.data.likesNum;
+                        msg.reportsNum = data.data.reportsNum;
+                    }
+
+                    break;
+            }
         });
 
     }
