@@ -5,6 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "apn": "^1.7.5",
     "bcrypt": "^0.8.5",
     "fs-extra": "^0.26.2",
     "grunt": "^0.4.5",

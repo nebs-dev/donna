@@ -361,7 +361,6 @@ module.exports.routes = {
     'GET /api/general/dashboardData': 'General.getDashboardData',
 
 
-
     ////////////////
     /// MESSAGES ///
     ////////////////
@@ -390,6 +389,33 @@ module.exports.routes = {
      * @api {post} /api/message/report Report/unreport message
      * @apiGroup Messages
      */
-    'POST /api/message/report/:id': 'Message.report'
+    'POST /api/message/report/:id': 'Message.report',
+
+
+    ////////////
+    /// PUSH ///
+    ////////////
+
+
+    'POST /api/push/send': 'Push.send',
+
+    /**
+     * @api {post} /api/push/registerToken Register device token
+     * @apiGroup Push
+     *
+     * @apiParam {string} deviceToken device token (required)
+     * @apiParam {string} udid device UDID (required)
+     * @apiParam {string} device device type (android/ios)(required)
+     */
+    'POST /api/push/registerToken': 'Push.registerToken',
+
+    /**
+     * @api {post} /api/push/resetBadges/:token Reset badges for device
+     * @apiGroup Push
+     *
+     * @apiParam {string} token device token (required)
+     */
+    'POST /api/push/resetBadges/:token': 'Push.resetBadges'
+
 
 };

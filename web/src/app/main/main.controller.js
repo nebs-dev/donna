@@ -6,7 +6,7 @@
         .controller('MainController', MainController);
 
     /** @ngInject */
-    function MainController(Chat, $rootScope, SweetAlert, $state, LocalService) {
+    function MainController(Chat, $rootScope, SweetAlert, $state) {
         var vm = this;
 
         $rootScope.messages = [];
