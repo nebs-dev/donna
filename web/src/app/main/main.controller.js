@@ -12,7 +12,7 @@
         $rootScope.messages = [];
         vm.chatConnected = false;
 
-        // eventi
+        // Events
         Chat.on('connect', function () {
             console.log("KONEKTO!");
             vm.chatConnected = true;
@@ -44,11 +44,13 @@
         });
 
         Chat.on("newUser", function (data) {
-           //console.log(data);
+            console.log(data);
+            $rootScope.totalChatUsers = data.total;
         });
 
         Chat.on('userDisconnected', function (data) {
             console.log(data);
+            $rootScope.totalChatUsers = data.total;
         });
 
     }

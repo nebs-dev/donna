@@ -39,7 +39,7 @@ module.exports = {
 
             sails.sockets.blast('newUser', {user: req.user.toJSON(), total: Message.watchers().length});
 
-            res.ok(messages);
+            return res.json({messages: messages, total: Message.watchers().length});
 
         }).catch(function (err) {
             res.serverError(err);
