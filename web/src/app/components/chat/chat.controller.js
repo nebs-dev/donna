@@ -6,7 +6,7 @@
         .controller('ChatController', ChatController);
 
     /** @ngInject */
-    function ChatController($http, API, SweetAlert, LocalService, Chat, $rootScope) {
+    function ChatController(SweetAlert, LocalService, Chat, $rootScope) {
         var vm = this;
 
         var token = angular.fromJson(LocalService.get('auth_token')).token;

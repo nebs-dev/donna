@@ -13,29 +13,38 @@
     <div class="col-md-12">
         <section class="panel">
             <header class="panel-heading">
-                Chat Feed - {{ totalChatUsers }}
+                Chat Feed - Online users: <strong>{{ totalChatUsers }}</strong>
             </header>
             <div class="panel-body">
                 <div class="chat-panel" scroll-glue>
                     <ul class="media-list">
                         <li ng-repeat="message in messages" class="media">
-                            <div class="pull-left">
-                                <img src="http://api.adorable.io/avatars/100/{{ message.user.email }}" alt="Avatar"
-                                     class="img-circle" width="64" height="64">
-                            </div>
-                            <div class="media-body">
-                                <span class="text-muted pull-right">
-                                    <small><em>{{ message.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</em></small>
-                                </span>
+                            <div ng-if="message.text">
+                                <div class="pull-left">
+                                    <img src="http://api.adorable.io/avatars/100/{{ message.user.email }}" alt="Avatar"
+                                         class="img-circle" width="64" height="64">
+                                </div>
+                                <div class="media-body">
+                                    <span class="text-muted pull-right">
+                                        <small><em>{{ message.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</em></small>
+                                    </span>
 
-                                <strong>{{ message.user.email }}</strong>
+                                    <strong>{{ message.user.email }}</strong>
 
-                                <p>
-                                    {{ message.text }}
-                                    <i class="fa fa-thumbs-up" ng-click="chatCtrl.like(message)"></i> {{ message.likesNum }}
-                                    <i class="fa fa-thumbs-down" ng-click="chatCtrl.report(message)"></i> {{ message.reportsNum }}
-                                </p>
+                                    <p>
+                                        {{ message.text }}
+                                        <i class="fa fa-thumbs-up" ng-click="chatCtrl.like(message)"></i>
+                                        {{ message.likesNum }}
+                                        <i class="fa fa-thumbs-down" ng-click="chatCtrl.report(message)"></i>
+                                        {{ message.reportsNum }}
+                                    </p>
+                                </div>
                             </div>
+
+                            <div ng-if="message.event" class="pull-left">
+                                <small><strong>{{ message.user.firstName }} {{ message.user.lastName }}</strong> {{ message.event }}</small>
+                            </div>
+
                         </li>
                     </ul>
                 </div>

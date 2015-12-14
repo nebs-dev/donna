@@ -44,13 +44,13 @@
         });
 
         Chat.on("newUser", function (data) {
-            console.log(data);
             $rootScope.totalChatUsers = data.total;
+            $rootScope.messages.push({event: 'connected', user: data.user});
         });
 
         Chat.on('userDisconnected', function (data) {
-            console.log(data);
             $rootScope.totalChatUsers = data.total;
+            $rootScope.messages.push({event: 'disconnected', user: data.user});
         });
 
     }
