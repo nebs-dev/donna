@@ -142,7 +142,7 @@ module.exports.routes = {
      *
      * @apiParam {string} title News title (required)
      * @apiParam {text} text News text (required)
-     * @apiParam {file} file News file
+     * @apiParam {file} fileToUpload News file
      */
     'POST /api/news/create': 'News.create',
 
@@ -152,7 +152,7 @@ module.exports.routes = {
      *
      * @apiParam {string} title News title
      * @apiParam {text} text News text
-     * @apiParam {file} file News file
+     * @apiParam {file} fileToUpload News file
      */
     'POST /api/news/update/:id': 'News.update',
 
@@ -248,7 +248,7 @@ module.exports.routes = {
      * @apiGroup Gallery
      *
      * @apiParam {string} title Gallery title (required)
-     * @apiParam {file} file Gallery file
+     * @apiParam {file} fileToUpload Gallery cover file
      */
     'POST /api/gallery/create': 'Gallery.create',
 
@@ -303,7 +303,7 @@ module.exports.routes = {
      * @apiParam {text} text event text (required)
      * @apiParam {date} date event date (required)
      * @apiParam {text} location event location
-     * @apiParam {file} file event file
+     * @apiParam {file} fileToUpload event file
      */
     'POST /api/event/create': 'Event.create',
 
@@ -315,7 +315,7 @@ module.exports.routes = {
      * @apiParam {text} text event text
      * @apiParam {date} date event date
      * @apiParam {text} string event location
-     * @apiParam {file} file event file
+     * @apiParam {file} fileToUpload event file
      */
     'POST /api/event/update/:id': 'Event.update',
 
@@ -410,12 +410,10 @@ module.exports.routes = {
     'POST /api/push/registerToken': 'Push.registerToken',
 
     /**
-     * @api {post} /api/push/resetBadges/:token Reset badges for device
+     * @api {post} /api/push/resetBadges/:deviceToken Reset badges for device
      * @apiGroup Push
-     *
-     * @apiParam {string} token device token (required)
      */
-    'POST /api/push/resetBadges/:token': 'Push.resetBadges'
+    'POST /api/push/resetBadges/:deviceToken': 'Push.resetBadges'
 
 
 };

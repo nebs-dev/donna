@@ -72,6 +72,13 @@ module.exports = {
     },
 
 
+    beforeValidate: function (values, cb) {
+        if(values.email) {
+            values.email = values.email.toLowerCase();
+        }
+        cb();
+    },
+
     /**
      * Set random secret
      * @param user

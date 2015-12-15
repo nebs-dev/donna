@@ -27,7 +27,7 @@ module.exports = {
 
         }).spread(function (userNum, eventNum, mediaNum, newsNum) {
             var data = {userNum: userNum, eventNum: eventNum, mediaNum: mediaNum, newsNum: newsNum};
-            return res.json(data);
+            return res.ok(data);
 
         }).catch(function (err) {
             return res.negotiate(err);

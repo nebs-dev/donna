@@ -71,7 +71,7 @@ module.exports = {
                 file.comments.add(comment);
                 file.save(function (err, file) {
                     if (err) return res.negotiate(err);
-                    return res.json(comment);
+                    return res.ok(comment);
                 });
             })
 
@@ -87,7 +87,7 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'file').then(function (file) {
-            return res.json(file);
+            return res.ok(file);
         }).catch(function (err) {
             return res.negotiate(err);
         });

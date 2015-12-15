@@ -39,7 +39,7 @@ module.exports = {
 
             sails.sockets.blast('newUser', {user: req.user.toJSON(), total: Message.watchers().length});
 
-            return res.json({messages: messages, total: Message.watchers().length});
+            return res.ok({messages: messages, total: Message.watchers().length});
 
         }).catch(function (err) {
             res.serverError(err);
@@ -82,7 +82,7 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'message').then(function (comment) {
-            return res.json(comment);
+            return res.ok(comment);
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -95,7 +95,7 @@ module.exports = {
      */
     report: function (req, res) {
         Social.reportUnreport(req, 'message').then(function (comment) {
-            return res.json(comment);
+            return res.ok(comment);
         }).catch(function (err) {
             return res.negotiate(err);
         });

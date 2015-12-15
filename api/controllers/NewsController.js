@@ -21,11 +21,9 @@ module.exports = {
         }).spread(function (news, files) {
             if (files) news.file = files[0].id;
 
-            console.log(news);
-
             news.save(function (err, news) {
                 if (err) return res.negotiate(err);
-                return res.json(news);
+                return res.ok(news);
             });
 
         }).catch(function (err) {
@@ -55,7 +53,7 @@ module.exports = {
             news.save(function (err, news) {
                 if (err) return res.negotiate(err);
 
-                return res.json(news);
+                return res.ok(news);
             });
 
         }).catch(function (err) {
@@ -85,7 +83,7 @@ module.exports = {
         News.findOne(req.params.id).populateAll().then(function (news) {
             if (!news) return res.notFound();
 
-            return res.json(UploadHelper.getFullUrl(req, news));
+            return res.ok(UploadHelper.getFullUrl(req, news));
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -111,7 +109,7 @@ module.exports = {
                 news.comments.add(comment);
                 news.save(function (err, news) {
                     if (err) return res.negotiate(err);
-                    return res.json(comment);
+                    return res.ok(comment);
                 });
             })
 
@@ -127,7 +125,7 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'news').then(function (news) {
-            return res.json(news);
+            return res.ok(news);
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -140,7 +138,7 @@ module.exports = {
      */
     list: function (req, res) {
         News.find().populate('file').then(function (news) {
-            return res.json(UploadHelper.getFullUrl(req, news));
+            return res.ok(UploadHelper.getFullUrl(req, news));
         }).catch(function(err) {
             return res.negotiate(err);
         });

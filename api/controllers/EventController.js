@@ -25,7 +25,7 @@ module.exports = {
 
             event.save(function (err, event) {
                 if (err) return res.negotiate(err);
-                return res.json(event);
+                return res.ok(event);
             });
 
         }).catch(function (err) {
@@ -54,7 +54,7 @@ module.exports = {
 
             event.save(function (err, event) {
                 if (err) return res.negotiate(err);
-                return res.json(event);
+                return res.ok(event);
             });
 
         }).catch(function (err) {
@@ -83,7 +83,7 @@ module.exports = {
     show: function (req, res) {
         Event.findOne(req.params.id).populateAll().then(function (event) {
             if (!event) return res.notFound();
-            return res.json(event);
+            return res.ok(event);
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -109,7 +109,7 @@ module.exports = {
                 event.comments.add(comment);
                 event.save(function (err, event) {
                     if (err) return res.negotiate(err);
-                    return res.json(comment);
+                    return res.ok(comment);
                 });
             })
 
@@ -125,7 +125,7 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'event').then(function (event) {
-            return res.json(event);
+            return res.ok(event);
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -140,7 +140,7 @@ module.exports = {
         var fromDate = moment().subtract(1, 'month');
 
         Event.find({date: {'>=': fromDate.format()}}).then(function (events) {
-            return res.json(events);
+            return res.ok(events);
         }).catch(function(err) {
            return res.negotiate(err);
         });

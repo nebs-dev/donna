@@ -40,6 +40,12 @@ module.exports = {
         });
     },
 
+    /**
+     * TODO: refactor this !!!!
+     * @param req
+     * @param data
+     * @returns {*}
+     */
     getFullUrl: function(req, data) {
         var baseURL = sails.getBaseurl();
 
@@ -47,15 +53,30 @@ module.exports = {
             _.each(data, function (item) {
                 if (item.file) {
                     item.file.url = baseURL + '/api/file/' + item.file.id + '?token=' + req.originalToken;
+                } else if (item.files) {
+                    _.each(item.files, function (file) {
+                        file.url = baseURL + '/api/file/' + file.id + '?token=' + req.originalToken;
+                    });
+                }
+
+                if (item.cover) {
+                    item.cover.url = baseURL + '/api/file/' + item.cover.id + '?token=' + req.originalToken;
                 }
             });
         } else {
             if (data.file) {
                 data.file.url = baseURL + '/api/file/' + data.file.id + '?token=' + req.originalToken;
+            } else if (data.files) {
+                _.each(data.files, function (file) {
+                    file.url = baseURL + '/api/file/' + file.id + '?token=' + req.originalToken;
+                });
+            }
+
+            if (data.cover) {
+                console.log(data.cover);
+                data.cover.url = baseURL + '/api/file/' + data.cover.id + '?token=' + req.originalToken;
             }
         }
-
-
 
         return data;
     }

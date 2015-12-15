@@ -28,7 +28,7 @@ module.exports = {
                 if (!valid) {
                     return res.accessDenied('Invalid email or password');
                 } else {
-                    res.json({user: user, token: sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret})});
+                    res.ok({user: user, token: sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret})});
                 }
             });
         }).catch(function (err) {
@@ -60,7 +60,7 @@ module.exports = {
                    if (err) return res.negotiate(err);
 
                     var token = sailsTokenAuth.issueToken({userId: user.id, secret: user.secret});
-                    res.json({user: user, token: token});
+                    res.ok({user: user, token: token});
                 });
             });
 
@@ -85,13 +85,13 @@ module.exports = {
             // User login
             if (user) {
                 var token = sailsTokenAuth.issueToken({userId: user.id, secret: user.secret});
-                return res.json({user: user, token: token});
+                return res.ok({user: user, token: token});
             }
 
             // User registration
             User.create(params).then(function (user) {
                 var token = sailsTokenAuth.issueToken({userId: user.id, secret: user.secret});
-                return res.json({user: user, token: token});
+                return res.ok({user: user, token: token});
             });
 
         }).catch(function (err) {
@@ -114,13 +114,13 @@ module.exports = {
             // User login
             if (user) {
                 var token = sailsTokenAuth.issueToken({userId: user.id, secret: user.secret});
-                return res.json({user: user, token: token});
+                return res.ok({user: user, token: token});
             }
 
             // User registration
             User.create(params).then(function (user) {
                 var token = sailsTokenAuth.issueToken({userId: user.id, secret: user.secret});
-                return res.json({user: user, token: token});
+                return res.ok({user: user, token: token});
             });
 
         }).catch(function (err) {

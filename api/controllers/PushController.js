@@ -32,14 +32,14 @@ module.exports = {
 
                     var note = new apn.notification();
                     note.badge = obj.badge;
-                    note.setAlertText("Hello, from DonnaApp");
+                    note.setAlertText(params.text);
 
                     service.pushNotification(note, obj.deviceToken);
                     cb(true);
                 });
 
             }, function (results) {
-                return res.json(results);
+                return res.ok(results);
             });
 
         }).catch(function (err) {
@@ -56,7 +56,7 @@ module.exports = {
         var params = req.params.all();
 
         Push.create(params).then(function (data) {
-            return res.json(data);
+            return res.ok(data);
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -68,12 +68,12 @@ module.exports = {
      * @param res
      */
     resetBadges: function (req, res) {
-        Push.findOne({token: req.params.token}).then(function (obj) {
-            obj.badges = 0;
+        Push.findOne({deviceToken: req.params.deviceToken}).then(function (obj) {
+            obj.badge = 0;
             obj.save(function (err, obj) {
                 if (err) return res.negotiate(err);
 
-                return res.json(obj);
+                return res.ok(obj);
             });
 
         }).catch(function (err) {

@@ -14,7 +14,7 @@ module.exports = {
      */
     list: function (req, res) {
         User.find().populate('role').then(function (users) {
-            return res.json(users);
+            return res.ok(users);
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -40,7 +40,7 @@ module.exports = {
      */
     show: function (req, res) {
         User.findOne(req.params.id).then(function (user) {
-            return res.json(user);
+            return res.ok(user);
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -56,7 +56,7 @@ module.exports = {
         User.update(params.id, params).then(function (user) {
             if (!user) res.notFound('User with that id not found!');
 
-            return res.json(user);
+            return res.ok(user);
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -74,7 +74,7 @@ module.exports = {
                 if (err) return res.negotiate(err);
 
                 user.password = newPassword;
-                return res.json(user);
+                return res.ok(user);
             });
         }).catch(function (err) {
             return res.negotiate(err);

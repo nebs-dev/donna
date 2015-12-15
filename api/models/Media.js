@@ -29,7 +29,7 @@ module.exports = {
         toJSON: function () {
             var obj = this.toObject();
             obj.likesNum = obj.likes.length;
-            //obj.fullUrl = sails.getBaseUrl() + '/api/file/' + obj.id;
+            //obj.fullUrl = sails.getBaseUrl() + '/api/file/' + obj.id + '?token=123456';
             return obj;
         }
     },

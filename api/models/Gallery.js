@@ -20,6 +20,10 @@ module.exports = {
             collection: 'media'
         },
 
+        cover: {
+            model: 'media'
+        },
+
         likes: {
             type: 'array',
             defaultsTo: []

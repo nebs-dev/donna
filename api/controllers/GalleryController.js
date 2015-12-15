@@ -14,7 +14,7 @@ module.exports = {
      */
     show: function (req, res) {
         Gallery.findOne(req.params.id).populateAll().then(function (gallery) {
-            return res.json(UploadHelper.getFullUrl(req, gallery));
+            return res.ok(UploadHelper.getFullUrl(req, gallery));
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -27,7 +27,7 @@ module.exports = {
      */
     list: function (req, res) {
         Gallery.find().populateAll().then(function (galleries) {
-            return res.json(galleries);
+            return res.ok(UploadHelper.getFullUrl(req, galleries));
         }).catch(function (err) {
            return res.negotiate(err);
         });
@@ -46,11 +46,10 @@ module.exports = {
             return [gallery, UploadHelper.uploadFile(req, 'gallery')];
 
         }).spread(function (gallery, files) {
-
-            gallery.files.add(files);
+            if (files) gallery.cover = files[0].id;
             gallery.save(function (err, gallery) {
                 if (err) return res.negotiate(err);
-                return res.json(gallery);
+                return res.ok(gallery);
             });
 
         }).catch(function (err) {
@@ -87,7 +86,7 @@ module.exports = {
             gallery.files.add(files);
             gallery.save(function (err, gallery) {
                 if (err) return res.negotiate(err);
-                return res.json(gallery);
+                return res.ok(gallery);
             });
 
         }).catch(function (err) {
@@ -114,7 +113,7 @@ module.exports = {
                 gallery.comments.add(comment);
                 gallery.save(function (err, gallery) {
                     if (err) return res.negotiate(err);
-                    return res.json(comment);
+                    return res.ok(comment);
                 });
             })
 
@@ -130,7 +129,7 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'gallery').then(function (file) {
-            return res.json(file);
+            return res.ok(file);
         }).catch(function (err) {
             return res.negotiate(err);
         });
