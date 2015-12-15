@@ -9,6 +9,9 @@ module.exports = {
 
 
     send: function (req, res) {
+        var params = req.params.all();
+        if (!params.text) return res.customBadRequest('push text is mandatory');
+
         var apn = require('apn');
         var options = {
             cert: sails.config.appPath + '/certs/DonnaVekicCertDev.pem',

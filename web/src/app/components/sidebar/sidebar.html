@@ -47,15 +47,21 @@
                 </a>
             </li>
 
-            <li ng-class="{active: userCtrl.isActive('/users')}">
+            <li ng-class="{active: sidebarCtrl.isActive('/users')}">
                 <a href="#/users">
                     <i class="fa fa-users"></i> <span>Users</span>
                 </a>
             </li>
 
-            <li ng-class="{active: chatCtrl.isActive('/chat')}">
+            <li ng-class="{active: sidebarCtrl.isActive('/chat')}">
                 <a href="#/chat">
                     <i class="fa fa-comments-o"></i> <span>Chat</span>
+                </a>
+            </li>
+
+            <li ng-class="{active: chatCtrl.isActive('/push')}">
+                <a href="#/push">
+                    <i class="fa fa-cloud-upload"></i> <span>Push</span>
                 </a>
             </li>
 

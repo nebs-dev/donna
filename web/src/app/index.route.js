@@ -107,6 +107,12 @@
                 controller: 'ChatController',
                 controllerAs: 'chatCtrl'
             })
+            .state('user.push', {
+                url: '/push',
+                templateUrl: 'app/components/push/push.html',
+                controller: 'PushController',
+                controllerAs: 'pushCtrl'
+            })
         ;
 
         $urlRouterProvider.otherwise('/');
