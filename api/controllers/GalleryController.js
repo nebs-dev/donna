@@ -58,6 +58,35 @@ module.exports = {
     },
 
     /**
+     * Update gallery && upload cover file
+     * @param req
+     * @param res
+     */
+    update: function (req, res) {
+        var params = req.params.all();
+        delete params.file;
+
+        Gallery.update(req.params.id, params).then(function (gallery) {
+
+            return [gallery[0], UploadHelper.uploadFile(req, 'gallery')];
+
+        }).spread(function (event, files) {
+            if (file) {
+                gallery.hasFiles = true;
+                gallery.cover = file[0].id;
+            }
+
+            gallery.save(function (err, gallery) {
+                if (err) return res.negotiate(err);
+                return res.ok(gallery);
+            });
+
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
+    },
+
+    /**
      * Destroy gallery
      * @param req
      * @param res

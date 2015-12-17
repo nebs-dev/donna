@@ -253,6 +253,15 @@ module.exports.routes = {
     'POST /api/gallery/create': 'Gallery.create',
 
     /**
+     * @api {post} /api/gallery/update/:id update
+     * @apiGroup Gallery
+     *
+     * @apiParam {string} title Gallery title
+     * @apiParam {file} fileToUpload Gallery cover file
+     */
+    'POST /api/gallery/update/:id': 'Gallery.update',
+
+    /**
      * @api {get} /api/galleries list
      * @apiGroup Gallery
      */
