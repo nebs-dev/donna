@@ -9,40 +9,62 @@
                     <!-- First name -->
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">First name</label>
+
                         <div class="col-sm-10">
-                            <input ng-model="userCtrl.user.firstName" type="text" class="form-control" placeholder="First Name">
+                            <input ng-model="userCtrl.user.firstName" type="text" class="form-control"
+                                   placeholder="First Name">
                         </div>
                     </div>
 
                     <!-- Last name -->
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Last name</label>
+
                         <div class="col-sm-10">
-                            <input ng-model="userCtrl.user.lastName" type="text" class="form-control" placeholder="Last Name">
+                            <input ng-model="userCtrl.user.lastName" type="text" class="form-control"
+                                   placeholder="Last Name">
                         </div>
                     </div>
 
                     <!-- Email -->
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Email</label>
+
                         <div class="col-sm-10">
                             <input ng-model="userCtrl.user.email" type="email" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+
+                    <!-- Roles -->
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Role</label>
+
+                        <div class="col-sm-10">
+                            <select ng-model="userCtrl.user.role" class="form-control">
+                                <option ng-value="role.id" ng-repeat="role in userCtrl.roles" ng-selected="userCtrl.user.role == role.id">
+                                    {{ role.name }}
+                                </option>
+                            </select>
                         </div>
                     </div>
 
                     <!-- Pasword -->
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Password</label>
+
                         <div class="col-sm-10">
-                            <input ng-model="userCtrl.user.password" type="password" class="form-control" placeholder="Password">
+                            <input ng-model="userCtrl.user.password" type="password" class="form-control"
+                                   placeholder="Password">
                         </div>
                     </div>
 
                     <!-- Confirm Pasword -->
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Confirm Password</label>
+
                         <div class="col-sm-10">
-                            <input ng-model="userCtrl.user.confirmPassword" type="password" class="form-control" placeholder="Confirm Password">
+                            <input ng-model="userCtrl.user.confirmPassword" type="password" class="form-control"
+                                   placeholder="Confirm Password">
                         </div>
                     </div>
 
@@ -54,7 +76,7 @@
                     </div>
                 </form>
 
-                <img src="{{ newsCtrl.news.file.url }}" />
+                <img src="{{ newsCtrl.news.file.url }}"/>
 
             </div>
         </section>

@@ -32,6 +32,11 @@ module.exports.policies = {
         '*': true
     },
 
+    'PushController': {
+        'send': ['tokenAuth', 'isSuperadmin'],
+        '*': true
+    },
+
     'UserController': {
         'show': ['tokenAuth', 'ownUser'],
         'update': ['tokenAuth', 'ownUser'],

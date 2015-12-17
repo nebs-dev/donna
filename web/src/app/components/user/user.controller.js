@@ -9,6 +9,31 @@
     function UserController($state, User, SweetAlert) {
         var vm = this;
         var stateMethod = $state.current.method;
+        vm.roles = [];
+
+        User.getRoles().success(function (roles) {
+            vm.roles = roles;
+
+            // Create
+            if (stateMethod == 'create') {
+                vm.user = {};
+            }
+
+            // Update
+            if (stateMethod == 'update') {
+                vm.user = {};
+
+                User.getOne($state.params.id).success(function (data) {
+                    vm.user = data;
+                }).error(function (err) {
+                    SweetAlert.swal(err.error, err.summary, 'error');
+                });
+            }
+
+        }).error(function (err) {
+            SweetAlert.swal(err.error, err.summary, 'error');
+        });
+
 
         // List
         if (stateMethod == 'list') {
@@ -21,21 +46,6 @@
             });
         }
 
-        // Create
-        if (stateMethod == 'create') {
-            vm.user = {};
-        }
-
-        // Update
-        if (stateMethod == 'update') {
-            vm.user = {};
-
-            User.getOne($state.params.id).success(function (data) {
-                vm.user = data;
-            }).error(function (err) {
-                SweetAlert.swal(err.error, err.summary, 'error');
-            });
-        }
 
         vm.save = function () {
             var action = (stateMethod == 'update') ? User.update($state.params.id, vm.user) : User.create(vm.user);

@@ -85,11 +85,10 @@ module.exports = {
     afterDestroy: function (destroyedRecords, cb) {
         if (!destroyedRecords.length) return cb();
 
-        var filePath = 'uploads/event/' + destroyedRecords[0].file;
-
-        fs.remove(filePath, function (err) {
-            if (err) return cb(err);
-            cb();
+        Media.destroy({id: destroyedRecords[0].file}).then(function () {
+            return cb();
+        }).catch(function (err) {
+            return cb(err);
         });
     }
 };

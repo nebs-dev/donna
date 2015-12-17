@@ -34,6 +34,7 @@
         // Create
         if (stateMethod == 'create') {
             vm.news = {};
+            vm.test = 'aaaaaaaaaa';
         }
 
 
@@ -52,6 +53,7 @@
                 $state.go('user.news');
 
             }).error(function (err) {
+                console.log(err);
                 SweetAlert.swal(err.error, err.summary, 'error');
             });
         };

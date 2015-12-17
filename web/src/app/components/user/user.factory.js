@@ -26,6 +26,10 @@
 
             destroy: function (id) {
                 return $http.post(API.URL + '/api/user/destroy/' + id);
+            },
+
+            getRoles: function () {
+                return $http.get(API.URL + '/api/roles');
             }
         }
     }

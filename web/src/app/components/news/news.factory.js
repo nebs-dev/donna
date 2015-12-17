@@ -21,7 +21,14 @@
             },
 
             create: function (data) {
-                return $http.post(API.URL + '/api/news/create', data);
+                console.log(data);
+
+                return $http({
+                    url: API.URL + '/api/news/create',
+                    method: "POST",
+                    data: API.formData(data),
+                    headers: {'Content-Type': undefined}
+                });
             },
 
             update: function (id, data) {

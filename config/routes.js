@@ -360,6 +360,12 @@ module.exports.routes = {
 
     'GET /api/general/dashboardData': 'General.getDashboardData',
 
+    ////////////
+    /// ROLE ///
+    ////////////
+
+    'GET /api/roles': 'Role.list',
+
 
     ////////////////
     /// MESSAGES ///
@@ -395,7 +401,6 @@ module.exports.routes = {
     ////////////
     /// PUSH ///
     ////////////
-
 
     'POST /api/push/send': 'Push.send',
 
