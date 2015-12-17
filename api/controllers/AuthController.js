@@ -59,7 +59,7 @@ module.exports = {
                 user.save(function (err, user) {
                    if (err) return res.negotiate(err);
 
-                    var token = sailsTokenAuth.issueToken({userId: user.id, secret: user.secret});
+                    var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
                     res.ok({user: user, token: token});
                 });
             });
@@ -84,13 +84,13 @@ module.exports = {
 
             // User login
             if (user) {
-                var token = sailsTokenAuth.issueToken({userId: user.id, secret: user.secret});
+                var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
                 return res.ok({user: user, token: token});
             }
 
             // User registration
             User.create(params).then(function (user) {
-                var token = sailsTokenAuth.issueToken({userId: user.id, secret: user.secret});
+                var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
                 return res.ok({user: user, token: token});
             });
 
@@ -113,13 +113,13 @@ module.exports = {
 
             // User login
             if (user) {
-                var token = sailsTokenAuth.issueToken({userId: user.id, secret: user.secret});
+                var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
                 return res.ok({user: user, token: token});
             }
 
             // User registration
             User.create(params).then(function (user) {
-                var token = sailsTokenAuth.issueToken({userId: user.id, secret: user.secret});
+                var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
                 return res.ok({user: user, token: token});
             });
 
