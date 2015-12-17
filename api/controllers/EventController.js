@@ -47,9 +47,9 @@ module.exports = {
             return [event[0], UploadHelper.uploadFile(req, 'event')];
 
         }).spread(function (event, files) {
-            if (file) {
+            if (files) {
                 event.hasFiles = true;
-                event.file = file[0].id;
+                event.file = files[0].id;
             }
 
             event.save(function (err, event) {

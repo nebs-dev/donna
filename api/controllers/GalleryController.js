@@ -71,9 +71,9 @@ module.exports = {
             return [gallery[0], UploadHelper.uploadFile(req, 'gallery')];
 
         }).spread(function (event, files) {
-            if (file) {
+            if (files) {
                 gallery.hasFiles = true;
-                gallery.cover = file[0].id;
+                gallery.cover = files[0].id;
             }
 
             gallery.save(function (err, gallery) {
