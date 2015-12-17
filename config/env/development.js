@@ -17,6 +17,8 @@ module.exports = {
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
 
+  proxyHost: '52.16.220.86:667'
+
   // models: {
   //   connection: 'someMongodbServer'
   // }
