@@ -20,7 +20,7 @@ module.exports = {
             collection: 'media'
         },
 
-        cover: {
+        file: {
             model: 'media'
         },
 

@@ -166,7 +166,6 @@ module.exports = {
      */
     afterDestroy: function (destroyedRecords, cb) {
         if (!destroyedRecords.length) return cb();
-        console.log(destroyedRecords);
 
         cb();
     }

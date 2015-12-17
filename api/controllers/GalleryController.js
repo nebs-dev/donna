@@ -70,10 +70,10 @@ module.exports = {
 
             return [gallery[0], UploadHelper.uploadFile(req, 'gallery')];
 
-        }).spread(function (event, files) {
+        }).spread(function (gallery, files) {
             if (files) {
                 gallery.hasFiles = true;
-                gallery.cover = files[0].id;
+                gallery.file = files[0].id;
             }
 
             gallery.save(function (err, gallery) {
