@@ -64,12 +64,9 @@ module.exports = {
 
             // destroy old file in database && file
             Media.destroy(eventOld.file.id).then(function () {
-                var filePath = 'uploads/' + eventOld.file.url;
-
-                fs.remove(filePath, function (err) {
-                    if (err) return cb(err);
-                    cb();
-                });
+                return cb();
+            }).catch(function (err) {
+                return cb(err);
             });
 
         }).catch(function (err) {
