@@ -16,8 +16,7 @@ module.exports = {
         },
 
         udid: {
-            type: 'string',
-            required: true
+            type: 'string'
         },
 
         badge: {

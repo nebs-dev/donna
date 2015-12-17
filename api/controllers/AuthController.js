@@ -44,7 +44,7 @@ module.exports = {
     register: function (req, res) {
         var params = req.params.all();
 
-        if (!params.firstName || !params.lastName) return res.customBadRequest('Missing parameters.');
+        if (!params.firstName || !params.lastName || !params.email) return res.customBadRequest('Missing parameters.');
 
         if (params.password !== params.confirmPassword) {
             return res.customBadRequest('Password doesn\'t match');

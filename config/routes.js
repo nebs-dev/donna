@@ -409,7 +409,7 @@ module.exports.routes = {
      * @apiGroup Push
      *
      * @apiParam {string} deviceToken device token (required)
-     * @apiParam {string} udid device UDID (required)
+     * @apiParam {string} udid device UDID
      * @apiParam {string} device device type (android/ios)(required)
      */
     'POST /api/push/registerToken': 'Push.registerToken',
