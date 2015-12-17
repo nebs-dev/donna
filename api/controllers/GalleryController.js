@@ -49,7 +49,7 @@ module.exports = {
             if (files) gallery.cover = files[0].id;
             gallery.save(function (err, gallery) {
                 if (err) return res.negotiate(err);
-                return res.ok(gallery);
+                return res.ok(UploadHelper.getFullUrl(req, gallery));
             });
 
         }).catch(function (err) {
@@ -86,7 +86,7 @@ module.exports = {
             gallery.files.add(files);
             gallery.save(function (err, gallery) {
                 if (err) return res.negotiate(err);
-                return res.ok(gallery);
+                return res.ok(UploadHelper.getFullUrl(req, gallery));
             });
 
         }).catch(function (err) {
