@@ -2,32 +2,24 @@
     <div class="col-md-12">
         <section class="panel">
             <header class="panel-heading">
-                News data
+                Gallery data
             </header>
             <div class="panel-body">
-                <form upload-form="newsCtrl.news" class="form-horizontal tasi-form" ng-submit="newsCtrl.save()">
+                <form upload-form="galleryCtrl.gallery" class="form-horizontal tasi-form" ng-submit="galleryCtrl.save()">
                     <!-- Title -->
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">News title</label>
+                        <label class="col-sm-2 col-sm-2 control-label">Gallery title</label>
                         <div class="col-sm-10">
-                            <input ng-model="newsCtrl.news.title" type="text" class="form-control" placeholder="title">
-                        </div>
-                    </div>
-
-                    <!-- Text -->
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">News description</label>
-                        <div class="col-sm-10">
-                            <textarea ng-model="newsCtrl.news.text" class="form-control" placeholder="description"></textarea>
+                            <input ng-model="galleryCtrl.gallery.title" type="text" class="form-control" placeholder="title">
                         </div>
                     </div>
 
                     <!-- File -->
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">File</label>
+                        <label class="col-sm-2 col-sm-2 control-label">Cover</label>
 
                         <div class="col-sm-10">
-                            <input upload-file type="file" ng-model="newsCtrl.news.fileToUpload">
+                            <input upload-file type="file" ng-model="galleryCtrl.gallery.fileToUpload">
                         </div>
                     </div>
 
@@ -41,7 +33,7 @@
 
                 <!-- Image -->
                 <div class="col-lg-4 col-md-offset-4">
-                    <img src="{{ newsCtrl.news.file.url }}" />
+                    <img src="{{ galleryCtrl.gallery.file.url }}" />
                 </div>
 
             </div>

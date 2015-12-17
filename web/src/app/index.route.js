@@ -38,6 +38,7 @@
                 controller: 'DashboardController',
                 controllerAs: 'dashboardCtrl'
             })
+            // News
             .state('user.news', {
                 url: '/news',
                 templateUrl: 'app/components/news/news.html',
@@ -59,6 +60,7 @@
                 controllerAs: 'newsCtrl',
                 method: 'create'
             })
+            // Events
             .state('user.events', {
                 url: '/events',
                 templateUrl: 'app/components/event/events.html',
@@ -80,6 +82,36 @@
                 controllerAs: 'eventCtrl',
                 method: 'create'
             })
+            // Gallery
+            .state('user.galleries', {
+                url: '/galleries',
+                templateUrl: 'app/components/gallery/galleries.html',
+                controller: 'GalleryController',
+                controllerAs: 'galleryCtrl',
+                method: 'list'
+            })
+            .state('user.galleryCreate', {
+                url: '/gallery/create',
+                templateUrl: 'app/components/gallery/gallery-form.html',
+                controller: 'GalleryController',
+                controllerAs: 'galleryCtrl',
+                method: 'create'
+            })
+            .state('user.galleryUpdate', {
+                url: '/gallery/update/:id',
+                templateUrl: 'app/components/gallery/gallery-form.html',
+                controller: 'GalleryController',
+                controllerAs: 'galleryCtrl',
+                method: 'update'
+            })
+            .state('user.gallerySingle', {
+                url: '/gallery/single/:id',
+                templateUrl: 'app/components/gallery/gallery-single.html',
+                controller: 'GalleryController',
+                controllerAs: 'galleryCtrl',
+                method: 'single'
+            })
+            // Users
             .state('user.users', {
                 url: '/users',
                 templateUrl: 'app/components/user/users.html',
@@ -101,12 +133,14 @@
                 controllerAs: 'userCtrl',
                 method: 'create'
             })
+            // Chat
             .state('user.chat', {
                 url: '/chat',
                 templateUrl: 'app/components/chat/chat.html',
                 controller: 'ChatController',
                 controllerAs: 'chatCtrl'
             })
+            // Push
             .state('user.push', {
                 url: '/push',
                 templateUrl: 'app/components/push/push.html',

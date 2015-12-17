@@ -34,7 +34,6 @@
         // Create
         if (stateMethod == 'create') {
             vm.news = {};
-            vm.test = 'aaaaaaaaaa';
         }
 
 

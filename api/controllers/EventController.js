@@ -83,7 +83,7 @@ module.exports = {
     show: function (req, res) {
         Event.findOne(req.params.id).populateAll().then(function (event) {
             if (!event) return res.notFound();
-            return res.ok(event);
+            return res.ok(UploadHelper.getFullUrl(req, event));
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -139,8 +139,8 @@ module.exports = {
     list: function (req, res) {
         var fromDate = moment().subtract(1, 'month');
 
-        Event.find({date: {'>=': fromDate.format()}}).then(function (events) {
-            return res.ok(events);
+        Event.find({date: {'>=': fromDate.format()}}).populate('file').then(function (events) {
+            return res.ok(UploadHelper.getFullUrl(req, events));
         }).catch(function(err) {
            return res.negotiate(err);
         });

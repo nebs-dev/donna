@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-md-12">
+        <!--breadcrumbs start -->
+        <ul class="breadcrumb">
+            <li><a href="#/"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li><a href="#/galleries"> Galleries</a></li>
+            <li class="active">{{ galleryCtrl.gallery.title }}</li>
+        </ul>
+        <!--breadcrumbs end -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel">
+            <header class="panel-heading">
+                Gallery - {{ galleryCtrl.gallery.title }}
+            </header>
+
+            <!-- Upload form -->
+            <form upload-form="galleryCtrl.gallery" class="form-horizontal tasi-form" ng-submit="galleryCtrl.uploadFile()">
+                <!-- File -->
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">File</label>
+
+                    <div class="col-sm-10">
+                        <input upload-file type="file" ng-model="galleryCtrl.gallery.fileToUpload">
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" class="btn btn-info" value="Save">
+                    </div>
+                </div>
+            </form>
+
+            <div class="panel-body table-responsive">
+                <div ng-repeat="photo in galleryCtrl.gallery.files">
+                    <img src="{{ photo.url }}" >
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

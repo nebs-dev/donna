@@ -3,7 +3,7 @@
         <!--breadcrumbs start -->
         <ul class="breadcrumb">
             <li><a href="#/"><i class="fa fa-home"></i> Dashboard</a></li>
-            <li class="active">Events</li>
+            <li class="active">Galleries</li>
         </ul>
         <!--breadcrumbs end -->
     </div>
@@ -13,7 +13,7 @@
     <div class="col-xs-12">
         <div class="panel">
             <header class="panel-heading">
-                Events <a ui-sref="user.eventCreate()"><i class="fa fa-plus-square fa-1x"></i></a>
+                Galleries <a ui-sref="user.galleryCreate()"><i class="fa fa-plus-square fa-1x"></i></a>
             </header>
             <!-- <div class="box-header"> -->
             <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
@@ -37,28 +37,19 @@
                 <table class="table table-hover">
                     <tbody>
                     <tr>
-                        <th>Photo</th>
+                        <th>Cover</th>
                         <th>ID</th>
                         <th>Title</th>
-                        <th>Text</th>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th>Likes</th>
                         <th>Actions</th>
                     </tr>
-                    <tr dir-paginate="event in eventCtrl.events | filter:q | itemsPerPage: pageSize">
-                        <td class="col-xs-1"><img src="{{ event.file.url }}" /></td>
-                        <td>{{ event.id }}</td>
-                        <td>{{ event.title }}</td>
-                        <td>{{ event.text }}</td>
-                        <td>{{ event.date | date : 'dd.MM.yyyy' }}</td>
-                        <td>{{ event.location }}</td>
-                        <td>{{ event.likesNum }}</td>
+                    <tr dir-paginate="gallery in galleryCtrl.galleries | filter:q | itemsPerPage: pageSize">
+                        <td class="col-xs-1"><img src="{{ gallery.cover.url }}" /></td>
+                        <td>{{ gallery.id }}</td>
+                        <td>{{ gallery.title }}</td>
                         <td>
-                            <button ng-click="eventCtrl.destroy(event.id)" class="btn btn-sm btn-danger"><i
-                                    class="fa fa-remove"></i></button>
-                            <a ui-sref="user.eventUpdate({id: event.id})" class="btn btn-sm btn-info"><i
-                                    class="fa fa-pencil-square-o"></i></a>
+                            <button ng-click="galleryCtrl.destroy(gallery.id)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
+                            <a ui-sref="user.galleryUpdate({id: gallery.id})" class="btn btn-sm btn-info"><i class="fa fa-pencil-square-o"></i></a>
+                            <a ui-sref="user.gallerySingle({id: gallery.id})" class="btn btn-sm btn-success"><i class="fa fa-cloud-upload "></i></a>
                         </td>
                     </tr>
                     </tbody>

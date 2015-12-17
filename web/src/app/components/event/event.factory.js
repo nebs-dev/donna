@@ -21,11 +21,11 @@
             },
 
             create: function (data) {
-                return $http.post(API.URL + '/api/event/create', data);
+                return data.$http(API.URL + '/api/event/create');
             },
 
             update: function (id, data) {
-                return $http.post(API.URL + '/api/event/update/' + id, data);
+                return data.$http(API.URL + '/api/event/update/' + id);
             }
         }
     }

@@ -25,7 +25,7 @@ module.exports = {
                         return cb(true);
                     }).catch(function (err) {
                         fs.remove(file.fd, function (err) {
-                            if (err) return res.negotiate(err);
+                            if (err) return reject(err);
 
                             return cb(false);
                         });
@@ -73,7 +73,6 @@ module.exports = {
             }
 
             if (data.cover) {
-                console.log(data.cover);
                 data.cover.url = baseURL + '/api/file/' + data.cover.id + '?token=' + req.originalToken;
             }
         }

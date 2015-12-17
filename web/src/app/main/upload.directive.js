@@ -3,36 +3,65 @@
 
     angular
         .module('donna')
-        .directive('fileToUpload', fileToUpload);
+        .directive('uploadForm', uploadForm)
+        .directive('uploadFile', uploadFile);
 
-    /** @ngInject */
-    function fileToUpload(News) {
 
+    function uploadForm($http) {
         function link(scope, element, attrs) {
-            element.bind("change", function (changeEvent) {
-                //var file = changeEvent.target.files[0];
-                //var reader = new FileReader();
+            element.bind('submit', function (e) {
+                var fd = new FormData();
 
-                //console.log(element[0].querySelector('input').files[0]);
+                angular.forEach(scope.model, function (modelValue, modelKey) {
+                    if (typeof(modelValue) !== 'object') return fd.append(modelKey, modelValue);
 
-
-                //reader.onload = function (loadEvent) {
-                    scope.$apply(function () {
-                        scope.model = changeEvent.target.files[0];
+                    angular.forEach(modelValue, function (instanceValue, instanceKey) {
+                        fd.append(modelKey, instanceValue);
                     });
-                //};
-                //
-                //reader.readAsDataURL(file);
+                });
+
+                scope.model.$http = function (url, options) {
+                    if(!url) throw(new Error("You must pass url to directive $http"));
+
+                    var defaults = {
+                        url: url,
+                        method: 'POST',
+                        data: fd,
+                        headers: {'Content-Type': undefined}
+                    };
+
+                    options = angular.extend({}, defaults, options);
+
+                    return $http(options);
+                }
             });
         }
 
         return {
             link: link,
+            restrict: 'A',
+            scope: {
+                model: '=uploadForm'
+            }
+        }
+    }
+
+    /** @ngInject */
+    function uploadFile() {
+        function link(scope, element, attrs) {
+            element.bind('change', function (e) {
+                scope.$apply(function () {
+                    scope.model = e.target.files;
+                })
+            });
+        }
+
+        return {
+            link: link,
+            restrict: 'A',
             scope: {
                 model: '=ngModel'
-            },
-            restrict: 'E',
-            templateUrl: 'app/main/test.html'
+            }
         }
     }
 
