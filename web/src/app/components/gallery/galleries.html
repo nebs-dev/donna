@@ -43,7 +43,7 @@
                         <th>Actions</th>
                     </tr>
                     <tr dir-paginate="gallery in galleryCtrl.galleries | filter:q | itemsPerPage: pageSize">
-                        <td class="col-xs-1"><img src="{{ gallery.file.url }}" /></td>
+                        <td class="col-xs-1"><img ng-src="{{ gallery.file.url }}" /></td>
                         <td>{{ gallery.id }}</td>
                         <td>{{ gallery.title }}</td>
                         <td>

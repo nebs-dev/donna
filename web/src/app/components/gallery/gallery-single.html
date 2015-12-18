@@ -36,11 +36,18 @@
                 </div>
             </form>
 
-            <div class="panel-body table-responsive">
-                <div ng-repeat="photo in galleryCtrl.gallery.files">
-                    <img src="{{ photo.url }}" >
-                </div>
-            </div>
+
+            <!-- Photo gallery -->
+            <!--<div class="panel-body table-responsive">-->
+                <!--<div ng-repeat="photo in galleryCtrl.gallery.files">-->
+                 <!--<myimage src="bla"></myimage>-->
+
+                    <!--<img ng-src="{{ photo.url }}" >-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <photo-gallery photos="galleryCtrl.gallery.files"></photo-gallery>
+
             <!-- /.box-body -->
         </div>
         <!-- /.box -->

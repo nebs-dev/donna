@@ -14,7 +14,8 @@
     "angular-scroll-glue": "~2.0.6",
     "angular-socket-io": "~0.7.0",
     "lodash": "~3.10.1",
-    "angularUtils-pagination": "angular-utils-pagination#~0.9.3"
+    "angularUtils-pagination": "angular-utils-pagination#~0.9.3",
+    "angular-deckgrid": "~0.5.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"

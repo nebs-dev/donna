@@ -47,7 +47,7 @@
                         <th>Actions</th>
                     </tr>
                     <tr dir-paginate="event in eventCtrl.events | filter:q | itemsPerPage: pageSize">
-                        <td class="col-xs-1"><img src="{{ event.file.url }}" /></td>
+                        <td class="col-xs-1"><img ng-src="{{ event.file.url }}" /></td>
                         <td>{{ event.id }}</td>
                         <td>{{ event.title }}</td>
                         <td>{{ event.text }}</td>

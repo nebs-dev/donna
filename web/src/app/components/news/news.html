@@ -45,7 +45,7 @@
                         <th>Actions</th>
                     </tr>
                     <tr dir-paginate="news in newsCtrl.news | filter:q | itemsPerPage: pageSize">
-                        <td class="col-xs-1"><img src="{{ news.file.url }}" /></td>
+                        <td class="col-xs-1"><img ng-src="{{ news.file.url }}" /></td>
                         <td>{{ news.id }}</td>
                         <td>{{ news.title }}</td>
                         <td>{{ news.text }}</td>

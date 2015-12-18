@@ -78,7 +78,7 @@ module.exports = {
 
             gallery.save(function (err, gallery) {
                 if (err) return res.negotiate(err);
-                return res.ok(gallery);
+                return res.ok(UploadHelper.getFullUrl(req, gallery));
             });
 
         }).catch(function (err) {
@@ -157,8 +157,8 @@ module.exports = {
      * @param res
      */
     like: function (req, res) {
-        Social.likeUnlike(req, 'gallery').then(function (file) {
-            return res.ok(file);
+        Social.likeUnlike(req, 'gallery').then(function (gallery) {
+            return res.ok(UploadHelper.getFullUrl(req, gallery));
         }).catch(function (err) {
             return res.negotiate(err);
         });

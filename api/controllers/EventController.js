@@ -25,7 +25,7 @@ module.exports = {
 
             event.save(function (err, event) {
                 if (err) return res.negotiate(err);
-                return res.ok(event);
+                return res.ok(UploadHelper.getFullUrl(req, event));
             });
 
         }).catch(function (err) {
@@ -54,7 +54,7 @@ module.exports = {
 
             event.save(function (err, event) {
                 if (err) return res.negotiate(err);
-                return res.ok(event);
+                return res.ok(UploadHelper.getFullUrl(req, event));
             });
 
         }).catch(function (err) {
@@ -125,7 +125,7 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'event').then(function (event) {
-            return res.ok(event);
+            return res.ok(UploadHelper.getFullUrl(req, event));
         }).catch(function (err) {
             return res.negotiate(err);
         });

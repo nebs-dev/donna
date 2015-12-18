@@ -38,7 +38,6 @@
         // Single
         if (stateMethod == 'single') {
             Gallery.getOne($state.params.id).success(function (data) {
-                console.log(data);
                 vm.gallery = data;
             }).error(function (err) {
                 SweetAlert.swal(err.error, err.summary, 'error');
@@ -93,6 +92,11 @@
                 SweetAlert.swal(err.error, err.summary, 'error');
             });
         };
+
+        vm.destroyFile = function (id) {
+            return '<h1>TEST</h1>';
+            alert('TEST');
+        }
 
     }
 
