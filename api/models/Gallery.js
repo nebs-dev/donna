@@ -52,6 +52,29 @@ module.exports = {
         }).catch(function (err) {
             return cb(err);
         });
-    }
+    },
+
+    /**
+     * @param valuesToUpdate
+     * @param cb
+     * @returns {*}
+     */
+    beforeUpdate: function (valuesToUpdate, cb) {
+        if (!valuesToUpdate.file) return cb();
+
+        Gallery.findOne(valuesToUpdate.id).populate('file').then(function (galleryOld) {
+            if (!valuesToUpdate.hasFiles || !galleryOld.file) return cb();
+
+            // destroy old file in database && file
+            Media.destroy(galleryOld.file.id).then(function () {
+                return cb();
+            }).catch(function (err) {
+                return cb(err);
+            });
+
+        }).catch(function (err) {
+            return cb(err);
+        });
+    },
 };
 
