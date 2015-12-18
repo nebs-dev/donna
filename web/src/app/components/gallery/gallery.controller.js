@@ -48,10 +48,7 @@
 
         vm.uploadFile = function () {
             Gallery.addFile($state.params.id, vm.gallery).success(function (data) {
-                console.log(data);
                 vm.gallery.files = data.files;
-
-                console.log(vm.gallery);
 
                 SweetAlert.swal({
                     title: 'Success',

@@ -53,27 +53,21 @@ module.exports = {
             _.each(data, function (item) {
                 if (item.file) {
                     item.file.url = baseURL + '/api/file/' + item.file.id + '?token=' + req.originalToken;
-                } else if (item.files) {
+                }
+                if (item.files) {
                     _.each(item.files, function (file) {
                         file.url = baseURL + '/api/file/' + file.id + '?token=' + req.originalToken;
                     });
-                }
-
-                if (item.cover) {
-                    item.cover.url = baseURL + '/api/file/' + item.cover.id + '?token=' + req.originalToken;
                 }
             });
         } else {
             if (data.file) {
                 data.file.url = baseURL + '/api/file/' + data.file.id + '?token=' + req.originalToken;
-            } else if (data.files) {
+            }
+            if (data.files) {
                 _.each(data.files, function (file) {
                     file.url = baseURL + '/api/file/' + file.id + '?token=' + req.originalToken;
                 });
-            }
-
-            if (data.cover) {
-                data.cover.url = baseURL + '/api/file/' + data.cover.id + '?token=' + req.originalToken;
             }
         }
 
