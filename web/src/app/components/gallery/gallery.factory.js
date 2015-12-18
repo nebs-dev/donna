@@ -30,6 +30,10 @@
 
             addFile: function (id, data) {
                 return data.$http(API.URL + '/api/gallery/addFile/' + id);
+            },
+
+            destroyFile: function (id) {
+                return $http.post(API.URL + '/api/file/destroy/' + id);
             }
         }
     }

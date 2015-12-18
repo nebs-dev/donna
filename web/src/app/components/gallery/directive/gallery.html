@@ -2,10 +2,12 @@
     <div class="wrap small-width">
         <ul id="box-container">
             <li class="box deckgrid" deckgrid source="gallery">
-                <a ng-href="{{ card.url }}" class="swipebox a-card">
-                    <img ng-src="{{ card.url }}" alt="image">
-                </a>
-                <!--<button ng-click="delete(card.id)">x</button>-->
+                <div class="fileDelete">
+                    <a ng-href="{{ card.url }}" class="swipebox a-card">
+                        <img ng-src="{{ card.url }}" alt="image">
+                    </a>
+                    <i ng-click="mother.delete({id: card.id})" class="fileDeleteBtn fa fa-times"></i>
+                </div>
             </li>
         </ul>
     </div>

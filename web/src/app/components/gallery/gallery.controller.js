@@ -8,6 +8,8 @@
     /** @ngInject */
     function GalleryController($scope, Gallery, SweetAlert, $state) {
         var vm = this;
+
+        vm.readyToUpload = true;
         var stateMethod = $state.current.method;
 
         // List
@@ -46,8 +48,11 @@
 
 
         vm.uploadFile = function () {
+            vm.readyToUpload = false;
             Gallery.addFile($state.params.id, vm.gallery).success(function (data) {
                 vm.gallery.files = data.files;
+                vm.readyToUpload = true;
+                vm.gallery.fileToUpload = {};
 
                 SweetAlert.swal({
                     title: 'Success',
@@ -58,7 +63,7 @@
                 });
 
             }).error(function (err) {
-                SweetAlert.swal(err.error, err.summary, 'error');
+                SweetAlert.swal('Error', 'Upload failed', 'error');
             });
         };
 
@@ -93,10 +98,23 @@
             });
         };
 
-        vm.destroyFile = function (id) {
-            return '<h1>TEST</h1>';
-            alert('TEST');
-        }
+        vm.deleteFile = function (id) {
+            Gallery.destroyFile(id).success(function () {
+                vm.gallery.files = _.reject(vm.gallery.files, function (file) {
+                    return id == file.id;
+                });
+
+                SweetAlert.swal({
+                    title: 'Success',
+                    text: 'File successfully deleted',
+                    timer: 1000,
+                    showConfirmButton: false,
+                    type: 'success'
+                });
+            }).error(function (err) {
+                SweetAlert.swal(err.error, err.summary, 'error');
+            });
+        };
 
     }
 

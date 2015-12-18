@@ -24,29 +24,23 @@
                     <label class="col-sm-2 col-sm-2 control-label">File</label>
 
                     <div class="col-sm-10">
-                        <input upload-file type="file" ng-model="galleryCtrl.gallery.fileToUpload">
+                        <input upload-file type="file" ng-model="galleryCtrl.gallery.fileToUpload" multiple>
                     </div>
                 </div>
 
                 <!-- Submit -->
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
-                        <input type="submit" class="btn btn-info" value="Save">
+                        <input type="submit" class="btn btn-info" value="Save" ng-show="galleryCtrl.readyToUpload && galleryCtrl.gallery.fileToUpload.length">
+                        <img ng-src="img/loading.gif" ng-show="!galleryCtrl.readyToUpload">
                     </div>
                 </div>
             </form>
 
 
-            <!-- Photo gallery -->
-            <!--<div class="panel-body table-responsive">-->
-                <!--<div ng-repeat="photo in galleryCtrl.gallery.files">-->
-                 <!--<myimage src="bla"></myimage>-->
+             <!--Photo gallery -->
+            <photo-gallery photos="galleryCtrl.gallery.files" delete="galleryCtrl.deleteFile(id)"></photo-gallery>
 
-                    <!--<img ng-src="{{ photo.url }}" >-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <photo-gallery photos="galleryCtrl.gallery.files"></photo-gallery>
 
             <!-- /.box-body -->
         </div>
