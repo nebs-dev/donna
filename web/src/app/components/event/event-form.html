@@ -14,11 +14,11 @@
                         </div>
                     </div>
 
-                    <!-- Text -->
+                    <!-- Link -->
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Event description</label>
+                        <label class="col-sm-2 col-sm-2 control-label">Event link</label>
                         <div class="col-sm-10">
-                            <textarea ng-model="eventCtrl.event.text" class="form-control" placeholder="description"></textarea>
+                            <input ng-model="eventCtrl.event.link" class="form-control" placeholder="link">
                         </div>
                     </div>
 
@@ -26,7 +26,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Event date</label>
                         <div class="col-sm-10">
-                            <input ng-model="eventCtrl.event.date" class="form-control" placeholder="date">
+                            <datepicker date-format="yyyy-MM-dd">
+                                <input ng-model="eventCtrl.event.date" class="form-control" placeholder="Choose a date">
+                            </datepicker>
                         </div>
                     </div>
 

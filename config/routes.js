@@ -112,6 +112,7 @@ module.exports.routes = {
      * @apiParam {email} email User email
      * @apiParam {string} firstName User first name
      * @apiParam {string} lastName User last name
+     * @apiParam {fileToUpload} file User profile photo
      * @apiParam {string} password Password
      * @apiParam {string} confirmPassword Confirm password
      */

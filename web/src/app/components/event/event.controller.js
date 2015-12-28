@@ -10,8 +10,6 @@
         var vm = this;
         var stateMethod = $state.current.method;
 
-        console.log(stateMethod);
-
         if (stateMethod == 'list') {
             vm.events = [];
 

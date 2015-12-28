@@ -17,11 +17,6 @@ module.exports = {
             required: true
         },
 
-        text: {
-            type: 'text',
-            required: true
-        },
-
         likes: {
             type: 'array',
             defaultsTo: []
@@ -56,12 +51,7 @@ module.exports = {
 
             // destroy old file in database && file
             Media.destroy(newsOld.file.id).then(function () {
-                var filePath = 'uploads/' + newsOld.file.url;
-
-                fs.remove(filePath, function (err) {
-                    if (err) return cb(err);
-                    cb();
-                });
+                return cb();
             });
 
         }).catch(function (err) {

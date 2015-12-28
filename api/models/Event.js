@@ -16,9 +16,10 @@ module.exports = {
             required: true
         },
 
-        text: {
-            type: 'text',
-            required: true
+        link: {
+            type: 'string',
+            required: true,
+            url: true
         },
 
         date: {
@@ -65,8 +66,6 @@ module.exports = {
             // destroy old file in database && file
             Media.destroy(eventOld.file.id).then(function () {
                 return cb();
-            }).catch(function (err) {
-                return cb(err);
             });
 
         }).catch(function (err) {

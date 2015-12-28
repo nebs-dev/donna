@@ -44,6 +44,10 @@ module.exports = {
             defaultsTo: null
         },
 
+        file: {
+            model: 'media'
+        },
+
         licence: {
             model: 'licence'
         },
@@ -65,6 +69,8 @@ module.exports = {
         toJSON: function () {
             var obj = this.toObject();
             delete obj.encryptedPassword;
+            delete obj.comments;
+            delete obj.messages;
             delete obj.secret;
             return obj;
         }
@@ -127,18 +133,46 @@ module.exports = {
      * @returns {*}
      */
     beforeUpdate: function (values, next) {
-        if (!values.password) return next();
+        if (!values.password && !values.file) return next();
 
-        bcrypt.genSalt(10, function (err, salt) {
-            if (err) return next(err);
+        if (values.file) {
+            User.findOne(values.id).populate('file').then(function (userOld) {
+                if (!values.hasFiles || !userOld.file) return next();
+                // destroy old file in database && file
+                Media.destroy(userOld.file.id).then(function () {
+                    if (values.password) {
+                        bcrypt.genSalt(10, function (err, salt) {
+                            if (err) return next(err);
 
-            bcrypt.hash(values.password, salt, function (err, hash) {
+                            bcrypt.hash(values.password, salt, function (err, hash) {
+                                if (err) return next(err);
+
+                                values.encryptedPassword = hash;
+                                return next();
+                            });
+                        });
+                    }
+
+                    return next();
+                });
+
+            }).catch(function (err) {
+                return next(err);
+            });
+        }
+
+        if (values.password) {
+            bcrypt.genSalt(10, function (err, salt) {
                 if (err) return next(err);
 
-                values.encryptedPassword = hash;
-                return next();
+                bcrypt.hash(values.password, salt, function (err, hash) {
+                    if (err) return next(err);
+
+                    values.encryptedPassword = hash;
+                    return next();
+                });
             });
-        });
+        }
     },
 
     /**

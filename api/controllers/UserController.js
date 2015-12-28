@@ -54,9 +54,21 @@ module.exports = {
         }
 
         User.update(params.id, params).then(function (user) {
-            if (!user) res.notFound('User with that id not found!');
+            return [user[0], UploadHelper.uploadFile(req, 'user')];
 
-            return res.ok(user);
+        }).spread(function (user, files) {
+            if (!user) res.notFound('User with that id not found!');
+            if (files) {
+                user.hasFiles = true;
+                user.file = files[0].id;
+            }
+
+            user.save(function (err, user) {
+                if (err) return res.negotiate(err);
+
+                return res.ok(UploadHelper.getFullUrl(req, user));
+            });
+
         }).catch(function (err) {
             return res.negotiate(err);
         });
