@@ -71,7 +71,7 @@ module.exports = {
                 file.comments.add(comment);
                 file.save(function (err, file) {
                     if (err) return res.negotiate(err);
-                    return res.ok(comment);
+                    return res.ok(UploadHelper.getFullUrl(req, comment));
                 });
             })
 
@@ -86,8 +86,8 @@ module.exports = {
      * @param res
      */
     like: function (req, res) {
-        Social.likeUnlike(req, 'file').then(function (file) {
-            return res.ok(file);
+        Social.likeUnlike(req, 'media').then(function (file) {
+            return res.ok(UploadHelper.getFullUrl(req, file));
         }).catch(function (err) {
             return res.negotiate(err);
         });

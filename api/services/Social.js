@@ -3,7 +3,7 @@ module.exports = {
     likeUnlike: function (req, model) {
         return new Promise(function (resolve, reject) {
 
-            sails.models[model].findOne(req.params.id).then(function (item) {
+            sails.models[model].findOne(req.params.id).populateAll().then(function (item) {
                 if (!item) return reject('Not found!');
                 if (!item.likes) return reject();
 

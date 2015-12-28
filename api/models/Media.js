@@ -22,6 +22,12 @@ module.exports = {
             defaultsTo: []
         },
 
+        type: {
+            type: 'string',
+            enum: ['photo', 'video'],
+            required: true
+        },
+
         comments: {
             collection: 'comment'
         },

@@ -1,4 +1,5 @@
 var path = require('path');
+var fs = require('fs-extra');
 module.exports = {
 
     uploadFile: function (req, model) {
@@ -11,25 +12,35 @@ module.exports = {
             }, function whenDone(err, uploadedFiles) {
                 if (err) return reject(err);
 
+                // setting allowed file types
+                var allowedTypes = ['image/jpeg', 'image/png', 'video/mp4'];
+
                 // If no files were uploaded, respond with an error.
                 if (uploadedFiles.length === 0) return resolve();
 
                 var newFiles = [];
                 async.filter(uploadedFiles, function (file, cb) {
-                    var fileDb = {
-                        'url': model + '/' + path.basename(file.fd)
-                    };
 
-                    Media.create(fileDb).then(function (f) {
-                        newFiles.push(f);
-                        return cb(true);
-                    }).catch(function (err) {
-                        fs.remove(file.fd, function (err) {
-                            if (err) return reject(err);
+                    // Check allowed file types
+                    //if(allowedTypes.indexOf(file.type) !== -1) {
+                        var mediaType = file.type == 'video/mp4' ? 'video' : 'photo';
 
-                            return cb(false);
+                        var fileDb = {
+                            'url': model + '/' + path.basename(file.fd),
+                            'type': mediaType
+                        };
+
+                        Media.create(fileDb).then(function (f) {
+                            newFiles.push(f);
+                            return cb(true);
+                        }).catch(function (err) {
+                            fs.remove(file.fd, function (err) {
+                                if (err) return reject(err);
+
+                                return cb(false);
+                            });
                         });
-                    });
+                    //}
 
                 }, function (results) {
                     return resolve(newFiles);
@@ -61,6 +72,9 @@ module.exports = {
                 }
             });
         } else {
+            if (data.url) {
+                data.url = baseURL + '/api/file/' + data.id + '?token=' + req.originalToken;
+            }
             if (data.file) {
                 data.file.url = baseURL + '/api/file/' + data.file.id + '?token=' + req.originalToken;
             }
