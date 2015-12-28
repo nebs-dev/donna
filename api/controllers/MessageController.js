@@ -44,6 +44,8 @@ module.exports = {
 
             var baseURL = sails.getBaseurl();
             async.each(messages, function (item, callback) {
+                if (!item.user) return callback();
+
                 Media.findOne(item.user.file).then(function (media) {
                     media.url = baseURL + '/api/file/' + media.id + '?token=' + req.originalToken;
                     media.thumb = baseURL + '/api/file/thumb/' + media.id + '?token=' + req.originalToken;
