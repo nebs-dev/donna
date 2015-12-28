@@ -17,15 +17,20 @@ module.exports = {
             required: true
         },
 
-        likes: {
-            type: 'array',
-            defaultsTo: []
+        thumb: {
+            type: 'string',
+            required: true
         },
 
         type: {
             type: 'string',
             enum: ['photo', 'video'],
             required: true
+        },
+
+        likes: {
+            type: 'array',
+            defaultsTo: []
         },
 
         comments: {
@@ -49,15 +54,19 @@ module.exports = {
     afterDestroy: function (destroyedRecords, cb) {
         if (!destroyedRecords.length) return cb();
 
-        async.each(destroyedRecords, function(file, callback) {
+        async.each(destroyedRecords, function (file, callback) {
             var filePath = 'uploads/' + file.url;
+            var thumbPath = 'uploads/' + file.thumb;
 
             fs.remove(filePath, function (err) {
                 if (err) return callback(err);
-                return callback();
+                fs.remove(thumbPath, function (err) {
+                    if (err) return callback(err);
+                    return callback();
+                });
             });
 
-        }, function(err){
+        }, function (err) {
             if (err) return cb(err);
             return cb();
         });

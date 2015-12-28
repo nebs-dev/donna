@@ -37,12 +37,32 @@ module.exports = {
             Message.watch(req);
             Message.subscribe(req, _.pluck(messages, 'id'));
 
-            sails.sockets.blast('newUser', {user: req.user.toJSON(), total: Message.watchers().length});
+            sails.sockets.blast('newUser', {
+                user: UploadHelper.getFullUrl(req, req.user.toJSON()),
+                total: Message.watchers().length
+            });
 
-            return res.ok({messages: messages, total: Message.watchers().length});
+            var baseURL = sails.getBaseurl();
+            async.each(messages, function (item, callback) {
+                Media.findOne(item.user.file).then(function (media) {
+                    media.url = baseURL + '/api/file/' + media.id + '?token=' + req.originalToken;
+                    media.thumb = baseURL + '/api/file/thumb/' + media.id + '?token=' + req.originalToken;
+
+                    item.user.file = media;
+
+                    return callback();
+                }).catch(function (err) {
+                    return callback(err);
+                });
+
+            }, function (err) {
+                if (err) return res.negotiate(err);
+
+                return res.ok({messages: messages, total: Message.watchers().length});
+            });
 
         }).catch(function (err) {
-            res.serverError(err);
+            res.negotiate(err);
         });
     },
 
@@ -61,13 +81,16 @@ module.exports = {
             }).then(function (message) {
 
                 // fill data for user... create doesn't populate
-                message.user = req.user.toJSON();
+                message.user = req.user.toJSON;
 
-                // emit created event to all sockets subscribed to this model not including req
-                Message.publishCreate(message.toJSON());
+                Media.findOne(req.user.file).then(function (media) {
+                    message.user.file = UploadHelper.getFullUrl(req, media);
 
-                res.ok(message.toJSON());
+                    // emit created event to all sockets subscribed to this model not including req
+                    Message.publishCreate(message.toJSON());
 
+                    res.ok(message.toJSON());
+                });
             });
 
         }).catch(function (err) {

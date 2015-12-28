@@ -45,7 +45,7 @@
                     </tr>
                     <tr dir-paginate="news in newsCtrl.news | filter:q | itemsPerPage: pageSize">
                         <td class="col-xs-1">
-                            <img ng-show="news.file.type == 'photo'" ng-src="{{ news.file.url }}" />
+                            <img ng-show="news.file.type == 'photo'" ng-src="{{ news.file.thumb }}" />
                         </td>
                         <td>{{ news.id }}</td>
                         <td>{{ news.title }}</td>

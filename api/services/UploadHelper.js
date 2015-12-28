@@ -1,5 +1,6 @@
 var path = require('path');
 var fs = require('fs-extra');
+var easyimg = require('easyimage');
 module.exports = {
 
     uploadFile: function (req, model) {
@@ -23,23 +24,33 @@ module.exports = {
 
                     // Check allowed file types
                     //if(allowedTypes.indexOf(file.type) !== -1) {
-                        var mediaType = file.type == 'video/mp4' ? 'video' : 'photo';
+                    var mediaType = file.type == 'video/mp4' ? 'video' : 'photo';
 
+                    easyimg.thumbnail({
+                        src: sails.config.appPath + '/uploads/' + model + '/' + path.basename(file.fd),
+                        dst: sails.config.appPath + '/uploads/' + model + '/thumb/' + path.basename(file.fd),
+                        width:100, height:100
+                    }).then(function(image) {
                         var fileDb = {
                             'url': model + '/' + path.basename(file.fd),
-                            'type': mediaType
+                            'type': mediaType,
+                            'thumb': model + '/thumb/' + path.basename(file.fd)
                         };
 
                         Media.create(fileDb).then(function (f) {
                             newFiles.push(f);
                             return cb(true);
                         }).catch(function (err) {
+                            console.log(err);
+
                             fs.remove(file.fd, function (err) {
                                 if (err) return reject(err);
 
                                 return cb(false);
                             });
                         });
+                    });
+
                     //}
 
                 }, function (results) {
@@ -57,30 +68,43 @@ module.exports = {
      * @param data
      * @returns {*}
      */
-    getFullUrl: function(req, data) {
+    getFullUrl: function (req, data) {
         var baseURL = sails.getBaseurl();
 
-        if(data.length) {
+        if (data.length) {
             _.each(data, function (item) {
                 if (item.file) {
                     item.file.url = baseURL + '/api/file/' + item.file.id + '?token=' + req.originalToken;
+                    item.file.thumb = baseURL + '/api/file/thumb/' + item.file.id + '?token=' + req.originalToken;
                 }
                 if (item.files) {
                     _.each(item.files, function (file) {
                         file.url = baseURL + '/api/file/' + file.id + '?token=' + req.originalToken;
+                        file.thumb = baseURL + '/api/file/thumb/' + file.id + '?token=' + req.originalToken;
                     });
+                }
+                if (item.user) {
+                    item.user.file.url = baseURL + '/api/file/' + item.user.file.id + '?token=' + req.originalToken;
+                    item.user.file.thumb = baseURL + '/api/file/thumb/' + item.user.file.id + '?token=' + req.originalToken;
                 }
             });
         } else {
             if (data.url) {
                 data.url = baseURL + '/api/file/' + data.id + '?token=' + req.originalToken;
+                data.thumb = baseURL + '/api/file/thumb/' + data.id + '?token=' + req.originalToken;
             }
             if (data.file) {
                 data.file.url = baseURL + '/api/file/' + data.file.id + '?token=' + req.originalToken;
+                data.file.thumb = baseURL + '/api/file/thumb/' + data.file.id + '?token=' + req.originalToken;
+            }
+            if (data.user) {
+                data.user.file.url = baseURL + '/api/file/' + data.user.file.id + '?token=' + req.originalToken;
+                data.user.file.thumb = baseURL + '/api/file/thumb/' + data.user.file.id + '?token=' + req.originalToken;
             }
             if (data.files) {
                 _.each(data.files, function (file) {
                     file.url = baseURL + '/api/file/' + file.id + '?token=' + req.originalToken;
+                    file.thumb = baseURL + '/api/file/thumb/' + file.id + '?token=' + req.originalToken;
                 });
             }
         }
