@@ -53,5 +53,13 @@
             $rootScope.messages.push({event: 'disconnected', user: data.user});
         });
 
+        Chat.on('donnaIn', function () {
+            $rootScope.donnaOnline = true;
+        });
+
+        Chat.on('donnaOut', function () {
+            $rootScope.donnaOnline = false;
+        });
+
     }
 })();
