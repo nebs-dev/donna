@@ -47,7 +47,7 @@
                 method: 'list'
             })
             .state('user.newsUpdate', {
-                url: '/news/update:id',
+                url: '/news/update/:id',
                 templateUrl: 'app/components/news/news-form.html',
                 controller: 'NewsController',
                 controllerAs: 'newsCtrl',

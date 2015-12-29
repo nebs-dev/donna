@@ -21,7 +21,8 @@
             },
 
             update: function (id, data) {
-                return $http.post(API.URL + '/api/user/update/' + id, data);
+                console.log(data);
+                return data.$http(API.URL + '/api/user/update/' + id);
             },
 
             destroy: function (id) {

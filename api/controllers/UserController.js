@@ -13,8 +13,8 @@ module.exports = {
      * @param res
      */
     list: function (req, res) {
-        User.find().populate('role').then(function (users) {
-            return res.ok(users);
+        User.find().populate('role').populate('file').then(function (users) {
+            return res.ok(UploadHelper.getFullUrl(req, users));
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -39,8 +39,8 @@ module.exports = {
      * @param res
      */
     show: function (req, res) {
-        User.findOne(req.params.id).then(function (user) {
-            return res.ok(user);
+        User.findOne(req.params.id).populate('file').then(function (user) {
+            return res.ok(UploadHelper.getFullUrl(req, user));
         }).catch(function (err) {
             return res.negotiate(err);
         });

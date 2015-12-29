@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -62,6 +62,7 @@
                 $state.go('user.users');
 
             }).error(function (err) {
+                console.log(err);
                 SweetAlert.swal(err.error, err.summary, 'error');
             });
         };

@@ -20,6 +20,7 @@ module.exports = {
                 if (uploadedFiles.length === 0) return resolve();
 
                 var newFiles = [];
+
                 async.filter(uploadedFiles, function (file, cb) {
 
                     // Check allowed file types
@@ -49,6 +50,8 @@ module.exports = {
                                 return cb(false);
                             });
                         });
+                    }).catch(function (err) {
+                        console.log(err);
                     });
 
                     //}

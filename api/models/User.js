@@ -138,6 +138,7 @@ module.exports = {
         if (values.file) {
             User.findOne(values.id).populate('file').then(function (userOld) {
                 if (!values.hasFiles || !userOld.file) return next();
+
                 // destroy old file in database && file
                 Media.destroy(userOld.file.id).then(function () {
                     if (values.password) {
@@ -183,12 +184,12 @@ module.exports = {
      */
     validPassword: function (password, user, cb) {
         bcrypt.compare(password, user.encryptedPassword, function (err, match) {
-            if (err) cb(err);
+            if (err) return cb(err);
 
             if (match) {
-                cb(null, true);
+                return cb(null, true);
             } else {
-                cb(err);
+                return cb(err);
             }
         });
     },
