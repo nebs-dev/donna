@@ -122,7 +122,14 @@ module.exports.sockets = {
      ***************************************************************************/
     afterDisconnect: function (session, socket, cb) {
         User.findOne(socket.handshake.query.user).then(function (user) {
-            sails.sockets.blast('userDisconnected', {user: user, total: Message.watchers().length});
+            sails.sockets.blast('userDisconnected', {user: user, total: Message.watchers().length}, socket);
+
+            // èekiraj ovo
+            if(user.nesto == 'donna') {
+                sails.sockets.blast('donnaOut', {}, socket);
+            }
+            // do tute
+
             return cb();
         }).catch(function (err) {
             return cb(err);

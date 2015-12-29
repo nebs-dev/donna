@@ -42,6 +42,12 @@ module.exports = {
                 total: Message.watchers().length
             });
 
+            // èekiraj ovo
+            if(req.user.nesto == 'donna') {
+                sails.sockets.blast('donnaIn', {}, req.socket);
+            }
+            // do tute
+
             var baseURL = sails.getBaseurl();
             async.each(messages, function (item, callback) {
                 if (!item.user || !item.user.file) return callback();
