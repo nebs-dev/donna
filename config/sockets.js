@@ -124,8 +124,8 @@ module.exports.sockets = {
         User.findOne(socket.handshake.query.user).then(function (user) {
             sails.sockets.blast('userDisconnected', {user: user, total: Message.watchers().length}, socket);
 
-            // èekiraj ovo
-            if(user.nesto == 'donna') {
+            // ï¿½ekiraj ovo
+            if(user.isVIP) {
                 sails.sockets.blast('donnaOut', {}, socket);
             }
             // do tute

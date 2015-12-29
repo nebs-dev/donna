@@ -44,6 +44,11 @@ module.exports = {
             defaultsTo: null
         },
 
+        isVIP: {
+            type: 'boolean',
+            defaultsTo: false
+        },
+
         file: {
             model: 'media'
         },
@@ -78,7 +83,7 @@ module.exports = {
 
 
     beforeValidate: function (values, cb) {
-        if(values.email) {
+        if (values.email) {
             values.email = values.email.toLowerCase();
         }
         cb();

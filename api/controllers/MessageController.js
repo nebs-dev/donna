@@ -42,8 +42,8 @@ module.exports = {
                 total: Message.watchers().length
             });
 
-            // èekiraj ovo
-            if(req.user.nesto == 'donna') {
+            // ï¿½ekiraj ovo
+            if(req.user.isVIP) {
                 sails.sockets.blast('donnaIn', {}, req.socket);
             }
             // do tute

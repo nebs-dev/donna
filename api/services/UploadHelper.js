@@ -27,11 +27,34 @@ module.exports = {
                     //if(allowedTypes.indexOf(file.type) !== -1) {
                     var mediaType = file.type == 'video/mp4' ? 'video' : 'photo';
 
-                    easyimg.thumbnail({
-                        src: sails.config.appPath + '/uploads/' + model + '/' + path.basename(file.fd),
-                        dst: sails.config.appPath + '/uploads/' + model + '/thumb/' + path.basename(file.fd),
-                        width:100, height:100
-                    }).then(function(image) {
+                    if (mediaType == 'photo') {
+                        easyimg.thumbnail({
+                            src: sails.config.appPath + '/uploads/' + model + '/' + path.basename(file.fd),
+                            dst: sails.config.appPath + '/uploads/' + model + '/thumb/' + path.basename(file.fd),
+                            width:100, height:100
+                        }).then(function(image) {
+                            var fileDb = {
+                                'url': model + '/' + path.basename(file.fd),
+                                'type': mediaType,
+                                'thumb': model + '/thumb/' + path.basename(file.fd)
+                            };
+
+                            Media.create(fileDb).then(function (f) {
+                                newFiles.push(f);
+                                return cb(true);
+                            }).catch(function (err) {
+                                console.log(err);
+
+                                fs.remove(file.fd, function (err) {
+                                    if (err) return reject(err);
+
+                                    return cb(false);
+                                });
+                            });
+                        }).catch(function (err) {
+                            console.log(err);
+                        });
+                    } else {
                         var fileDb = {
                             'url': model + '/' + path.basename(file.fd),
                             'type': mediaType,
@@ -50,9 +73,8 @@ module.exports = {
                                 return cb(false);
                             });
                         });
-                    }).catch(function (err) {
-                        console.log(err);
-                    });
+                    }
+
 
                     //}
 

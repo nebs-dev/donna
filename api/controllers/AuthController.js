@@ -19,7 +19,7 @@ module.exports = {
 
         if (!email || !password) return res.customBadRequest('Missing Parameters.');
 
-        User.findOne({email: email}).populate('role').then(function (user) {
+        User.findOne({email: email}).populate('role').populate('file').then(function (user) {
             if (!user) return res.accessDenied('Invalid email or password');
 
             User.validPassword(password, user, function (err, valid) {
@@ -28,7 +28,13 @@ module.exports = {
                 if (!valid) {
                     return res.accessDenied('Invalid email or password');
                 } else {
-                    res.ok({user: user, token: sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret})});
+                    var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
+                    if (user.file) {
+                        user.file.url = sails.getBaseurl() + '/api/file/' + user.file.id + '?token=' + token;
+                        user.file.thumb = sails.getBaseurl() + '/api/file/thumb/' + user.file.id + '?token=' + token;
+                    }
+
+                    res.ok({user: user, token: token});
                 }
             });
         }).catch(function (err) {
