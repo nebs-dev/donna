@@ -48,25 +48,30 @@ module.exports = {
             }
             // do tute
 
-            var baseURL = sails.getBaseurl();
-            async.each(messages, function (item, callback) {
-                if (!item.user || !item.user.file) return callback();
+            // Find VIP user
+            User.findOne({isVip: true}).then(function (vipUser) {
+                var baseURL = sails.getBaseurl();
+                async.each(messages, function (item, callback) {
+                    if (!item.user || !item.user.file) return callback();
 
-                Media.findOne(item.user.file).then(function (media) {
-                    media.url = baseURL + '/api/file/' + media.id + '?token=' + req.originalToken;
-                    media.thumb = baseURL + '/api/file/thumb/' + media.id + '?token=' + req.originalToken;
+                    Media.findOne(item.user.file).then(function (media) {
+                        media.url = baseURL + '/api/file/' + media.id + '?token=' + req.originalToken;
+                        media.thumb = baseURL + '/api/file/thumb/' + media.id + '?token=' + req.originalToken;
 
-                    item.user.file = media;
+                        item.user.file = media;
 
-                    return callback();
-                }).catch(function (err) {
-                    return callback(err);
+                        return callback();
+                    }).catch(function (err) {
+                        console.log(err);
+                        return callback(err);
+                    });
+
+                }, function (err) {
+                    if (err) return res.negotiate(err);
+
+                    var donnaOnline = vipUser ? vipUser.isOnline : false;
+                    return res.ok({messages: messages, total: Message.watchers().length, donnaOnline: donnaOnline});
                 });
-
-            }, function (err) {
-                if (err) return res.negotiate(err);
-
-                return res.ok({messages: messages, total: Message.watchers().length});
             });
 
         }).catch(function (err) {

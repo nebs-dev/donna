@@ -12,7 +12,6 @@
         var token = angular.fromJson(LocalService.get('auth_token')).token;
 
         Chat.emit("get", {url: "/api/message/connect", data: {token: token}}, function (data) {
-
             if (data.statusCode === 401 || data.statusCode === 403) {
                 LocalService.unset('auth_token');
                 $window.location.reload();
@@ -22,6 +21,7 @@
 
             $rootScope.messages = data.body.messages;
             $rootScope.totalChatUsers = data.body.total;
+            $rootScope.donnaOnline = data.body.donnaOnline;
         });
 
 

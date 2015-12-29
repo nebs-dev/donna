@@ -49,6 +49,11 @@ module.exports = {
             defaultsTo: false
         },
 
+        isOnline: {
+            type: 'boolean',
+            defaultsTo: false
+        },
+
         file: {
             model: 'media'
         },

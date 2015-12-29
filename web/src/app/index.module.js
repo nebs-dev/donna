@@ -5,7 +5,12 @@
         .module('donna', ['ngAnimate', 'ui.router', 'oitozero.ngSweetAlert', 'luegg.directives', 'btford.socket-io',
             'angularUtils.directives.dirPagination', 'akoenig.deckgrid', '720kb.datepicker'])
 
-        .run(function ($rootScope, $state, Auth) {
+        .run(function ($rootScope, $state, Auth, LocalService) {
+            var auth = angular.fromJson(LocalService.get('auth_token'));
+            if (!$rootScope.globalUser && auth) {
+                $rootScope.globalUser = auth.user;
+            }
+
             $rootScope.$on('$stateChangeStart', function (event, toState) {
                 if (!Auth.authorize(toState.data.access)) {
                     event.preventDefault();

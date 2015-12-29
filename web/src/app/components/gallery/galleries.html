@@ -40,12 +40,14 @@
                         <th>Cover</th>
                         <th>ID</th>
                         <th>Title</th>
+                        <th>Files</th>
                         <th>Actions</th>
                     </tr>
                     <tr dir-paginate="gallery in galleryCtrl.galleries | filter:q | itemsPerPage: pageSize">
                         <td class="col-xs-1"><img ng-src="{{ gallery.file.thumb }}" /></td>
                         <td>{{ gallery.id }}</td>
                         <td>{{ gallery.title }}</td>
+                        <td>{{ gallery.files.length }}</td>
                         <td>
                             <button ng-click="galleryCtrl.destroy(gallery.id)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
                             <a ui-sref="user.galleryUpdate({id: gallery.id})" class="btn btn-sm btn-info"><i class="fa fa-pencil-square-o"></i></a>

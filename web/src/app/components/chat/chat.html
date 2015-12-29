@@ -15,11 +15,11 @@
             <header class="panel-heading">
                 Chat Feed - Online users: <strong>{{ totalChatUsers }}</strong>
                 - Donna
-                <span ng-show="donnaOnline">
+                <span ng-show="donnaOnline || globalUser.isVIP">
                     <i class="fa fa-circle text-success"></i>
                     Online
                 </span>
-                <span ng-show="!donnaOnline">
+                <span ng-show="!donnaOnline && !globalUser.isVIP">
                     <i class="fa fa-circle text-danger"></i>
                     Offline
                 </span>

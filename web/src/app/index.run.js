@@ -1,14 +1,13 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular
-    .module('donna')
-    .run(runBlock);
+    angular
+        .module('donna')
+        .run(runBlock);
 
-  /** @ngInject */
-  function runBlock($log) {
-
-    $log.debug('runBlock end');
-  }
+    /** @ngInject */
+    function runBlock($log, $rootScope) {
+        $log.debug('runBlock end');
+    }
 
 })();
