@@ -57,8 +57,8 @@ module.exports = {
                         if (!item.user || !item.user.file) return callback();
 
                         Media.findOne(item.user.file).then(function (media) {
-                            media.url = baseURL + '/api/file/' + media.id + '?token=' + req.originalToken;
-                            media.thumb = baseURL + '/api/file/thumb/' + media.id + '?token=' + req.originalToken;
+                            media.url = baseURL + '/api/file/public/' + media.id;
+                            media.thumb = baseURL + '/api/file/thumb/public/' + media.id;
 
                             item.user.file = media;
 

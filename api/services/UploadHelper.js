@@ -119,8 +119,14 @@ module.exports = {
                 data.thumb = baseURL + '/api/file/thumb/' + data.id + '?token=' + req.originalToken;
             }
             if (data.file) {
-                data.file.url = baseURL + '/api/file/' + data.file.id + '?token=' + req.originalToken;
-                data.file.thumb = baseURL + '/api/file/thumb/' + data.file.id + '?token=' + req.originalToken;
+                // If user public photos
+                if (data.email) {
+                    data.file.url = baseURL + '/api/file/public/' + data.file.id;
+                    data.file.thumb = baseURL + '/api/file/thumb/public/' + data.file.id;
+                } else {
+                    data.file.url = baseURL + '/api/file/' + data.file.id + '?token=' + req.originalToken;
+                    data.file.thumb = baseURL + '/api/file/thumb/' + data.file.id + '?token=' + req.originalToken;
+                }
             }
             if (data.user) {
                 data.user.file.url = baseURL + '/api/file/public/' + data.user.file.id;
