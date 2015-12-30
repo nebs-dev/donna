@@ -457,7 +457,7 @@ module.exports.routes = {
      * @api {post} /api/match/connect/:id Subscribe to Match object
      * @apiGroup Match
      */
-    'POST /api/match/connect/:id': 'Match.connect'
+    'GET /api/match/connect/:id': 'Match.connect'
 
 
 };

@@ -38,12 +38,9 @@
         // Single
         if (stateMethod == 'single') {
             Match.getOne($state.params.id).success(function (data) {
-
-                Match.connect($state.params.id).success(function (match) {
-                    vm.match = data;
-                    vm.messages = data.messages;
-                    vm.msg = {};
-                });
+                vm.match = data;
+                vm.messages = data.messages;
+                vm.msg = {};
 
             }).error(function (err) {
                 SweetAlert.swal(err.error, err.summary, 'error');

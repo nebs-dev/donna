@@ -38,7 +38,7 @@
             },
 
             connect: function (id) {
-                return $http.post(API.URL + '/api/match/connect/' + id);
+                return $http.get(API.URL + '/api/match/connect/' + id);
             }
         }
     }
