@@ -224,6 +224,9 @@ module.exports.routes = {
      */
     'GET /api/file/thumb/:id': 'Media.getThumb',
 
+    'GET /api/file/public/:id': 'Media.getOnePublic',
+    'GET /api/file/thumb/public/:id': 'Media.getThumbPublic',
+
     /**
      * @api {post} /api/file/destroy/:id destroy
      * @apiGroup File

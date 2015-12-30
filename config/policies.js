@@ -65,7 +65,9 @@ module.exports.policies = {
     },
 
     'MediaController': {
-        'destroy': ['tokenAuth', 'isSuperadmin']
+        'destroy': ['tokenAuth', 'isSuperadmin'],
+        'getOnePublic': true,
+        'getThumbPublic': true
     },
 
     'GeneralController': {

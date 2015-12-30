@@ -109,8 +109,8 @@ module.exports = {
                     });
                 }
                 if (item.user) {
-                    item.user.file.url = baseURL + '/api/file/' + item.user.file.id + '?token=' + req.originalToken;
-                    item.user.file.thumb = baseURL + '/api/file/thumb/' + item.user.file.id + '?token=' + req.originalToken;
+                    item.user.file.url = baseURL + '/api/file/public/' + item.user.file.id;
+                    item.user.file.thumb = baseURL + '/api/file/thumb/public/' + item.user.file.id;
                 }
             });
         } else {
@@ -123,8 +123,8 @@ module.exports = {
                 data.file.thumb = baseURL + '/api/file/thumb/' + data.file.id + '?token=' + req.originalToken;
             }
             if (data.user) {
-                data.user.file.url = baseURL + '/api/file/' + data.user.file.id + '?token=' + req.originalToken;
-                data.user.file.thumb = baseURL + '/api/file/thumb/' + data.user.file.id + '?token=' + req.originalToken;
+                data.user.file.url = baseURL + '/api/file/public/' + data.user.file.id;
+                data.user.file.thumb = baseURL + '/api/file/thumb/public/' + data.user.file.id;
             }
             if (data.files) {
                 _.each(data.files, function (file) {
