@@ -89,7 +89,7 @@ module.exports = {
                 match.save(function (err, match) {
                    if (err) return res.negotiate(err);
 
-                    Match.publishAdd(match.id, 'messages', msg.id, req, msg);
+                    Match.publishAdd(match.id, 'messages', msg);
                     return res.ok(match.toJSON());
                 });
             });

@@ -35,6 +35,9 @@ module.exports = {
     publishAdd: function (id, alias, added, req, options) {
         var reverseAssociation;
 
+        var addedEntry = added;
+        added = added.id || added;
+
         // Make sure there's an options object
         options = options || {};
 
@@ -91,7 +94,8 @@ module.exports = {
             verb: 'addedTo',
             attribute: alias,
             addedId: idAdded,
-            match: options
+            match: addedEntry,
+            test: 1123
         });
 
         this.publish(id, this.identity, 'add:' + alias, (function () {
