@@ -101,6 +101,7 @@ module.exports = {
 
                 Media.findOne(req.user.file).then(function (media) {
                     message.user.file = UploadHelper.getFullUrl(req, media);
+                    message.user = UploadHelper.getFullUrl(req, message);
 
                     // emit created event to all sockets subscribed to this model not including req
                     Message.publishCreate(message.toJSON());

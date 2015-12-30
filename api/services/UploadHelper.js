@@ -115,6 +115,7 @@ module.exports = {
             });
         } else {
             if (data.url) {
+                console.log(data);
                 data.url = baseURL + '/api/file/' + data.id + '?token=' + req.originalToken;
                 data.thumb = baseURL + '/api/file/thumb/' + data.id + '?token=' + req.originalToken;
             }
