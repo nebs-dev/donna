@@ -124,11 +124,14 @@ module.exports.sockets = {
         User.findOne(socket.handshake.query.user).then(function (user) {
             sails.sockets.blast('userDisconnected', {user: user, total: Message.watchers().length}, socket);
 
-            // �ekiraj ovo
+            // Donna status
             if(user.isVIP) {
-                sails.sockets.blast('donnaOut', {}, socket);
+                user.isOnline = false;
+                user.save(function (err, user) {
+                    if (err) return cb(err);
+                    sails.sockets.blast('donnaOut', {}, socket);
+                });
             }
-            // do tute
 
             return cb();
         }).catch(function (err) {
