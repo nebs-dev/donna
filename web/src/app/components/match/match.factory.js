@@ -33,6 +33,10 @@
                 return $http.post(API.URL + '/api/match/newMessage', data);
             },
 
+            destroyMsg: function (id) {
+                return $http.post(API.URL + '/api/match/destroyMsg/' + id);
+            },
+
             connect: function (id) {
                 return $http.post(API.URL + '/api/match/connect/' + id);
             }

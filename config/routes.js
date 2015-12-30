@@ -450,6 +450,7 @@ module.exports.routes = {
     'GET /api/matches': 'Match.list',
     'GET /api/match/:id': 'Match.show',
     'POST /api/match/destroy/:id': 'Match.destroy',
+    'POST /api/match/destroyMsg/:id': 'Match.destroyMsg',
     'POST /api/match/newMessage': 'Match.newMessage',
 
     /**

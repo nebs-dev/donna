@@ -105,6 +105,24 @@
                 SweetAlert.swal(err.error, err.summary, 'error');
             });
         };
+
+        vm.destroyMsg = function (id) {
+            Match.destroyMsg(id).success(function () {
+                vm.messages = _.reject(vm.messages, function (msg) {
+                    return id == msg.id;
+                });
+
+                SweetAlert.swal({
+                    title: 'Success',
+                    text: 'Data successfully deleted',
+                    timer: 1000,
+                    showConfirmButton: false,
+                    type: 'success'
+                });
+            }).error(function (err) {
+                SweetAlert.swal(err.error, err.summary, 'error');
+            });
+        };
     }
 
 })();

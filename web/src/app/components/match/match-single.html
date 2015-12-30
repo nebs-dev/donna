@@ -36,10 +36,31 @@
                 </div>
             </form>
 
-            <ul ng-repeat="msg in matchCtrl.messages">
-                <li>{{ msg.text }}</li>
-            </ul>
 
+            <div class="col-md-7">
+            <section class="panel tasks-widget">
+                <header class="panel-heading">
+                    Messages list
+                </header>
+                <div class="panel-body">
+                    <div class="task-content">
+                        <ul ng-repeat="msg in matchCtrl.messages" class="task-list ui-sortable">
+                            <li>
+                                <div class="task-title">
+                                    <span class="task-title-sp">{{ msg.text }}</span>
+                                    <span class="task-title-sp">{{ msg.createdAt | date: 'dd.MM.yyyy HH:mm:ss' }}</span>
+
+                                    <div class="pull-right hidden-phone">
+                                        <button ng-click="matchCtrl.destroyMsg(msg.id)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            </div>
 
             <!-- /.box-body -->
         </div>

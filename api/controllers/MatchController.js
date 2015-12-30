@@ -58,6 +58,11 @@ module.exports = {
         });
     },
 
+    /**
+     * Destroy match
+     * @param req
+     * @param res
+     */
     destroy: function (req, res) {
         Match.destroy(req.params.id).then(function () {
             return res.ok();
@@ -90,6 +95,19 @@ module.exports = {
             });
         }).catch(function (err) {
            return res.negotiate(err);
+        });
+    },
+
+    /**
+     * Destroy single message
+     * @param req
+     * @param res
+     */
+    destroyMsg: function (req, res) {
+        MatchMessage.destroy(req.params.id).then(function () {
+            return res.ok();
+        }).catch(function (err) {
+            return res.negotiate(err);
         });
     },
 
