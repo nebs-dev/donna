@@ -103,9 +103,8 @@ module.exports = {
                     message.user.file = media;
                     message = UploadHelper.getFullUrl(req, message);
 
-                    console.log(message.user.file);
-
                     // emit created event to all sockets subscribed to this model not including req
+                    console.log("publisham");
                     Message.publishCreate(message.toJSON());
 
                     res.ok(message.toJSON());
