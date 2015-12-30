@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-md-12">
+        <!--breadcrumbs start -->
+        <ul class="breadcrumb">
+            <li><a href="#/"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li><a href="#/matches"> Matches</a></li>
+            <li class="active">{{ matchCtrl.match.title }}</li>
+        </ul>
+        <!--breadcrumbs end -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel">
+            <header class="panel-heading">
+                Match - {{ matchCtrl.match.title }}
+            </header>
+
+            <!-- Form -->
+            <form class="form-horizontal tasi-form" ng-submit="matchCtrl.newMsg()">
+                <!-- Msg text -->
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Message</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="matchCtrl.msg.text">
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" class="btn btn-info" value="Save">
+                    </div>
+                </div>
+            </form>
+
+            <ul ng-repeat="msg in matchCtrl.messages">
+                <li>{{ msg.text }}</li>
+            </ul>
+
+
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

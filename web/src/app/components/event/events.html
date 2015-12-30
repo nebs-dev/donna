@@ -48,7 +48,7 @@
                     </tr>
                     <tr dir-paginate="event in eventCtrl.events | filter:q | itemsPerPage: pageSize">
                         <td class="col-xs-1">
-                            <img ng-show="event.file.type == 'photo'" ng-src="{{ event.file.thumb }}" />
+                            <img ng-src="{{ event.file.thumb }}" />
                         </td>
                         <td>{{ event.id }}</td>
                         <td>{{ event.title }}</td>

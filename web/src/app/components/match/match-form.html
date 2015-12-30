@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-md-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Match data
+            </header>
+            <div class="panel-body">
+                <form class="form-horizontal tasi-form" ng-submit="matchCtrl.save()">
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Match title</label>
+                        <div class="col-sm-10">
+                            <input ng-model="matchCtrl.match.title" type="text" class="form-control" placeholder="Title">
+                        </div>
+                    </div>
+
+                    <!-- Date -->
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Match date</label>
+                        <div class="col-sm-10">
+                            <datepicker date-format="yyyy-MM-dd">
+                                <input ng-model="matchCtrl.match.date" class="form-control" placeholder="Choose a date">
+                            </datepicker>
+                        </div>
+                    </div>
+
+                    <!-- Opponents -->
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Opponents</label>
+                        <div class="col-sm-10">
+                            <input ng-model="matchCtrl.match.opponents" type="text" class="form-control" placeholder="Opponents">
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <input type="submit" class="btn btn-info" value="Save">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+    </div>
+</div>

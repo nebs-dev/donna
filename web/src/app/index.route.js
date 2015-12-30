@@ -147,6 +147,35 @@
                 controller: 'PushController',
                 controllerAs: 'pushCtrl'
             })
+            // Match
+            .state('user.matches', {
+                url: '/matches',
+                templateUrl: 'app/components/match/matches.html',
+                controller: 'MatchController',
+                controllerAs: 'matchCtrl',
+                method: 'list'
+            })
+            .state('user.matchUpdate', {
+                url: '/match/update/:id',
+                templateUrl: 'app/components/match/match-form.html',
+                controller: 'MatchController',
+                controllerAs: 'matchCtrl',
+                method: 'update'
+            })
+            .state('user.matchCreate', {
+                url: '/match/create',
+                templateUrl: 'app/components/match/match-form.html',
+                controller: 'MatchController',
+                controllerAs: 'matchCtrl',
+                method: 'create'
+            })
+            .state('user.matchSingle', {
+                url: '/match/single/:id',
+                templateUrl: 'app/components/match/match-single.html',
+                controller: 'MatchController',
+                controllerAs: 'matchCtrl',
+                method: 'single'
+            })
         ;
 
         $urlRouterProvider.otherwise('/');

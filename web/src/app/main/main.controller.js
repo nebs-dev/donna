@@ -61,5 +61,19 @@
             $rootScope.donnaOnline = false;
         });
 
+
+        Chat.on("match", function (data) {
+            console.log('-------------------------', data);
+
+            switch (data.verb) {
+                case 'addedTo':
+                    if (data.statusCode && data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary, 'error');
+
+                    console.log('Event added to');
+
+                    break;
+            }
+        });
+
     }
 })();

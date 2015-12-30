@@ -435,7 +435,25 @@ module.exports.routes = {
      * @api {post} /api/push/resetBadges/:deviceToken Reset badges for device
      * @apiGroup Push
      */
-    'POST /api/push/resetBadges/:deviceToken': 'Push.resetBadges'
+    'POST /api/push/resetBadges/:deviceToken': 'Push.resetBadges',
+
+
+    /////////////
+    /// MATCH ///
+    /////////////
+
+    'POST /api/match/create': 'Match.create',
+    'POST /api/match/update/:id': 'Match.update',
+    'GET /api/matches': 'Match.list',
+    'GET /api/match/:id': 'Match.show',
+    'POST /api/match/destroy/:id': 'Match.destroy',
+    'POST /api/match/newMessage': 'Match.newMessage',
+
+    /**
+     * @api {post} /api/match/connect/:id Subscribe to Match object
+     * @apiGroup Match
+     */
+    'POST /api/match/connect/:id': 'Match.connect'
 
 
 };

@@ -8,6 +8,7 @@
     "apn": "^1.7.5",
     "bcrypt": "^0.8.5",
     "easyimage": "^2.1.0",
+    "fluent-ffmpeg": "^2.0.0-rc1",
     "fs-extra": "^0.26.2",
     "grunt": "^0.4.5",
     "grunt-apidoc": "^0.10.1",

@@ -58,7 +58,7 @@ module.exports = {
                         var fileDb = {
                             'url': model + '/' + path.basename(file.fd),
                             'type': mediaType,
-                            'thumb': model + '/thumb/' + path.basename(file.fd)
+                            'thumb': 'video.png'
                         };
 
                         Media.create(fileDb).then(function (f) {

@@ -3,7 +3,7 @@
         <!--breadcrumbs start -->
         <ul class="breadcrumb">
             <li><a href="#/"><i class="fa fa-home"></i> Dashboard</a></li>
-            <li class="active">Galleries</li>
+            <li class="active">Matches</li>
         </ul>
         <!--breadcrumbs end -->
     </div>
@@ -13,7 +13,7 @@
     <div class="col-xs-12">
         <div class="panel">
             <header class="panel-heading">
-                Galleries <a ui-sref="user.galleryCreate()"><i class="fa fa-plus-square fa-1x"></i></a>
+                Matches <a ui-sref="user.matchCreate()"><i class="fa fa-plus-square fa-1x"></i></a>
             </header>
             <!-- <div class="box-header"> -->
             <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
@@ -37,23 +37,24 @@
                 <table class="table table-hover">
                     <tbody>
                     <tr>
-                        <th>Cover</th>
                         <th>ID</th>
                         <th>Title</th>
-                        <th>Files</th>
+                        <th>Opponent</th>
+                        <th>Date</th>
                         <th>Actions</th>
                     </tr>
-                    <tr dir-paginate="gallery in galleryCtrl.galleries | filter:q | itemsPerPage: pageSize">
-                        <td class="col-xs-1">
-                            <img ng-src="{{ gallery.file.thumb }}" />
-                        </td>
-                        <td>{{ gallery.id }}</td>
-                        <td>{{ gallery.title }}</td>
-                        <td>{{ gallery.files.length }}</td>
+                    <tr dir-paginate="match in matchCtrl.matches | filter:q | itemsPerPage: pageSize">
+                        <td>{{ match.id }}</td>
+                        <td>{{ match.title }}</td>
+                        <td>{{ match.date | date : 'dd.MM.yyyy' }}</td>
+                        <td>{{ match.opponents }}</td>
                         <td>
-                            <button ng-click="galleryCtrl.destroy(gallery.id)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
-                            <a ui-sref="user.galleryUpdate({id: gallery.id})" class="btn btn-sm btn-info"><i class="fa fa-pencil-square-o"></i></a>
-                            <a ui-sref="user.gallerySingle({id: gallery.id})" class="btn btn-sm btn-success"><i class="fa fa-cloud-upload "></i></a>
+                            <button ng-click="matchCtrl.destroy(match.id)" class="btn btn-sm btn-danger"><i
+                                    class="fa fa-remove"></i></button>
+                            <a ui-sref="user.matchUpdate({id: match.id})" class="btn btn-sm btn-info"><i
+                                    class="fa fa-pencil-square-o"></i></a>
+                            <a ui-sref="user.matchSingle({id: match.id})" class="btn btn-sm btn-success"><i
+                                    class="fa fa-cloud-upload "></i></a>
                         </td>
                     </tr>
                     </tbody>

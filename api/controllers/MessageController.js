@@ -50,9 +50,8 @@ module.exports = {
             }
 
             req.user.save(function (err, user) {
-                console.log(user.isOnline);
                 // Find VIP user
-                User.findOne({isVip: true}).then(function (vipUser) {
+                User.findOne({where: {isVIP: true}}).then(function (vipUser) {
                     var baseURL = sails.getBaseurl();
                     async.each(messages, function (item, callback) {
                         if (!item.user || !item.user.file) return callback();
