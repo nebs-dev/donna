@@ -102,8 +102,7 @@ module.exports = {
                 verb: 'addedTo',
                 attribute: alias,
                 addedId: idAdded,
-                match: addedEntry,
-                test: 1123
+                data: addedEntry
             };
             if (added) {
                 event.added = added;
