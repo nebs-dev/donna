@@ -90,7 +90,8 @@ module.exports = {
             model: this.identity,
             verb: 'addedTo',
             attribute: alias,
-            addedId: idAdded
+            addedId: idAdded,
+            match: options
         });
 
         this.publish(id, this.identity, 'add:' + alias, (function () {
@@ -99,7 +100,7 @@ module.exports = {
                 verb: 'addedTo',
                 attribute: alias,
                 addedId: idAdded,
-                test: "bah"
+                test: added
             };
             if (added) {
                 event.added = added;
