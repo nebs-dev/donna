@@ -447,8 +447,6 @@ module.exports.routes = {
 
     'POST /api/match/create': 'Match.create',
     'POST /api/match/update/:id': 'Match.update',
-    'GET /api/matches': 'Match.list',
-    'GET /api/match/:id': 'Match.show',
     'POST /api/match/destroy/:id': 'Match.destroy',
     'POST /api/match/destroyMsg/:id': 'Match.destroyMsg',
     'POST /api/match/newMessage': 'Match.newMessage',
@@ -457,7 +455,19 @@ module.exports.routes = {
      * @api {post} /api/match/connect/:id Subscribe to Match object
      * @apiGroup Match
      */
-    'GET /api/match/connect/:id': 'Match.connect'
+    'GET /api/match/connect/:id': 'Match.connect',
+
+    /**
+     * @api {get} /api/matches match list
+     * @apiGroup Match
+     */
+    'GET /api/matches': 'Match.list',
+
+    /**
+     * @api {get} /api/match/:id match list
+     * @apiGroup Match
+     */
+    'GET /api/match/:id': 'Match.show'
 
 
 };
