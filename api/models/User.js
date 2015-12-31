@@ -213,7 +213,15 @@ module.exports = {
     afterDestroy: function (destroyedRecords, cb) {
         if (!destroyedRecords.length) return cb();
 
-        cb();
+        Media.destroy({id: destroyedRecords[0].file}).then(function () {
+            Message.destroy({user: destroyedRecords[0].id}).then(function () {
+                Comment.destroy({user: destroyedRecords[0].id}).then(function () {
+                    return cb();
+                });
+            });
+        }).catch(function (err) {
+            return cb(err);
+        });
     }
 };
 

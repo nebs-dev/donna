@@ -31,7 +31,31 @@ module.exports = {
         }
     },
 
+    /**
+     * Delete all messages for destroyed match
+     * @param destroyedRecords
+     * @param cb
+     * @returns {*}
+     */
+    afterDestroy: function (destroyedRecords, cb) {
+        if (!destroyedRecords.length) return cb();
 
+        MatchMessage.destroy({match: destroyedRecords[0].id}).then(function () {
+            return cb();
+        }).catch(function (err) {
+            return cb(err);
+        });
+    },
+
+    /**
+     *
+     * @param id
+     * @param alias
+     * @param added
+     * @param req
+     * @param options
+     * @returns {*}
+     */
     publishAdd: function (id, alias, added, req, options) {
         var reverseAssociation;
 
