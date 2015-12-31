@@ -452,7 +452,7 @@ module.exports.routes = {
     'POST /api/match/newMessage': 'Match.newMessage',
 
     /**
-     * @api {post} /api/match/connect/:id Subscribe to Match object
+     * @api {get} /api/match/connect/:id Subscribe to Match object
      * @apiGroup Match
      */
     'GET /api/match/connect/:id': 'Match.connect',
