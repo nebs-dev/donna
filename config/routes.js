@@ -179,7 +179,6 @@ module.exports.routes = {
      * @api {post} /api/news/addComment/:id addComment
      * @apiGroup News
      *
-     * @apiParam {integer} news News ID
      * @apiParam {text} text Comment text
      */
     'POST /api/news/addComment/:id': 'News.addComment',
@@ -237,7 +236,6 @@ module.exports.routes = {
      * @api {post} /api/file/addComment/:id addComment
      * @apiGroup File
      *
-     * @apiParam {integer} news File ID
      * @apiParam {text} text Comment text
      */
     'POST /api/file/addComment/:id': 'Media.addComment',
@@ -299,7 +297,6 @@ module.exports.routes = {
      * @api {post} /api/gallery/addComment/:id addComment
      * @apiGroup Gallery
      *
-     * @apiParam {integer} news Gallery ID
      * @apiParam {text} text Comment text
      */
     'POST /api/gallery/addComment/:id': 'Gallery.addComment',
@@ -360,7 +357,6 @@ module.exports.routes = {
      * @api {post} /api/event/addComment/:id addComment
      * @apiGroup Event
      *
-     * @apiParam {integer} event event ID
      * @apiParam {text} text Comment text
      */
     'POST /api/event/addComment/:id': 'Event.addComment',

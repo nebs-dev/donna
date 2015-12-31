@@ -83,7 +83,22 @@ module.exports = {
         News.findOne(req.params.id).populateAll().then(function (news) {
             if (!news) return res.notFound();
 
-            return res.ok(UploadHelper.getFullUrl(req, news));
+            async.each(news.comments, function (comment, callback) {
+                User.findOne(comment.user).then(function (user) {
+                    comment.user = user.toJSON();
+
+                    return callback();
+                }).catch(function (err) {
+                    console.log(err);
+                    return callback(err);
+                });
+
+            }, function (err) {
+                if (err) return res.negotiate(err);
+
+                return res.ok(UploadHelper.getFullUrl(req, news));
+            });
+
         }).catch(function (err) {
             return res.negotiate(err);
         });

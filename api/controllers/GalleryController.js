@@ -14,7 +14,24 @@ module.exports = {
      */
     show: function (req, res) {
         Gallery.findOne(req.params.id).populateAll().then(function (gallery) {
-            return res.ok(UploadHelper.getFullUrl(req, gallery));
+            if (!gallery) return res.notFound('Gallery not found');
+
+            async.each(gallery.comments, function (comment, callback) {
+                User.findOne(comment.user).then(function (user) {
+                    comment.user = user.toJSON();
+
+                    return callback();
+                }).catch(function (err) {
+                    console.log(err);
+                    return callback(err);
+                });
+
+            }, function (err) {
+                if (err) return res.negotiate(err);
+
+                return res.ok(UploadHelper.getFullUrl(req, gallery));
+            });
+
         }).catch(function (err) {
             return res.negotiate(err);
         });

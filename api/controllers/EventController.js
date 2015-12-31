@@ -83,7 +83,23 @@ module.exports = {
     show: function (req, res) {
         Event.findOne(req.params.id).populateAll().then(function (event) {
             if (!event) return res.notFound();
-            return res.ok(UploadHelper.getFullUrl(req, event));
+
+            async.each(event.comments, function (comment, callback) {
+                User.findOne(comment.user).then(function (user) {
+                    comment.user = user.toJSON();
+
+                    return callback();
+                }).catch(function (err) {
+                    console.log(err);
+                    return callback(err);
+                });
+
+            }, function (err) {
+                if (err) return res.negotiate(err);
+
+                return res.ok(UploadHelper.getFullUrl(req, event));
+            });
+
         }).catch(function (err) {
             return res.negotiate(err);
         });
