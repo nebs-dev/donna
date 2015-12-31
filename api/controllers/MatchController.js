@@ -89,7 +89,7 @@ module.exports = {
                 match.save(function (err, match) {
                    if (err) return res.negotiate(err);
 
-                    Match.publishAdd(match.id, 'messages', msg.id);
+                    Match.publishAdd(match.id, 'messages', msg);
                     return res.ok(match.toJSON());
                 });
             });
@@ -117,7 +117,7 @@ module.exports = {
      * @param res
      */
     connect: function (req, res) {
-        Match.findOne(req.params.id).then(function (match) {
+        Match.findOne(req.params.id).populateAll().then(function (match) {
             if (!match) return res.notFound('Match not found');
 
             Match.subscribe(req, match.id);

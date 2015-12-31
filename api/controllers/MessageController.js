@@ -99,17 +99,21 @@ module.exports = {
                 // fill data for user... create doesn't populate
                 message.user = req.user.toJSON;
 
-                Media.findOne(req.user.file).then(function (media) {
-                    message.user.file = media;
-                    message = UploadHelper.getFullUrl(req, message);
+                if(req.user.file) {
+                    Media.findOne(req.user.file).then(function (media) {
+                        message.user.file = media;
+                        message = UploadHelper.getFullUrl(req, message);
 
-                    console.log(message.user.file);
+                        // emit created event to all sockets subscribed to this model not including req
+                        Message.publishCreate(message.toJSON());
 
-                    // emit created event to all sockets subscribed to this model not including req
+                        res.ok(message.toJSON());
+                    });
+                } else {
                     Message.publishCreate(message.toJSON());
-
                     res.ok(message.toJSON());
-                });
+                }
+
             });
 
         }).catch(function (err) {

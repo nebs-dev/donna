@@ -76,7 +76,8 @@ module.exports.policies = {
     },
 
     'MatchController': {
-        '*': ['tokenAuth', 'isSuperadmin']
+        '*': ['tokenAuth', 'isSuperadmin'],
+        'connect': ['tokenAuth']
     }
 
 
