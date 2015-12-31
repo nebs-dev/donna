@@ -212,6 +212,12 @@ module.exports.routes = {
     ////////////
 
     /**
+     * @api {get} /api/file/show/:id get File object
+     * @apiGroup File
+     */
+    'GET /api/file/show/:id': 'Media.show',
+
+    /**
      * @api {get} /api/file/:id get one File
      * @apiGroup File
      */

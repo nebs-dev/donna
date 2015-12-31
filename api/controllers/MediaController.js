@@ -8,6 +8,35 @@
 module.exports = {
 
     /**
+     * Get one single file object
+     * @param req
+     * @param res
+     */
+    show: function (req, res) {
+        Media.findOne(req.params.id).populateAll().then(function (media) {
+            if (!media) return res.notFound('File not found');
+
+            async.each(media.comments, function (comment, callback) {
+                User.findOne(comment.user).then(function (user) {
+                    comment.user = user.toJSON();
+
+                    return callback();
+                }).catch(function (err) {
+                    return callback(err);
+                });
+
+            }, function (err) {
+                if (err) return res.negotiate(err);
+
+                return res.ok(UploadHelper.getFullUrl(req, media));
+            });
+
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
+    },
+
+    /**
      * Get one file
      * @param req
      * @param res
@@ -156,6 +185,9 @@ module.exports = {
             Comment.create(params).then(function (comment) {
                 file.comments.add(comment);
                 file.save(function (err, file) {
+
+                    console.log('Comment added', file);
+
                     if (err) return res.negotiate(err);
                     return res.ok(UploadHelper.getFullUrl(req, comment));
                 });

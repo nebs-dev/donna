@@ -108,14 +108,13 @@ module.exports = {
                         file.thumb = baseURL + '/api/file/thumb/' + file.id + '?token=' + req.originalToken;
                     });
                 }
-                if (item.user) {
+                if (item.user && data.user.file) {
                     item.user.file.url = baseURL + '/api/file/public/' + item.user.file.id;
                     item.user.file.thumb = baseURL + '/api/file/thumb/public/' + item.user.file.id;
                 }
             });
         } else {
             if (data.url) {
-                console.log(data);
                 data.url = baseURL + '/api/file/' + data.id + '?token=' + req.originalToken;
                 data.thumb = baseURL + '/api/file/thumb/' + data.id + '?token=' + req.originalToken;
             }
@@ -129,7 +128,7 @@ module.exports = {
                     data.file.thumb = baseURL + '/api/file/thumb/' + data.file.id + '?token=' + req.originalToken;
                 }
             }
-            if (data.user) {
+            if (data.user && data.user.file) {
                 data.user.file.url = baseURL + '/api/file/public/' + data.user.file.id;
                 data.user.file.thumb = baseURL + '/api/file/thumb/public/' + data.user.file.id;
             }
