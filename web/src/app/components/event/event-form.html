@@ -59,7 +59,12 @@
 
                 <!-- Image -->
                 <div class="col-lg-4 col-md-offset-4">
-                    <img src="{{ eventCtrl.event.file.url }}" />
+                    <img ng-show="eventCtrl.event.file.type == 'photo'" src="{{ newsCtrl.event.file.url }}" />
+
+                    <video ng-show="eventCtrl.event.file.type == 'video'" width="400" controls>
+                        <source ng-src="{{ eventCtrl.event.file.url | trustUrl }}" type="video/mp4">
+                        Your browser does not support HTML5 video.
+                    </video>
                 </div>
 
             </div>
