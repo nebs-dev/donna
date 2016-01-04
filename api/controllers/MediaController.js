@@ -60,7 +60,10 @@ module.exports = {
             var fileAdapter = SkipperDisk(/* optional opts */);
 
             if (file.type = 'video') {
-                res.setHeader("Content-Type", "video/mp4");
+                res.set({
+                    'Content-Type': 'video/mp4',
+                    'Accept-Ranges': 'bytes'
+                });
             }
 
             // Stream the file down
