@@ -124,7 +124,7 @@ module.exports = {
                 news.save(function (err, news) {
                     if (err) return res.negotiate(err);
 
-                    User.fincOne(comment.user).then(function (user) {
+                    User.findOne(comment.user).then(function (user) {
                         comment.user = user;
                         return res.ok(comment);
                     }).catch(function (err) {
