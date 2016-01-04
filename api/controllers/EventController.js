@@ -125,7 +125,13 @@ module.exports = {
                 event.comments.add(comment);
                 event.save(function (err, event) {
                     if (err) return res.negotiate(err);
-                    return res.ok(comment);
+
+                    User.fincOne(comment.user).then(function (user) {
+                        comment.user = user;
+                        return res.ok(comment);
+                    }).catch(function (err) {
+                        return res.negotiate(err);
+                    });
                 });
             })
 

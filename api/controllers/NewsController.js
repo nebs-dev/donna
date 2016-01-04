@@ -120,11 +120,16 @@ module.exports = {
 
             // Create comment and add it to news
             Comment.create(params).then(function (comment) {
-
                 news.comments.add(comment);
                 news.save(function (err, news) {
                     if (err) return res.negotiate(err);
-                    return res.ok(comment);
+
+                    User.fincOne(comment.user).then(function (user) {
+                        comment.user = user;
+                        return res.ok(comment);
+                    }).catch(function (err) {
+                        return res.negotiate(err);
+                    });
                 });
             })
 

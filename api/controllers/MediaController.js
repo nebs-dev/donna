@@ -189,11 +189,14 @@ module.exports = {
             Comment.create(params).then(function (comment) {
                 file.comments.add(comment);
                 file.save(function (err, file) {
-
-                    console.log('Comment added', file);
-
                     if (err) return res.negotiate(err);
-                    return res.ok(UploadHelper.getFullUrl(req, comment));
+
+                    User.fincOne(comment.user).then(function (user) {
+                        comment.user = user;
+                        return res.ok(comment);
+                    }).catch(function (err) {
+                        return res.negotiate(err);
+                    });
                 });
             })
 
