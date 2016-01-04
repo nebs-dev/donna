@@ -82,7 +82,6 @@ module.exports = {
             delete obj.comments;
             delete obj.messages;
             delete obj.secret;
-            delete obj.isVIP;
             return obj;
         }
     },

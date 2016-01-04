@@ -59,6 +59,10 @@ module.exports = {
             var SkipperDisk = require('skipper-disk');
             var fileAdapter = SkipperDisk(/* optional opts */);
 
+            if (file.type = 'video') {
+                res.setHeader("Content-Type", "video/mp4");
+            }
+
             // Stream the file down
             fileAdapter.read('uploads/' + file.url)
                 .on('error', function (err){

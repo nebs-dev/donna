@@ -32,7 +32,7 @@ module.exports = {
 
         toJSON: function () {
             var obj = this.toObject();
-            obj.likesNum = obj.likes.length;
+            obj.likesNum = obj.likes ? obj.likes.length : 0;
             obj.commentsNum = obj.comments ? obj.comments.length : 0;
             return obj;
         }
