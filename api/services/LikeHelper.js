@@ -22,10 +22,10 @@ module.exports = {
                 data.liked = true;
             }
 
-            if (item.reports && item.reports.indexOf(req.token.userId) === -1) {
-                item.reported = false;
+            if (data.reports && data.reports.indexOf(req.token.userId) === -1) {
+                data.reported = false;
             } else {
-                item.reported = true;
+                data.reported = true;
             }
         }
 
