@@ -67,13 +67,14 @@ module.exports = {
                             return callback();
                         }).catch(function (err) {
                             console.log(err);
-                            return callback(err);
+                            //return callback(err);
                         });
 
                     }, function (err) {
                         if (err) return res.negotiate(err);
 
                         var donnaOnline = vipUser ? vipUser.isOnline : false;
+                        var messages = LikeHelper.checkLike(req, messages);
                         return res.ok({messages: messages, total: Message.watchers().length, donnaOnline: donnaOnline});
                     });
                 });
@@ -110,11 +111,11 @@ module.exports = {
                         // emit created event to all sockets subscribed to this model not including req
                         Message.publishCreate(message.toJSON());
 
-                        res.ok(message.toJSON());
+                        res.ok(LikeHelper.checkLike(req, message.toJSON()));
                     });
                 } else {
                     Message.publishCreate(message.toJSON());
-                    res.ok(message.toJSON());
+                    res.ok(LikeHelper.checkLike(req, message.toJSON()));
                 }
 
             });
@@ -130,8 +131,8 @@ module.exports = {
      * @param res
      */
     like: function (req, res) {
-        Social.likeUnlike(req, 'message').then(function (comment) {
-            return res.ok(comment);
+        Social.likeUnlike(req, 'message').then(function (message) {
+            res.ok(LikeHelper.checkLike(req, message.toJSON()));
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -143,8 +144,8 @@ module.exports = {
      * @param res
      */
     report: function (req, res) {
-        Social.reportUnreport(req, 'message').then(function (comment) {
-            return res.ok(comment);
+        Social.reportUnreport(req, 'message').then(function (message) {
+            res.ok(LikeHelper.checkLike(req, message.toJSON()));
         }).catch(function (err) {
             return res.negotiate(err);
         });

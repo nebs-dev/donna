@@ -25,7 +25,7 @@ module.exports = {
 
             event.save(function (err, event) {
                 if (err) return res.negotiate(err);
-                return res.ok(UploadHelper.getFullUrl(req, event));
+                return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, event)));
             });
 
         }).catch(function (err) {
@@ -54,7 +54,7 @@ module.exports = {
 
             event.save(function (err, event) {
                 if (err) return res.negotiate(err);
-                return res.ok(UploadHelper.getFullUrl(req, event));
+                return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, event)));
             });
 
         }).catch(function (err) {
@@ -97,7 +97,7 @@ module.exports = {
             }, function (err) {
                 if (err) return res.negotiate(err);
 
-                return res.ok(UploadHelper.getFullUrl(req, event));
+                return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, event)));
             });
 
         }).catch(function (err) {
@@ -121,7 +121,6 @@ module.exports = {
 
             // Create comment and add it to event
             Comment.create(params).then(function (comment) {
-
                 event.comments.add(comment);
                 event.save(function (err, event) {
                     if (err) return res.negotiate(err);
@@ -147,7 +146,7 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'event').then(function (event) {
-            return res.ok(UploadHelper.getFullUrl(req, event));
+            return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, event)));
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -162,7 +161,7 @@ module.exports = {
         var fromDate = moment().subtract(1, 'month');
 
         Event.find({date: {'>=': fromDate.format()}}).populate('file').then(function (events) {
-            return res.ok(UploadHelper.getFullUrl(req, events));
+            return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, events)));
         }).catch(function(err) {
            return res.negotiate(err);
         });

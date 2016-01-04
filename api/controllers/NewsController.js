@@ -23,7 +23,7 @@ module.exports = {
 
             news.save(function (err, news) {
                 if (err) return res.negotiate(err);
-                return res.ok(UploadHelper.getFullUrl(req, news));
+                return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, news)));
             });
 
         }).catch(function (err) {
@@ -53,7 +53,7 @@ module.exports = {
             news.save(function (err, news) {
                 if (err) return res.negotiate(err);
 
-                return res.ok(UploadHelper.getFullUrl(req, news));
+                return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, news)));
             });
 
         }).catch(function (err) {
@@ -96,7 +96,7 @@ module.exports = {
             }, function (err) {
                 if (err) return res.negotiate(err);
 
-                return res.ok(UploadHelper.getFullUrl(req, news));
+                return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, news)));
             });
 
         }).catch(function (err) {
@@ -145,7 +145,7 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'news').then(function (news) {
-            return res.ok(UploadHelper.getFullUrl(req, news));
+            return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, news)));
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -158,7 +158,7 @@ module.exports = {
      */
     list: function (req, res) {
         News.find().populate('file').then(function (news) {
-            return res.ok(UploadHelper.getFullUrl(req, news));
+            return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, news)));
         }).catch(function(err) {
             return res.negotiate(err);
         });

@@ -28,7 +28,7 @@ module.exports = {
             }, function (err) {
                 if (err) return res.negotiate(err);
 
-                return res.ok(UploadHelper.getFullUrl(req, media));
+                return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, media)));
             });
 
         }).catch(function (err) {
@@ -212,7 +212,7 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'media').then(function (file) {
-            return res.ok(UploadHelper.getFullUrl(req, file));
+            return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, file)));
         }).catch(function (err) {
             return res.negotiate(err);
         });

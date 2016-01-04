@@ -29,7 +29,7 @@ module.exports = {
             }, function (err) {
                 if (err) return res.negotiate(err);
 
-                return res.ok(UploadHelper.getFullUrl(req, gallery));
+                return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, gallery)));
             });
 
         }).catch(function (err) {
@@ -44,7 +44,7 @@ module.exports = {
      */
     list: function (req, res) {
         Gallery.find().populateAll().then(function (galleries) {
-            return res.ok(UploadHelper.getFullUrl(req, galleries));
+            return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, galleries)));
         }).catch(function (err) {
            return res.negotiate(err);
         });
@@ -66,7 +66,7 @@ module.exports = {
             if (files) gallery.cover = files[0].id;
             gallery.save(function (err, gallery) {
                 if (err) return res.negotiate(err);
-                return res.ok(UploadHelper.getFullUrl(req, gallery));
+                return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, gallery)));
             });
 
         }).catch(function (err) {
@@ -95,7 +95,7 @@ module.exports = {
 
             gallery.save(function (err, gallery) {
                 if (err) return res.negotiate(err);
-                return res.ok(UploadHelper.getFullUrl(req, gallery));
+                return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, gallery)));
             });
 
         }).catch(function (err) {
@@ -132,7 +132,7 @@ module.exports = {
             gallery.files.add(files);
             gallery.save(function (err, gallery) {
                 if (err) return res.negotiate(err);
-                return res.ok(UploadHelper.getFullUrl(req, gallery));
+                return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, gallery)));
             });
 
         }).catch(function (err) {
@@ -181,7 +181,7 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'gallery').then(function (gallery) {
-            return res.ok(UploadHelper.getFullUrl(req, gallery));
+            return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, gallery)));
         }).catch(function (err) {
             return res.negotiate(err);
         });

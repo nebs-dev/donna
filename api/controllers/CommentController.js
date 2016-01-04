@@ -14,7 +14,7 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'comment').then(function (comment) {
-            return res.ok(comment);
+            res.ok(LikeHelper.checkLike(req, comment));
         }).catch(function (err) {
             return res.negotiate(err);
         });
@@ -27,7 +27,7 @@ module.exports = {
      */
     report: function (req, res) {
         Social.reportUnreport(req, 'comment').then(function (comment) {
-            return res.ok(comment);
+            res.ok(LikeHelper.checkLike(req, comment));
         }).catch(function (err) {
             return res.negotiate(err);
         });
