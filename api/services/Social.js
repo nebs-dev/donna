@@ -18,7 +18,15 @@ module.exports = {
 
                 item.save(function (err, itemNew) {
                     sails.models[model].publishUpdate(itemNew.id, itemNew.toJSON());
-                    return resolve(item);
+
+                    if (item.user.file) {
+                        Media.findOne(item.user.file).then(function (media) {
+                            item.user.file = media;
+                            return resolve(item);
+                        }).catch(function (err) {
+                           return reject(err);
+                        });
+                    }
                 });
 
             }).catch(function (err) {
@@ -45,7 +53,14 @@ module.exports = {
                 item.save(function (err, itemNew) {
                     sails.models[model].publishUpdate(itemNew.id, itemNew.toJSON());
 
-                    return resolve(item);
+                    if (item.user.file) {
+                        Media.findOne(item.user.file).then(function (media) {
+                            item.user.file = media;
+                            return resolve(item);
+                        }).catch(function (err) {
+                            return reject(err);
+                        });
+                    }
                 });
 
             }).catch(function (err) {

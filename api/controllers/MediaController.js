@@ -16,17 +16,13 @@ module.exports = {
         Media.findOne(req.params.id).populateAll().then(function (media) {
             if (!media) return res.notFound('File not found');
 
-            async.each(media.comments, function (comment, callback) {
-                User.findOne(comment.user).then(function (user) {
-                    comment.user = user.toJSON();
+            var usersIDs = _.pluck(media.comments, 'user');
+            User.find(usersIDs).populate('file').then(function (users) {
+                users = _.indexBy(users, 'id');
 
-                    return callback();
-                }).catch(function (err) {
-                    return callback(err);
+                _.each(media.comments, function (comment) {
+                    comment.user = users[comment.user];
                 });
-
-            }, function (err) {
-                if (err) return res.negotiate(err);
 
                 return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, media)));
             });

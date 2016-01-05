@@ -84,18 +84,13 @@ module.exports = {
         Event.findOne(req.params.id).populateAll().then(function (event) {
             if (!event) return res.notFound();
 
-            async.each(event.comments, function (comment, callback) {
-                User.findOne(comment.user).then(function (user) {
-                    comment.user = user.toJSON();
+            var usersIDs = _.pluck(event.comments, 'user');
+            User.find(usersIDs).populate('file').then(function (users) {
+                users = _.indexBy(users, 'id');
 
-                    return callback();
-                }).catch(function (err) {
-                    console.log(err);
-                    return callback(err);
+                _.each(event.comments, function (comment) {
+                    comment.user = users[comment.user];
                 });
-
-            }, function (err) {
-                if (err) return res.negotiate(err);
 
                 return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, event)));
             });
