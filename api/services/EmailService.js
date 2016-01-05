@@ -24,7 +24,7 @@ module.exports = {
                             from: options.from || 'OchsnerAppBackend <ochsner@smartfactory.ch>',
                             to: options.to || 'nebojsa.stojanovic0@gmail.com', // comma separated if multiple...  todo change default to
                             subject: options.subject || "DonnaApp backend message",
-                            html: '<p>TEST</p>',
+                            html: '<p>' + data.link + '</p>',
                             //generateTextFromHTML: true,
                             attachments: options.attachments || null
                         }, function (err) {

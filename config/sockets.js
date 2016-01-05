@@ -122,6 +122,8 @@ module.exports.sockets = {
      ***************************************************************************/
     afterDisconnect: function (session, socket, cb) {
         User.findOne(socket.handshake.query.user).then(function (user) {
+            if (!user) return cb();
+
             sails.sockets.blast('userDisconnected', {user: user, total: Message.watchers().length}, socket);
 
             // Donna status

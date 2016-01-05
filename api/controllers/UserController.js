@@ -53,6 +53,8 @@ module.exports = {
             return res.customBadRequest('Password doesn\'t match');
         }
 
+
+
         User.update(params.id, params).then(function (user) {
             return [user[0], UploadHelper.uploadFile(req, 'user')];
 
@@ -87,10 +89,11 @@ module.exports = {
 
             var token = sailsTokenAuth.issueResetToken({userId: user.id, secret: user.secret});
 
-            EmailService.sendEmail({}, {}, function (err, data) {
+            var link = sails.getBaseurl() + '/api/user/reset/' + token;
+            EmailService.sendEmail({}, {link: link}, function (err, data) {
                 if(err) return res.negotiate(err);
 
-                return res.ok(sails.getBaseurl() + '/api/user/reset/' + token);
+                return res.ok(data);
             });
 
         }).catch(function (err) {
