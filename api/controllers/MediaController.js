@@ -59,7 +59,7 @@ module.exports = {
             var SkipperDisk = require('skipper-disk');
             var fileAdapter = SkipperDisk(/* optional opts */);
 
-            if (file.type = 'video') {
+            if (file.type == 'video') {
                 res.set({
                     'Content-Type': 'video/mp4',
                     'Accept-Ranges': 'bytes'

@@ -43,7 +43,8 @@ module.exports.policies = {
         'list': ['tokenAuth', 'isSuperadmin'],
         'destroy': ['tokenAuth', 'isSuperadmin'],
         'create': ['tokenAuth', 'isSuperadmin'],
-        'resetPassword': ['tokenAuth'],
+        'resetPassword': true,
+        'reset': ['resetAuth'],
         '*': false
     },
 

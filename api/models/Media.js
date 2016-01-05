@@ -60,6 +60,8 @@ module.exports = {
 
             fs.remove(filePath, function (err) {
                 if (err) return callback(err);
+                if (thumbPath == 'uploads/video.png') return callback();
+
                 fs.remove(thumbPath, function (err) {
                     if (err) return callback(err);
                     return callback();

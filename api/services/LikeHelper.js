@@ -9,10 +9,12 @@ module.exports = {
                     item.liked = true;
                 }
 
-                if (item.reports && item.reports.indexOf(req.token.userId) === -1) {
-                    item.reported = false;
-                } else {
-                    item.reported = true;
+                if (item.reports) {
+                    if (item.reports.indexOf(req.token.userId) === -1) {
+                        item.reported = false;
+                    } else {
+                        item.reported = true;
+                    }
                 }
             });
         } else {
@@ -22,10 +24,12 @@ module.exports = {
                 data.liked = true;
             }
 
-            if (data.reports && data.reports.indexOf(req.token.userId) === -1) {
-                data.reported = false;
-            } else {
-                data.reported = true;
+            if (data.reports) {
+                if (data.reports && data.reports.indexOf(req.token.userId) === -1) {
+                    data.reported = false;
+                } else {
+                    data.reported = true;
+                }
             }
         }
 

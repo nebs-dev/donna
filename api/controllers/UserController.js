@@ -74,23 +74,33 @@ module.exports = {
         });
     },
 
-
+    /**
+     * Generate token and send email for reset user password
+     * @param req
+     * @param res
+     */
     resetPassword: function (req, res) {
         var params = req.params.all();
 
-        User.findOne(params.email).then(function (user) {
-            var newPassword = Math.random().toString(36).substring(7);
+        User.findOne({email: params.email}).then(function (user) {
+            if (!user) return res.notFound('Email not found');
 
-            user.password = newPassword;
-            user.save(function (err, user) {
-                if (err) return res.negotiate(err);
+            var token = sailsTokenAuth.issueResetToken({userId: user.id, secret: user.secret});
 
-                user.password = newPassword;
-                return res.ok(user);
+            EmailService.sendEmail({}, {}, function (err, data) {
+                if(err) return res.negotiate(err);
+
+                return res.ok(sails.getBaseurl() + '/api/user/reset/' + token);
             });
+
         }).catch(function (err) {
             return res.negotiate(err);
         });
+    },
+
+
+    reset: function (req, res) {
+        return res.ok('Password changed!!!');
     }
 
 };
