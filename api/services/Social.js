@@ -30,7 +30,7 @@ module.exports = {
     reportUnreport: function (req, model) {
         return new Promise(function (resolve, reject) {
 
-            sails.models[model].findOne(req.params.id).then(function (item) {
+            sails.models[model].findOne(req.params.id).populateAll().then(function (item) {
                 if (!item) return reject('Not found!');
 
                 // REPORT
