@@ -17,7 +17,7 @@ module.exports = {
                 }
 
                 item.save(function (err, itemNew) {
-                    sails.models[model].publishUpdate(itemNew.id, itemNew.toJSON());
+                    sails.models[model].publishUpdate(itemNew.id, itemNew);
 
                     if (item.user.file) {
                         Media.findOne(item.user.file).then(function (media) {
@@ -51,7 +51,7 @@ module.exports = {
                 }
 
                 item.save(function (err, itemNew) {
-                    sails.models[model].publishUpdate(itemNew.id, itemNew.toJSON());
+                    sails.models[model].publishUpdate(itemNew.id, itemNew);
 
                     if (item.user.file) {
                         Media.findOne(item.user.file).then(function (media) {
