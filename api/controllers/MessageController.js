@@ -127,8 +127,8 @@ module.exports = {
                         }
 
                         // emit created event to all sockets subscribed to this model not including req
-                        Message.publishCreate(message);
-                        return res.ok(LikeHelper.checkLike(req, message));
+                        Message.publishCreate(message.toJSON());
+                        return res.ok(LikeHelper.checkLike(req, message.toJSON()));
                     });
                 } else {
                     Message.publishCreate(message.toJSON());

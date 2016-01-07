@@ -65,14 +65,14 @@ module.exports = {
 
                             item.user.file = media;
                             itemNew.user.file = media;
-                            sails.models[model].publishUpdate(itemNew.id, itemNew);
-                            return resolve(itemNew);
+                            sails.models[model].publishUpdate(itemNew.id, itemNew.toJSON());
+                            return resolve(itemNew.toJSON());
                         }).catch(function (err) {
                             return reject(err);
                         });
                     } else {
-                        sails.models[model].publishUpdate(itemNew.id, itemNew);
-                        return resolve(itemNew);
+                        sails.models[model].publishUpdate(itemNew.id, itemNew.toJSON());
+                        return resolve(itemNew.toJSON());
                     }
                 });
 
