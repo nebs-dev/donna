@@ -14,12 +14,12 @@
 
         // Events
         Chat.on('connect', function () {
-            console.log("KONEKTO!");
+            console.log('on disconnect');
             vm.chatConnected = true;
         });
 
         Chat.on('disconnect', function () {
-            console.log("UMIREM");
+            console.log('on disconnect');
 
             vm.chatConnected = false;
             SweetAlert.swal('Chat error', 'Lost connection!', 'error');
@@ -27,6 +27,7 @@
         });
 
         Chat.on("message", function (data) {
+            console.log('on message', data);
             switch (data.verb) {
                 case 'created':
                     if (data.statusCode && data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary, 'error');
@@ -44,20 +45,24 @@
         });
 
         Chat.on("newUser", function (data) {
+            console.log('on newUser', data);
             $rootScope.totalChatUsers = data.total;
             $rootScope.messages.push({event: 'connected', user: data.user});
         });
 
         Chat.on('userDisconnected', function (data) {
+            console.log('on userDisconnected', data);
             $rootScope.totalChatUsers = data.total;
             $rootScope.messages.push({event: 'disconnected', user: data.user});
         });
 
         Chat.on('donnaIn', function () {
+            console.log('on donnaIn');
             $rootScope.donnaOnline = true;
         });
 
         Chat.on('donnaOut', function () {
+            console.log('on donnaOut');
             $rootScope.donnaOnline = false;
         });
 
