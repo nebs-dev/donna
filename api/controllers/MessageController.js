@@ -129,6 +129,7 @@ module.exports = {
                             return res.ok(LikeHelper.checkLike(req, message));
                         }
 
+                        console.log(message.user.role)
                         Role.findOne(message.user.role).then(function (role) {
                             message.user.role = role;
 
