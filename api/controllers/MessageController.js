@@ -116,12 +116,27 @@ module.exports = {
                     Media.findOne(req.user.file).then(function (media) {
                         req.user.file = media;
                         message.user = req.user;
-                        message = UploadHelper.getFullUrl(req, message);
 
-                        // emit created event to all sockets subscribed to this model not including req
-                        Message.publishCreate(message.toJSON());
+                        media.url = sails.getBaseurl() + '/api/file/public/' + media.id;
+                        media.thumb = sails.getBaseurl() + '/api/file/thumb/public/' + media.id;
 
-                        res.ok(LikeHelper.checkLike(req, message.toJSON()));
+                        message.user.file = media;
+
+                        if (!message.user.role) {
+                            message.user.role = {};
+                            // emit created event to all sockets subscribed to this model not including req
+                            Message.publishCreate(message);
+                            res.ok(LikeHelper.checkLike(req, message));
+                        }
+
+                        Role.findOne(req.user.role).then(function (role) {
+                            if (!role) return callback();
+                            message.user.role = role;
+
+                            // emit created event to all sockets subscribed to this model not including req
+                            Message.publishCreate(message);
+                            res.ok(LikeHelper.checkLike(req, message));
+                        });
                     });
                 } else {
                     Message.publishCreate(message.toJSON());
