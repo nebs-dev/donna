@@ -24,14 +24,15 @@ module.exports = {
 
                             item.user.file = media;
                             itemNew.user.file = media;
-                            sails.models[model].publishUpdate(itemNew.id, itemNew);
-                            return resolve(item);
+                            sails.models[model].publishUpdate(itemNew.id, itemNew.toJSON());
+                            console.log(itemNew);
+                            return resolve(itemNew.toJSON());
                         }).catch(function (err) {
                            return reject(err);
                         });
                     } else {
-                        sails.models[model].publishUpdate(itemNew.id, itemNew);
-                        return resolve(item);
+                        sails.models[model].publishUpdate(itemNew.id, itemNew.toJSON());
+                        return resolve(itemNew.toJSON());
                     }
                 });
 
@@ -65,12 +66,13 @@ module.exports = {
                             item.user.file = media;
                             itemNew.user.file = media;
                             sails.models[model].publishUpdate(itemNew.id, itemNew);
-                            return resolve(item);
+                            return resolve(itemNew);
                         }).catch(function (err) {
                             return reject(err);
                         });
                     } else {
                         sails.models[model].publishUpdate(itemNew.id, itemNew);
+                        return resolve(itemNew);
                     }
                 });
 
