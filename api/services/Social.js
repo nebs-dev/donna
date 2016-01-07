@@ -19,8 +19,8 @@ module.exports = {
                 item.save(function (err, itemNew) {
                     if (item.user.file) {
                         Media.findOne(item.user.file).then(function (media) {
-                            item.user.file = media;
-                            itemNew.user.file = media;
+                            item.user.file = UploadHelper.getFullUrl(req, media);
+                            itemNew.user.file = UploadHelper.getFullUrl(req, media);
                             sails.models[model].publishUpdate(itemNew.id, itemNew);
                             return resolve(item);
                         }).catch(function (err) {
@@ -55,8 +55,8 @@ module.exports = {
                 item.save(function (err, itemNew) {
                     if (item.user.file) {
                         Media.findOne(item.user.file).then(function (media) {
-                            item.user.file = media;
-                            itemNew.user.file = media;
+                            item.user.file = UploadHelper.getFullUrl(req, media);
+                            itemNew.user.file = UploadHelper.getFullUrl(req, media);
                             sails.models[model].publishUpdate(itemNew.id, itemNew);
                             return resolve(item);
                         }).catch(function (err) {
