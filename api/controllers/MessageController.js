@@ -126,7 +126,7 @@ module.exports = {
                             message.user.role = {};
                             // emit created event to all sockets subscribed to this model not including req
                             Message.publishCreate(message);
-                            res.ok(LikeHelper.checkLike(req, message));
+                            return res.ok(LikeHelper.checkLike(req, message));
                         }
 
                         Role.findOne(req.user.role).then(function (role) {
@@ -135,7 +135,7 @@ module.exports = {
 
                             // emit created event to all sockets subscribed to this model not including req
                             Message.publishCreate(message);
-                            res.ok(LikeHelper.checkLike(req, message));
+                            return res.ok(LikeHelper.checkLike(req, message));
                         });
                     });
                 } else {
