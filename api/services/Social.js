@@ -17,15 +17,16 @@ module.exports = {
                 }
 
                 item.save(function (err, itemNew) {
-                    sails.models[model].publishUpdate(itemNew.id, itemNew);
-
                     if (item.user.file) {
                         Media.findOne(item.user.file).then(function (media) {
                             item.user.file = media;
+                            sails.models[model].publishUpdate(itemNew.id, itemNew);
                             return resolve(item);
                         }).catch(function (err) {
                            return reject(err);
                         });
+                    } else {
+                        sails.models[model].publishUpdate(itemNew.id, itemNew);
                     }
                 });
 
@@ -51,15 +52,16 @@ module.exports = {
                 }
 
                 item.save(function (err, itemNew) {
-                    sails.models[model].publishUpdate(itemNew.id, itemNew);
-
                     if (item.user.file) {
                         Media.findOne(item.user.file).then(function (media) {
                             item.user.file = media;
+                            sails.models[model].publishUpdate(itemNew.id, itemNew);
                             return resolve(item);
                         }).catch(function (err) {
                             return reject(err);
                         });
+                    } else {
+                        sails.models[model].publishUpdate(itemNew.id, itemNew);
                     }
                 });
 
