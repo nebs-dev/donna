@@ -26,7 +26,7 @@
             return $state.go('user.dashboard');
         });
 
-        Chat.on("chatMessage", function (data) {
+        Chat.on("message", function (data) {
             switch (data.verb) {
                 case 'created':
                     if (data.statusCode && data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary, 'error');
