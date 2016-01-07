@@ -17,7 +17,7 @@ module.exports = {
                 }
 
                 item.save(function (err, itemNew) {
-                    if (item.user.file) {
+                    if (item.user && item.user.file) {
                         Media.findOne(item.user.file).then(function (media) {
                             media.url = sails.getBaseurl() + '/api/file/public/' + media.id;
                             media.thumb = sails.getBaseurl() + '/api/file/thumb/public/' + media.id;
@@ -31,6 +31,7 @@ module.exports = {
                         });
                     } else {
                         sails.models[model].publishUpdate(itemNew.id, itemNew);
+                        return resolve(item);
                     }
                 });
 

@@ -27,15 +27,17 @@
         });
 
         Chat.on("message", function (data) {
-            console.log('on message', data);
+            //console.log('on message', data);
             switch (data.verb) {
                 case 'created':
+                    console.log('CREATED', data);
                     if (data.statusCode && data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary, 'error');
                     $rootScope.messages.push(data.data);
                     break;
                 case 'updated':
                     var msg = _.findWhere($rootScope.messages, {id: data.id});
                     if (msg) {
+                        console.log('UPDATED', msg);
                         msg.likesNum = data.data.likesNum;
                         msg.reportsNum = data.data.reportsNum;
                     }
