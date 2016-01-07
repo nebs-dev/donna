@@ -20,7 +20,12 @@ module.exports = {
             required: true
         },
 
-        opponents: {
+        opponent1: {
+            type: 'string',
+            required: true
+        },
+
+        opponent2: {
             type: 'string',
             required: true
         },

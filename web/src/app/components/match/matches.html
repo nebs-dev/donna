@@ -39,15 +39,17 @@
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
-                        <th>Opponent</th>
                         <th>Date</th>
+                        <th>Opponent1</th>
+                        <th>Opponent2</th>
                         <th>Actions</th>
                     </tr>
                     <tr dir-paginate="match in matchCtrl.matches | filter:q | itemsPerPage: pageSize">
                         <td>{{ match.id }}</td>
                         <td>{{ match.title }}</td>
                         <td>{{ match.date | date : 'dd.MM.yyyy' }}</td>
-                        <td>{{ match.opponents }}</td>
+                        <td>{{ match.opponent1 }}</td>
+                        <td>{{ match.opponent2 }}</td>
                         <td>
                             <button ng-click="matchCtrl.destroy(match.id)" class="btn btn-sm btn-danger"><i
                                     class="fa fa-remove"></i></button>
