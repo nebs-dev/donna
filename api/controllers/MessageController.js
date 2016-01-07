@@ -64,7 +64,13 @@ module.exports = {
 
                             item.user.file = media;
 
-                            return callback();
+                            Role.findOne(item.user.role).then(function (role) {
+                                if (!role) return callback();
+
+                                item.user.role = role;
+
+                                return callback();
+                            });
                         }).catch(function (err) {
                             console.log(err);
                             //return callback(err);

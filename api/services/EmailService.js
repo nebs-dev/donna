@@ -21,7 +21,7 @@ module.exports = {
                 //        callback(true, err);
                 //    } else {
                         transporter.sendMail({
-                            from: options.from || 'OchsnerAppBackend <ochsner@smartfactory.ch>',
+                            from: options.from || 'DonnaApp <donna@gmail.com>',
                             to: options.to || 'nebojsa.stojanovic0@gmail.com', // comma separated if multiple...  todo change default to
                             subject: options.subject || "DonnaApp backend message",
                             html: '<p>' + data.link + '</p>',

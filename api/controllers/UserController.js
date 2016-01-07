@@ -90,7 +90,11 @@ module.exports = {
             var token = sailsTokenAuth.issueResetToken({userId: user.id, secret: user.secret});
 
             var link = sails.getBaseurl() + '/api/user/reset/' + token;
-            EmailService.sendEmail({}, {link: link}, function (err, data) {
+            var options = {
+                to: user.email
+            };
+
+            EmailService.sendEmail(options, {link: link}, function (err, data) {
                 if(err) return res.negotiate(err);
 
                 return res.ok(data);

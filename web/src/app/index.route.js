@@ -20,6 +20,12 @@
                 templateUrl: 'app/components/login/login.html',
                 controller: 'LoginController',
                 controllerAs: 'loginCtrl'
+            })
+            .state('anon.reset', {
+                url: '/reset/:token',
+                templateUrl: 'app/components/user/reset-password.html',
+                controller: 'UserController',
+                controllerAs: 'userCtrl'
             });
 
         $stateProvider
