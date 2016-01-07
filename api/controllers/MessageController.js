@@ -124,19 +124,11 @@ module.exports = {
 
                         if (!message.user.role) {
                             message.user.role = {};
-                            // emit created event to all sockets subscribed to this model not including req
-                            Message.publishCreate(message);
-                            return res.ok(LikeHelper.checkLike(req, message));
                         }
 
-                        console.log(message.user.role)
-                        Role.findOne(message.user.role).then(function (role) {
-                            message.user.role = role;
-
-                            // emit created event to all sockets subscribed to this model not including req
-                            Message.publishCreate(message);
-                            return res.ok(LikeHelper.checkLike(req, message));
-                        });
+                        // emit created event to all sockets subscribed to this model not including req
+                        Message.publishCreate(message);
+                        return res.ok(LikeHelper.checkLike(req, message));
                     });
                 } else {
                     Message.publishCreate(message.toJSON());
