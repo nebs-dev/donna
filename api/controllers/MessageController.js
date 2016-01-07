@@ -130,7 +130,6 @@ module.exports = {
                         }
 
                         Role.findOne(message.user.role).then(function (role) {
-                            if (!role) return callback();
                             message.user.role = role;
 
                             // emit created event to all sockets subscribed to this model not including req
