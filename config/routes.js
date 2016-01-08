@@ -126,13 +126,15 @@ module.exports.routes = {
      */
     'POST /api/user/resetPassword': 'User.resetPassword',
 
-    'GET /api/user/reset/:token': 'User.reset',
+    'POST /api/user/reset/:id': 'User.reset',
 
     'POST /api/user/create': 'User.create',
 
     'POST /api/user/destroy/:id': 'User.destroy',
 
     'GET /api/user/show/:id': 'User.show',
+
+    'GET /api/user/getByToken/:token': 'User.getOneByToken',
 
 
     ////////////

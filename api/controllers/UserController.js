@@ -77,6 +77,20 @@ module.exports = {
     },
 
     /**
+     * Get user by token
+     * @param req
+     * @param res
+     */
+    getOneByToken: function (req, res) {
+        User.findOne(req.token.userId).then(function (user) {
+            if (!user) return res.notFound('User not found');
+            return res.ok(user);
+        }).catch(function (err) {
+           return res.negotiate(err);
+        });
+    },
+
+    /**
      * Generate token and send email for reset user password
      * @param req
      * @param res
@@ -89,7 +103,7 @@ module.exports = {
 
             var token = sailsTokenAuth.issueResetToken({userId: user.id, secret: user.secret});
 
-            var link = sails.getBaseurl() + '/api/user/reset/' + token;
+            var link = sails.getHost() + '/donna/#/reset/' + token;
             var options = {
                 to: user.email
             };
@@ -105,9 +119,23 @@ module.exports = {
         });
     },
 
-
+    /**
+     * Change user password
+     * @param req
+     * @param res
+     * @returns {*}
+     */
     reset: function (req, res) {
-        return res.ok('Password changed!!!');
+        var params = req.params.all();
+        if (params.password !== params.confirmPassword) {
+            return res.customBadRequest('Password doesn\'t match');
+        }
+
+        User.update(params.id, params).then(function (user) {
+            return res.ok(user);
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
     }
 
 };

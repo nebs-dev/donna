@@ -23,9 +23,10 @@
             })
             .state('anon.reset', {
                 url: '/reset/:token',
-                templateUrl: 'app/components/user/reset-password.html',
-                controller: 'UserController',
-                controllerAs: 'userCtrl'
+                templateUrl: 'app/components/anon/reset-password.html',
+                controller: 'AnonController',
+                controllerAs: 'anonCtrl',
+                method: 'resetPassword'
             });
 
         $stateProvider

@@ -25,7 +25,6 @@ module.exports = {
                             item.user.file = media;
                             itemNew.user.file = media;
                             sails.models[model].publishUpdate(itemNew.id, itemNew.toJSON());
-                            console.log(itemNew);
                             return resolve(itemNew.toJSON());
                         }).catch(function (err) {
                            return reject(err);

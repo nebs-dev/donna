@@ -12,6 +12,14 @@
                 return $http.get(API.URL + '/api/user/show/' + id);
             },
 
+            getOneByToken: function (token) {
+                return $http.get(API.URL + '/api/user/getByToken/' + token);
+            },
+
+            changePassword: function (id, data) {
+                return $http.post(API.URL + '/api/user/reset/' + id, data);
+            },
+
             getUsersList: function () {
                 return $http.post(API.URL + '/api/users');
             },
@@ -21,7 +29,6 @@
             },
 
             update: function (id, data) {
-                console.log(data);
                 return data.$http(API.URL + '/api/user/update/' + id);
             },
 

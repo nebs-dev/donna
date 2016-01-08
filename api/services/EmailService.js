@@ -29,7 +29,7 @@ module.exports = {
                             attachments: options.attachments || null
                         }, function (err) {
                             if (err) {
-                                callback(true, err);
+                                callback(err);
                             } else {
                                 callback(false, "email sent!");
                             }

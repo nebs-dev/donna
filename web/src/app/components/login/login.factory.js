@@ -37,6 +37,7 @@
             login: function (user) {
                 var login = $http.post(API.URL + '/api/auth/login', user);
                 login.success(function (result) {
+                    console.log(result);
                     LocalService.set('auth_token', angular.toJson(result));
                 });
                 return login;
