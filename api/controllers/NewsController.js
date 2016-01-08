@@ -152,7 +152,7 @@ module.exports = {
      * @param res
      */
     list: function (req, res) {
-        News.find().populate('file').then(function (news) {
+        News.find().populate('file').populate('comments').then(function (news) {
             return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, news)));
         }).catch(function(err) {
             return res.negotiate(err);

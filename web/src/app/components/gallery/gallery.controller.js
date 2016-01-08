@@ -69,9 +69,12 @@
 
 
         vm.save = function () {
+            vm.readyToUpload = false;
             var action = (stateMethod == 'update') ? Gallery.update($state.params.id, vm.gallery) : Gallery.create(vm.gallery);
 
             action.success(function (gallery) {
+                vm.readyToUpload = true;
+
                 SweetAlert.swal({
                     title: 'Success',
                     text: 'Data successfully saved',

@@ -9,6 +9,7 @@
     function NewsController(News, SweetAlert, $state) {
         var vm = this;
         var stateMethod = $state.current.method;
+        vm.readyToUpload = true;
 
         // List
         if (stateMethod == 'list') {
@@ -38,9 +39,12 @@
 
 
         vm.save = function () {
+            vm.readyToUpload = false;
             var action = (stateMethod == 'update') ? News.update($state.params.id, vm.news) : News.create(vm.news);
 
             action.success(function (news) {
+                vm.readyToUpload = true;
+
                 SweetAlert.swal({
                     title: 'Success',
                     text: 'Data successfully saved',

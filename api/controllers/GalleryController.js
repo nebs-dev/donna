@@ -24,7 +24,24 @@ module.exports = {
                     comment.user = users[comment.user];
                 });
 
-                return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, gallery)));
+                async.map(gallery.files, function (file, callback) {
+                    Media.findOne(file.id).populateAll().then(function (mediaFile) {
+                        callback(false, mediaFile.toJSON());
+
+                    }).catch(function (err) {
+                        console.log(err);
+                        callback(err);
+                    });
+
+                }, function (err, data) {
+                    if (err) return res.negotiate(err);
+
+                    gallery.files = data;
+                    //console.log(gallery.files);
+                    //console.log('-----------------------------------', gallery);
+
+                    return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, gallery)));
+                });
             });
 
         }).catch(function (err) {

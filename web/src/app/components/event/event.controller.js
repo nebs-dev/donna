@@ -9,6 +9,7 @@
     function EventController($state, Event, SweetAlert) {
         var vm = this;
         var stateMethod = $state.current.method;
+        vm.readyToUpload = true;
 
         if (stateMethod == 'list') {
             vm.events = [];
@@ -36,9 +37,12 @@
 
 
         vm.save = function () {
+            vm.readyToUpload = false;
             var action = (stateMethod == 'update') ? Event.update($state.params.id, vm.event) : Event.create(vm.event);
 
             action.success(function (event) {
+                vm.readyToUpload = true;
+
                 SweetAlert.swal({
                     title: 'Success',
                     text: 'Data successfully saved',

@@ -26,14 +26,15 @@
                     <!-- Submit -->
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-10">
-                            <input type="submit" class="btn btn-info" value="Save">
+                            <input type="submit" class="btn btn-info" value="Save" ng-show="galleryCtrl.readyToUpload">
+                            <img ng-src="img/loading.gif" ng-show="!galleryCtrl.readyToUpload">
                         </div>
                     </div>
                 </form>
 
                 <!-- Image -->
                 <div class="col-lg-4 col-md-offset-4">
-                    <img ng-show="galleryCtrl.gallery.file.type == 'photo'" src="{{ newsCtrl.gallery.file.url }}" />
+                    <img ng-show="galleryCtrl.gallery.file.type == 'photo'" src="{{ galleryCtrl.gallery.file.url }}" />
 
                     <video ng-show="galleryCtrl.gallery.file.type == 'video'" width="400" controls>
                         <source ng-src="{{ galleryCtrl.gallery.file.url | trustUrl }}" type="video/mp4">

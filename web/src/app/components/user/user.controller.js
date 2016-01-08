@@ -9,6 +9,7 @@
     function UserController($state, User, SweetAlert) {
         var vm = this;
         var stateMethod = $state.current.method;
+        vm.readyToUpload = true;
         vm.roles = [];
 
         User.getRoles().success(function (roles) {
@@ -48,9 +49,12 @@
 
 
         vm.save = function () {
+            vm.readyToUpload = false;
             var action = (stateMethod == 'update') ? User.update($state.params.id, vm.user) : User.create(vm.user);
 
             action.success(function (user) {
+                vm.readyToUpload = true;
+
                 SweetAlert.swal({
                     title: 'Success',
                     text: 'Data successfully saved',

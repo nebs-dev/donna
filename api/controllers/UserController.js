@@ -110,8 +110,7 @@ module.exports = {
 
             EmailService.sendEmail(options, {link: link}, function (err, data) {
                 if(err) return res.negotiate(err);
-
-                return res.ok(data);
+                return res.ok();
             });
 
         }).catch(function (err) {
