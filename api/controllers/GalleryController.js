@@ -36,7 +36,7 @@ module.exports = {
                 }, function (err, data) {
                     if (err) return res.negotiate(err);
 
-                    gallery.files = data;
+                    //gallery.files = data;
                     //console.log(gallery.files);
                     //console.log('-----------------------------------', gallery);
 
