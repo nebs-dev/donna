@@ -25,8 +25,6 @@
             }).error(function (err) {
                console.log(err);
             });
-
-            //console.log(angular.fromJson(LocalService.get('auth_token')));
         }
 
         // save new password data
@@ -45,7 +43,7 @@
                 $state.go('anon.login');
 
             }).error(function (err) {
-                console.log('TEST', err);
+                console.log(err);
                 SweetAlert.swal(err.error, err.summary, 'error');
             });
         };
