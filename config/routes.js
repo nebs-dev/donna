@@ -109,6 +109,7 @@ module.exports.routes = {
      * @api {post} /api/user/update/:id update
      * @apiGroup User
      *
+     * @apiParam {string} oldPassword User old password
      * @apiParam {email} email User email
      * @apiParam {string} firstName User first name
      * @apiParam {string} lastName User last name

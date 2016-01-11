@@ -94,25 +94,26 @@ module.exports = {
         }
 
         User.findOne(req.token.userId).then(function (user) {
-            if (!user) res.notFound('User with that id not found!');
-            if (!params.oldPassword) res.unauthorized('Old password is mandatory!');
+            if (!user) return res.notFound('User with that id not found!');
+            if (!params.oldPassword) return res.unauthorized('Old password is mandatory!');
 
             User.validPassword(params.oldPassword, user, function (err, valid) {
                 if (!valid) return res.accessDenied('Invalid email or password');
 
-                return [user[0], UploadHelper.uploadFile(req, 'user')];
-            });
+                UploadHelper.uploadFile(req, 'user').then(function (file) {
+                    if (file) {
+                        user.hasFiles = true;
+                        user.file = file.id;
+                    }
 
-        }).spread(function (user, files) {
-            if (files) {
-                user.hasFiles = true;
-                user.file = files[0].id;
-            }
+                    _.extend(user, params);
 
-            user.save(function (err, user) {
-                if (err) return res.negotiate(err);
+                    user.save(function (err, user) {
+                        if (err) return res.negotiate(err);
 
-                return res.ok(UploadHelper.getFullUrl(req, user));
+                        return res.ok(UploadHelper.getFullUrl(req, user));
+                    });
+                });
             });
 
         }).catch(function (err) {
