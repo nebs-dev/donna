@@ -24,8 +24,9 @@ module.exports = {
                     comment.user = users[comment.user];
                 });
 
+
                 async.map(gallery.files, function (file, callback) {
-                    Media.findOne(file.id).populateAll().then(function (mediaFile) {
+                    Media.findOne(file.id).populate('comments').then(function (mediaFile) {
                         callback(false, mediaFile.toJSON());
 
                     }).catch(function (err) {
@@ -36,11 +37,10 @@ module.exports = {
                 }, function (err, data) {
                     if (err) return res.negotiate(err);
 
-                    //gallery.files = data;
-                    //console.log(gallery.files);
-                    //console.log('-----------------------------------', gallery);
+                    var galle = gallery.toJSON();
+                    galle.files = LikeHelper.checkLike(req, data);
 
-                    return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, gallery)));
+                    return res.ok(UploadHelper.getFullUrl(req, galle));
                 });
             });
 
