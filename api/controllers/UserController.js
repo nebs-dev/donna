@@ -93,11 +93,11 @@ module.exports = {
             return res.customBadRequest('Password doesn\'t match');
         }
 
-        User.update(params.id, params).then(function (user) {
+        User.findOne(req.token.userId).then(function (user) {
+            if (!user) res.notFound('User with that id not found!');
             return [user[0], UploadHelper.uploadFile(req, 'user')];
 
         }).spread(function (user, files) {
-            if (!user) res.notFound('User with that id not found!');
             if (files) {
                 user.hasFiles = true;
                 user.file = files[0].id;

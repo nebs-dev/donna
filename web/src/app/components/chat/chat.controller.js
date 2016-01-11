@@ -19,8 +19,6 @@
 
             if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.summary, 'error');
 
-            console.log(data);
-
             $rootScope.messages = data.body.messages;
             $rootScope.totalChatUsers = data.body.total;
             $rootScope.donnaOnline = data.body.donnaOnline;
