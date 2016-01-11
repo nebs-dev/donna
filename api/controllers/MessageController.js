@@ -57,12 +57,12 @@ module.exports = {
                         if (!item.user || !item.user.file) return callback();
 
                         Media.findOne(item.user.file).then(function (media) {
-                            if (!media) return callback();
+                            if (media) {
+                                media.url = baseURL + '/api/file/public/' + media.id;
+                                media.thumb = baseURL + '/api/file/thumb/public/' + media.id;
 
-                            media.url = baseURL + '/api/file/public/' + media.id;
-                            media.thumb = baseURL + '/api/file/thumb/public/' + media.id;
-
-                            item.user.file = media;
+                                item.user.file = media;X
+                            }
 
                             if (!item.user.role) {
                                 item.user.role = {};
