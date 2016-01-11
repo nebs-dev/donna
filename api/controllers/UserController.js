@@ -95,7 +95,13 @@ module.exports = {
 
         User.findOne(req.token.userId).then(function (user) {
             if (!user) res.notFound('User with that id not found!');
-            return [user[0], UploadHelper.uploadFile(req, 'user')];
+            if (!params.oldPassword) res.unauthorized('Old password is mandatory!');
+
+            User.validPassword(params.oldPassword, user, function (err, valid) {
+                if (!valid) return res.accessDenied('Invalid email or password');
+
+                return [user[0], UploadHelper.uploadFile(req, 'user')];
+            });
 
         }).spread(function (user, files) {
             if (files) {
