@@ -117,6 +117,9 @@ module.exports = {
                     var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
                     res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
                 });
+
+            }).catch(function (err) {
+                return res.negotiate(err);
             });
 
         }).catch(function (err) {
@@ -158,6 +161,9 @@ module.exports = {
                     var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
                     res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
                 });
+
+            }).catch(function (err) {
+                return res.negotiate(err);
             });
 
         }).catch(function (err) {

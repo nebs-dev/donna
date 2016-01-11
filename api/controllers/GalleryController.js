@@ -56,6 +56,14 @@ module.exports = {
      */
     list: function (req, res) {
         Gallery.find().populateAll().then(function (galleries) {
+
+            _.each(galleries, function (gallery) {
+                var galleryPhotos = _.where(gallery.files, {type: 'photo'});
+                var galleryVideos = _.where(gallery.files, {type: 'video'});
+                gallery.photoNum = galleryPhotos.length;
+                gallery.videoNum = galleryVideos.length;
+            });
+
             return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, galleries)));
         }).catch(function (err) {
            return res.negotiate(err);

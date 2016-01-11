@@ -11,7 +11,7 @@
         function link(scope, element, attrs) {
             element.bind('submit', function (e) {
                 var fd = new FormData();
-                
+
                 delete scope.model.file;
                 angular.forEach(scope.model, function (modelValue, modelKey) {
                     if (typeof(modelValue) !== 'object') return fd.append(modelKey, modelValue);
