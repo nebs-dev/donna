@@ -58,6 +58,7 @@ module.exports = {
                         if (!item.user.file) item.user.file = '';
 
                         Media.findOne(item.user.file).then(function (media) {
+                            if (!media) delete item.user.file;
                             if (media) {
                                 media.url = baseURL + '/api/file/public/' + media.id;
                                 media.thumb = baseURL + '/api/file/thumb/public/' + media.id;

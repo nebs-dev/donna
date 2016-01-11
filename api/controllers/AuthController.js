@@ -93,12 +93,12 @@ module.exports = {
         var params = req.params.all();
         if (!params.facebookId) return res.customBadRequest('Missing parameters.');
 
-        User.findOne({facebookId: params.facebookId}).then(function (user) {
+        User.findOne({facebookId: params.facebookId}).populateAll().then(function (user) {
 
             // User login
             if (user) {
                 var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
-                return res.ok({user: user, token: token});
+                return res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
             }
 
             // User registration
@@ -142,12 +142,12 @@ module.exports = {
         var params = req.params.all();
         if (!params.googleId) return res.customBadRequest('Missing parameters.');
 
-        User.findOne({googleId: params.googleId}).then(function (user) {
+        User.findOne({googleId: params.googleId}).populateAll().then(function (user) {
 
             // User login
             if (user) {
                 var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
-                return res.ok({user: user, token: token});
+                return res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
             }
 
             // User registration
