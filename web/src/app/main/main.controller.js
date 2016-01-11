@@ -27,7 +27,7 @@
         });
 
         Chat.on("message", function (data) {
-            //console.log('on message', data);
+            console.log('on message', data);
             switch (data.verb) {
                 case 'created':
                     //console.log('CREATED', data);

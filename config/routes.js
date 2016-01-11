@@ -109,7 +109,7 @@ module.exports.routes = {
      * @api {post} /api/user/update/:id update
      * @apiGroup User
      *
-     * @apiParam {string} oldPassword User old password
+     * @apiParam {string} oldPassword User old password (required)
      * @apiParam {email} email User email
      * @apiParam {string} firstName User first name
      * @apiParam {string} lastName User last name
@@ -413,13 +413,13 @@ module.exports.routes = {
     'POST /api/message/create': 'Message.create',
 
     /**
-     * @api {post} /api/message/like Like/unlike message
+     * @api {post} /api/message/like/:id Like/unlike message
      * @apiGroup Messages
      */
     'POST /api/message/like/:id': 'Message.like',
 
     /**
-     * @api {post} /api/message/report Report/unreport message
+     * @api {post} /api/message/report/:id Report/unreport message
      * @apiGroup Messages
      */
     'POST /api/message/report/:id': 'Message.report',
