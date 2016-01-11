@@ -151,11 +151,11 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'message').then(function (message) {
+            if (!message.user.role) message.user.role = {};
+
             Role.findOne(message.user.role).then(function (role) {
                 if (!role) message.user.role = {};
-
                 message.user.role = role;
-
                 res.ok(LikeHelper.checkLike(req, message));
             });
         }).catch(function (err) {
@@ -170,11 +170,11 @@ module.exports = {
      */
     report: function (req, res) {
         Social.reportUnreport(req, 'message').then(function (message) {
+            if (!message.user.role) message.user.role = {};
+
             Role.findOne(message.user.role).then(function (role) {
                 if (!role) message.user.role = {};
-
                 message.user.role = role;
-
                 res.ok(LikeHelper.checkLike(req, message));
             });
         }).catch(function (err) {
