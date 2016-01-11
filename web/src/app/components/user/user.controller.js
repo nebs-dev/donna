@@ -47,7 +47,6 @@
             });
         }
 
-
         vm.save = function () {
             vm.readyToUpload = false;
             var action = (stateMethod == 'update') ? User.update($state.params.id, vm.user) : User.create(vm.user);

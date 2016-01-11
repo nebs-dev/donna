@@ -112,7 +112,7 @@ module.exports = {
             }).then(function (message) {
 
                 // fill data for user... create doesn't populate
-                message.user = req.user.toJSON;
+                message.user = req.user.toJSON();
 
                 if(req.user.file) {
                     Media.findOne(req.user.file).then(function (media) {
