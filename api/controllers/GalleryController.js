@@ -13,7 +13,7 @@ module.exports = {
      * @param res
      */
     show: function (req, res) {
-        Gallery.findOne(req.params.id).populateAll().then(function (gallery) {
+        Gallery.findOne(req.params.id).populate('files', {sort: 'createdAt DESC'}).populate('comments').then(function (gallery) {
             if (!gallery) return res.notFound('Gallery not found');
 
             var usersIDs = _.pluck(gallery.comments, 'user');

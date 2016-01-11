@@ -46,14 +46,52 @@ module.exports = {
         });
     },
 
-    update: function (req, res) {
+    /**
+     * Create user
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    create: function (req, res) {
         var params = req.params.all();
 
         if (params.password !== params.confirmPassword) {
             return res.customBadRequest('Password doesn\'t match');
         }
 
+        User.create(params).then(function (user) {
+            return [user, UploadHelper.uploadFile(req, 'user')];
 
+        }).spread(function (user, files) {
+            if (!user) res.notFound('User with that id not found!');
+            if (files) {
+                user.hasFiles = true;
+                user.file = files[0].id;
+            }
+
+            user.save(function (err, user) {
+                if (err) return res.negotiate(err);
+
+                return res.ok(UploadHelper.getFullUrl(req, user));
+            });
+
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
+    },
+
+    /**
+     * Update user data
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    update: function (req, res) {
+        var params = req.params.all();
+
+        if (params.password !== params.confirmPassword) {
+            return res.customBadRequest('Password doesn\'t match');
+        }
 
         User.update(params.id, params).then(function (user) {
             return [user[0], UploadHelper.uploadFile(req, 'user')];

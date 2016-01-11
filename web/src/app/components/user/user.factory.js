@@ -25,7 +25,7 @@
             },
 
             create: function (data) {
-                return $http.post(API.URL + '/api/user/create', data);
+                return data.$http(API.URL + '/api/user/create');
             },
 
             update: function (id, data) {
