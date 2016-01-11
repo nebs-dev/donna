@@ -95,7 +95,7 @@ module.exports = {
 
         User.findOne(req.token.userId).then(function (user) {
             if (!user) return res.notFound('User with that id not found!');
-            if (!params.oldPassword) return res.unauthorized('Old password is mandatory!');
+            if (!params.oldPassword) return res.customBadRequest('Old password is mandatory!');
 
             User.validPassword(params.oldPassword, user, function (err, valid) {
                 if (!valid) return res.accessDenied('Invalid email or password');
