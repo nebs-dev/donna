@@ -30,11 +30,15 @@
                         <li ng-repeat="message in messages" class="media">
                             <div ng-if="message.text">
                                 <div class="pull-left">
-                                    <img ng-hide="message.user.file.thumb" src="http://api.adorable.io/avatars/100/{{ message.user.email }}" alt="Avatar"
-                                         class="img-circle" width="64" height="64">
-
                                     <img ng-show="message.user.file.thumb" src="{{ message.user.file.thumb }}" alt="Avatar"
                                          class="img-circle" width="64" height="64">
+
+                                    <img ng-hide="message.user.file.thumb || !message.user.facebookId" src="https://graph.facebook.com//{{ message.user.facebookId }}/picture?width=1080&height=1080" alt="Avatar"
+                                         class="img-circle" width="64" height="64">
+
+                                    <img ng-hide="message.user.file.thumb || message.user.facebookId || message.user.googleId" src="http://api.adorable.io/avatars/100/{{ message.user.email }}" alt="Avatar"
+                                         class="img-circle" width="64" height="64">
+
                                 </div>
                                 <div class="media-body">
                                     <span class="text-muted pull-right">
