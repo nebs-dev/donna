@@ -81,6 +81,7 @@
 
             }).error(function (err) {
                 console.log(err);
+                vm.readyToUpload = true;
                 SweetAlert.swal(err.error, err.summary, 'error');
             });
         };
