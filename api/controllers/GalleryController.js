@@ -40,7 +40,10 @@ module.exports = {
                     var galle = gallery.toJSON();
                     galle.files = LikeHelper.checkLike(req, data);
 
-                    return res.ok(UploadHelper.getFullUrl(req, galle));
+                    Media.findOne(galle.file).then(function (coverMedia) {
+                        galle.file = coverMedia;
+                        return res.ok(UploadHelper.getFullUrl(req, galle));
+                    });
                 });
             });
 
@@ -66,7 +69,7 @@ module.exports = {
 
             return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, galleries)));
         }).catch(function (err) {
-           return res.negotiate(err);
+            return res.negotiate(err);
         });
     },
 
