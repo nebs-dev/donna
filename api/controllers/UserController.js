@@ -93,10 +93,27 @@ module.exports = {
             return res.customBadRequest('Password doesn\'t match');
         }
 
-        User.findOne(req.token.userId).then(function (user) {
+        User.findOne(req.params.id).then(function (user) {
             if (!user) return res.notFound('User with that id not found!');
-            if (!params.oldPassword && user.encryptedPassword) return res.customBadRequest('Old password is mandatory!');
 
+            if (!user.encryptedPassword && !params.oldPassword) {
+                UploadHelper.uploadFile(req, 'user').then(function (file) {
+                    if (file) {
+                        user.hasFiles = true;
+                        user.file = file.id;
+                    }
+
+                    _.extend(user, params);
+
+                    user.save(function (err, user) {
+                        if (err) return res.negotiate(err);
+
+                        return res.ok(UploadHelper.getFullUrl(req, user));
+                    });
+                });
+            }
+
+            //if (!params.oldPassword) return res.customBadRequest('Old password is mandatory!');
             User.validPassword(params.oldPassword, user, function (err, valid) {
                 if (!valid) return res.customBadRequest('Invalid password');
 
