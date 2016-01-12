@@ -31,7 +31,7 @@ module.exports = {
                         easyimg.thumbnail({
                             src: sails.config.appPath + '/uploads/' + model + '/' + path.basename(file.fd),
                             dst: sails.config.appPath + '/uploads/' + model + '/thumb/' + path.basename(file.fd),
-                            width:100, height:100
+                            width:300, height:300
                         }).then(function(image) {
                             var fileDb = {
                                 'url': model + '/' + path.basename(file.fd),

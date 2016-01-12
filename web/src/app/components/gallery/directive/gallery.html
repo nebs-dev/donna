@@ -4,7 +4,7 @@
             <li class="box deckgrid" deckgrid source="gallery">
                 <div class="fileDelete">
                     <a ng-href="{{ card.url }}" class="swipebox a-card">
-                        <img ng-show="card.type == 'photo'" ng-src="{{ card.url }}" alt="image">
+                        <img ng-show="card.type == 'photo'" ng-src="{{ card.thumb }}" alt="image" >
                         <video ng-src="{{ card.url | trustUrl }}" ng-show="card.type == 'video'" width="100%" controls type="video/mp4">
                         </video>
                     </a>

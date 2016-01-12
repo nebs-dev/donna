@@ -103,7 +103,6 @@ module.exports = {
             // Check email / login
             if (!params.email) return res.customBadRequest('Missing parameters (email).');
             User.findOne({email: params.email}).populateAll().then(function (user) {
-                console.log(user);
                 if (user) {
                     var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
                     return res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
