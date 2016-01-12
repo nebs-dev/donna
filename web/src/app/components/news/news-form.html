@@ -37,7 +37,7 @@
                     <img ng-show="newsCtrl.news.file.type == 'photo'" src="{{ newsCtrl.news.file.url }}" />
 
                     <video ng-show="newsCtrl.news.file.type == 'video'" width="400" controls>
-                        <source ng-src="{{ newsCtrl.news.file.url | trustUrl }}" type="video/mp4">
+                        <source src="{{ newsCtrl.news.file.url | trustUrl }}" type="video/mp4">
                         Your browser does not support HTML5 video.
                     </video>
                 </div>
