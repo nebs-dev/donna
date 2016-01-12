@@ -77,5 +77,20 @@ module.exports = {
             return cb(err);
         });
     },
+
+    /**
+     * @param destroyedRecords
+     * @param cb
+     * @returns {*}
+     */
+    afterDestroy: function (destroyedRecords, cb) {
+        if (!destroyedRecords.length) return cb();
+
+        Media.destroy({id: destroyedRecords[0].file}).then(function () {
+            return cb();
+        }).catch(function (err) {
+            return cb(err);
+        });
+    }
 };
 

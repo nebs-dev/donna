@@ -52,22 +52,50 @@ module.exports = {
                 return res.notFound();
             }
 
-            var SkipperDisk = require('skipper-disk');
-            var fileAdapter = SkipperDisk(/* optional opts */);
-
             if (file.type == 'video') {
-                res.set({
-                    'Content-Type': 'video/mp4',
-                    'Accept-Ranges': 'bytes'
+                var fs = require('fs');
+
+                fs.readFile('uploads/' + file.url, function (err, data) {
+                    if (err) throw err;
+
+                    var range = req.headers.range;
+                    var total = data.length;
+
+                    var parts = range.replace(/bytes=/, "").split("-");
+                    var partialstart = parts[0];
+                    var partialend = parts[1];
+
+                    var start = parseInt(partialstart, 10);
+                    var end = partialend ? parseInt(partialend, 10) : total-1;
+
+                    var chunksize = (end-start)+1;
+
+                    res.writeHead(206, { "Content-Range": "bytes " + start + "-" + end + "/" + total, "Accept-Ranges": "bytes", "Content-Length": chunksize, "Content-Type": 'video/mp4' });
+                    res.end(data);
                 });
+
+            } else {
+                var SkipperDisk = require('skipper-disk');
+                var fileAdapter = SkipperDisk(/* optional opts */);
+
+                // Stream the file down
+                fileAdapter.read('uploads/' + file.url)
+                    .on('error', function (err){
+                        return res.serverError(err);
+                    })
+                    .pipe(res);
             }
 
-            // Stream the file down
-            fileAdapter.read('uploads/' + file.url)
-                .on('error', function (err){
-                    return res.serverError(err);
-                })
-                .pipe(res);
+
+
+            //if (file.type == 'video') {
+            //    res.set({
+            //        'Content-Type': 'video/mp4',
+            //        "Content-Range": "bytes " + start + "-" + end + "/" + total,
+            //        "Accept-Ranges": "bytes",
+            //        "Content-Length": chunksize
+            //    });
+            //}
         });
     },
 
