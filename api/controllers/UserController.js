@@ -107,31 +107,36 @@ module.exports = {
 
                     user.save(function (err, user) {
                         if (err) return res.negotiate(err);
-
                         return res.ok(UploadHelper.getFullUrl(req, user));
                     });
+
+                }).catch(function (err) {
+                    return res.negotiate(err);
+                });
+
+            } else {
+                //if (!params.oldPassword) return res.customBadRequest('Old password is mandatory!');
+                User.validPassword(params.oldPassword, user, function (err, valid) {
+                    if (!valid) return res.customBadRequest('Invalid password');
+
+                    UploadHelper.uploadFile(req, 'user').then(function (file) {
+                        if (file) {
+                            user.hasFiles = true;
+                            user.file = file.id;
+                        }
+
+                        _.extend(user, params);
+
+                        user.save(function (err, user) {
+                            if (err) return res.negotiate(err);
+
+                            return res.ok(UploadHelper.getFullUrl(req, user));
+                        });
+                    });
+
                 });
             }
 
-            //if (!params.oldPassword) return res.customBadRequest('Old password is mandatory!');
-            User.validPassword(params.oldPassword, user, function (err, valid) {
-                if (!valid) return res.customBadRequest('Invalid password');
-
-                UploadHelper.uploadFile(req, 'user').then(function (file) {
-                    if (file) {
-                        user.hasFiles = true;
-                        user.file = file.id;
-                    }
-
-                    _.extend(user, params);
-
-                    user.save(function (err, user) {
-                        if (err) return res.negotiate(err);
-
-                        return res.ok(UploadHelper.getFullUrl(req, user));
-                    });
-                });
-            });
 
         }).catch(function (err) {
             return res.negotiate(err);
