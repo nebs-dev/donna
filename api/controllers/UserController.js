@@ -95,10 +95,10 @@ module.exports = {
 
         User.findOne(req.token.userId).then(function (user) {
             if (!user) return res.notFound('User with that id not found!');
-            if (!params.oldPassword) return res.customBadRequest('Old password is mandatory!');
+            if (!params.oldPassword && user.encryptedPassword) return res.customBadRequest('Old password is mandatory!');
 
             User.validPassword(params.oldPassword, user, function (err, valid) {
-                if (!valid) return res.accessDenied('Invalid email or password');
+                if (!valid) return res.customBadRequest('Invalid password');
 
                 UploadHelper.uploadFile(req, 'user').then(function (file) {
                     if (file) {
