@@ -94,7 +94,6 @@ module.exports = {
         if (!params.facebookId) return res.customBadRequest('Missing parameters.');
 
         User.findOne({facebookId: params.facebookId}).populateAll().then(function (user) {
-
             // User login
             if (user) {
                 var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
@@ -103,7 +102,8 @@ module.exports = {
 
             // Check email / login
             if (!params.email) return res.customBadRequest('Missing parameters (email).');
-            User.findOne({email: params.email}).then(function (user) {
+            User.findOne({email: params.email}).populateAll().then(function (user) {
+                console.log(user);
                 if (user) {
                     var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
                     return res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
@@ -161,7 +161,7 @@ module.exports = {
 
             // Check email / login
             if (!params.email) return res.customBadRequest('Missing parameters (email).');
-            User.findOne({email: params.email}).then(function (user) {
+            User.findOne({email: params.email}).populateAll().then(function (user) {
                 if (user) {
                     var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
                     return res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
