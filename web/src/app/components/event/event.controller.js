@@ -25,6 +25,7 @@
             vm.event = {};
 
             Event.getOne($state.params.id).success(function (data) {
+                data.date = moment(data.date).utc().format("YYYY-MM-DD HH:mm");
                 vm.event = data;
             }).error(function (err) {
                 SweetAlert.swal(err.error, err.summary, 'error');

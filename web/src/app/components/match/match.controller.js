@@ -24,9 +24,6 @@
         // Update
         if (stateMethod == 'update') {
             Match.getOne($state.params.id).success(function (data) {
-                console.log(data.date);
-                console.log(moment(data.date).format("YYYY-MM-DD HH:mm"));
-
                 data.date = moment(data.date).utc().format("YYYY-MM-DD HH:mm");
                 vm.match = data;
             }).error(function (err) {

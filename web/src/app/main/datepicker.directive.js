@@ -11,12 +11,13 @@
             $(function () {
 
                 element.datetimepicker({
-                    format: "YYYY-MM-DD HH:mm"
+                    format: "YYYY-MM-DD HH:mm Z",
+                    sideBySide: true
                 });
+
                 element.on("dp.change", function (e) {
                     scope.$apply(function () {
-
-                        ngModelCtrl.$setViewValue(e.date.toISOString());
+                        ngModelCtrl.$setViewValue(e.date);
                     })
                 });
 
