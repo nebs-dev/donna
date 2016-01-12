@@ -27,14 +27,14 @@ module.exports = {
                             if (itemNew.user) itemNew.user.role = {};
 
                             sails.models[model].publishUpdate(itemNew.id, LikeHelper.checkLike(req, itemNew.toJSON()));
-                            return resolve(itemNew.toJSON());
+                            return resolve(LikeHelper.checkLike(req, itemNew.toJSON()));
                         }).catch(function (err) {
                            return reject(err);
                         });
                     } else {
                         if (itemNew.user) itemNew.user.role = {};
                         sails.models[model].publishUpdate(itemNew.id, LikeHelper.checkLike(req, itemNew.toJSON()));
-                        return resolve(itemNew.toJSON());
+                        return resolve(LikeHelper.checkLike(req, itemNew.toJSON()));
                     }
                 });
 
