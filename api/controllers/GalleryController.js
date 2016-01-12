@@ -83,7 +83,7 @@ module.exports = {
             return [gallery, UploadHelper.uploadFile(req, 'gallery')];
 
         }).spread(function (gallery, files) {
-            if (files) gallery.cover = files[0].id;
+            if (files) gallery.file = files[0].id;
             gallery.save(function (err, gallery) {
                 if (err) return res.negotiate(err);
                 return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, gallery)));
