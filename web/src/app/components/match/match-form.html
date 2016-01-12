@@ -18,9 +18,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Match date</label>
                         <div class="col-sm-10">
-                            <datepicker date-format="yyyy-MM-dd">
-                                <input ng-model="matchCtrl.match.date" class="form-control" placeholder="Choose a date">
-                            </datepicker>
+                            <input type='text' class="form-control" id='datetimepicker' datepicker ng-model="matchCtrl.match.date" />
+                            {{matchCtrl.match.date}}
                         </div>
                     </div>
 

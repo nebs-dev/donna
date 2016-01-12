@@ -47,7 +47,7 @@
                     <tr dir-paginate="match in matchCtrl.matches | filter:q | itemsPerPage: pageSize">
                         <td>{{ match.id }}</td>
                         <td>{{ match.title }}</td>
-                        <td>{{ match.date | date : 'dd.MM.yyyy' }}</td>
+                        <td>{{ match.date | date : 'dd.MM.yyyy hh:mm' : 'utc' }}</td>
                         <td>{{ match.opponent1 }}</td>
                         <td>{{ match.opponent2 }}</td>
                         <td>

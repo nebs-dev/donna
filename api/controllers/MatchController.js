@@ -37,6 +37,7 @@ module.exports = {
 
     update: function (req, res) {
         var params = req.params.all();
+        console.log(params);
 
         Match.update(req.params.id, params).then(function (match) {
             return res.ok(match);

@@ -16,7 +16,7 @@
     "lodash": "~3.10.1",
     "angularUtils-pagination": "angular-utils-pagination#~0.9.3",
     "angular-deckgrid": "~0.5.0",
-    "angularjs-datepicker": "~0.2.16"
+    "eonasdan-bootstrap-datetimepicker": "~4.17.37"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"

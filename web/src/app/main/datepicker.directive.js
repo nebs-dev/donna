@@ -3,20 +3,23 @@
 
     angular
         .module('donna')
-        .directive('uploadForm', uploadForm);
+        .directive('datepicker', datepicker);
 
     /** @ngInject */
-    function uploadFile() {
+    function datepicker() {
         function link(scope, element, attrs, ngModelCtrl) {
             $(function () {
-                element.datepicker({
-                    dateFormat: attrs.format || 'dd.mm.yy',
-                    onSelect: function (date) {
-                        scope.$apply(function () {
-                            ngModelCtrl.$setViewValue(date);
-                        });
-                    }
+
+                element.datetimepicker({
+                    format: "YYYY-MM-DD HH:mm"
                 });
+                element.on("dp.change", function (e) {
+                    scope.$apply(function () {
+
+                        ngModelCtrl.$setViewValue(e.date.toISOString());
+                    })
+                });
+
             });
         }
 
