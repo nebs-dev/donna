@@ -52,7 +52,7 @@
             Gallery.addFile($state.params.id, vm.gallery).success(function (data) {
                 vm.gallery.files = data.files;
                 vm.readyToUpload = true;
-                vm.gallery.fileToUpload = {};
+                //vm.gallery.fileToUpload = {};
 
                 SweetAlert.swal({
                     title: 'Success',
@@ -63,6 +63,7 @@
                 });
 
             }).error(function (err) {
+                vm.readyToUpload = true;
                 SweetAlert.swal('Error', 'Upload failed', 'error');
             });
         };

@@ -12,12 +12,9 @@
                 $( '.swipebox' ).swipebox();
             });
 
-
             scope.$watch('photos', function (newVal, oldVal) {
                 if (newVal) {
                     scope.gallery = newVal;
-                    //console.log(scope);
-                    //scope.delete = scope.$parent.galleryCtrl.destroyFile;
                 }
             });
         }
