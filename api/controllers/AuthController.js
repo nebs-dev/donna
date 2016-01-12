@@ -101,27 +101,36 @@ module.exports = {
                 return res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
             }
 
-            // User registration
-            User.create(params).then(function (user) {
-                return [user, UploadHelper.uploadFile(req, 'user')];
+            // Check email / login
+            if (!params.email) return res.customBadRequest('Missing parameters (email).');
+            User.findOne({email: params.email}).then(function (user) {
+                if (user) {
+                    var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
+                    return res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
+                }
 
-            }).spread(function (user, files) {
-                Role.findOne({name: 'user'}).then(function (role) {
-                    if (!role) return res.notFound('Role "user" not found');
+                // User registration
+                User.create(params).then(function (user) {
+                    return [user, UploadHelper.uploadFile(req, 'user')];
 
-                    if (files) {
-                        user.hasFiles = true;
-                        user.file = files[0].id;
-                    }
-                    user.role = role;
-                    user.save(function (err, user) {
-                        if (err) return res.negotiate(err);
+                }).spread(function (user, files) {
+                    Role.findOne({name: 'user'}).then(function (role) {
+                        if (!role) return res.notFound('Role "user" not found');
 
-                        var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
-                        user.file = files[0];
-                        res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
+                        if (files) {
+                            user.hasFiles = true;
+                            user.file = files[0].id;
+                        }
+                        user.role = role;
+                        user.save(function (err, user) {
+                            if (err) return res.negotiate(err);
+
+                            var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
+                            user.file = files[0];
+                            res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
+                        });
                     });
-                });
+            });
 
             }).catch(function (err) {
                 return res.negotiate(err);
@@ -150,25 +159,34 @@ module.exports = {
                 return res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
             }
 
-            // User registration
-            User.create(params).then(function (user) {
-                return [user, UploadHelper.uploadFile(req, 'user')];
+            // Check email / login
+            if (!params.email) return res.customBadRequest('Missing parameters (email).');
+            User.findOne({email: params.email}).then(function (user) {
+                if (user) {
+                    var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
+                    return res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
+                }
 
-            }).spread(function (user, files) {
-                Role.findOne({name: 'user'}).then(function (role) {
-                    if (!role) return res.notFound('Role "user" not found');
+                // User registration
+                User.create(params).then(function (user) {
+                    return [user, UploadHelper.uploadFile(req, 'user')];
 
-                    if (files) {
-                        user.hasFiles = true;
-                        user.file = files[0].id;
-                    }
-                    user.role = role;
-                    user.save(function (err, user) {
-                        if (err) return res.negotiate(err);
+                }).spread(function (user, files) {
+                    Role.findOne({name: 'user'}).then(function (role) {
+                        if (!role) return res.notFound('Role "user" not found');
 
-                        var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
-                        user.file = files[0];
-                        res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
+                        if (files) {
+                            user.hasFiles = true;
+                            user.file = files[0].id;
+                        }
+                        user.role = role;
+                        user.save(function (err, user) {
+                            if (err) return res.negotiate(err);
+
+                            var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
+                            user.file = files[0];
+                            res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
+                        });
                     });
                 });
 

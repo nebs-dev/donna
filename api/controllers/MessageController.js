@@ -151,6 +151,7 @@ module.exports = {
      */
     like: function (req, res) {
         Social.likeUnlike(req, 'message').then(function (message) {
+            console.log(message);
             res.ok(message);
         }).catch(function (err) {
             return res.negotiate(err);
