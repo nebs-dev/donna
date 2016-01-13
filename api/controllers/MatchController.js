@@ -82,7 +82,7 @@ module.exports = {
         var params = req.params.all();
         if (!params.matchId) return res.customBadRequest('Missing parameters.');
 
-        Match.findOne(params.matchId).then(function (match) {
+        Match.findOne(params.matchId).populate('messages', {sort: 'createdAt DESC'}).then(function (match) {
             if (!match) return res.notFound('Match not found');
 
             MatchMessage.create(params).then(function (msg) {
