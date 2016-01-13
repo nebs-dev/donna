@@ -155,7 +155,7 @@ module.exports = {
     list: function (req, res) {
         var fromDate = moment().subtract(1, 'month');
 
-        Event.find({date: {'>=': fromDate.format()}}).populate('file').populate('comments').then(function (events) {
+        Event.find({date: {'>=': fromDate.format()}}).sort('createdAt DESC').populate('file').populate('comments').then(function (events) {
             return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, events)));
         }).catch(function(err) {
            return res.negotiate(err);

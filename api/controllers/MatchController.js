@@ -13,7 +13,7 @@ module.exports = {
      * @param res
      */
     list: function (req, res) {
-        Match.find().populate('messages').then(function (matches) {
+        Match.find().sort('createdAt DESC').populate('messages').then(function (matches) {
             return res.ok(matches);
         }).catch(function (err) {
             return res.negotiate(err);

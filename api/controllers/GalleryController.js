@@ -58,7 +58,7 @@ module.exports = {
      * @param res
      */
     list: function (req, res) {
-        Gallery.find().populateAll().then(function (galleries) {
+        Gallery.find().sort('createdAt DESC').populateAll().then(function (galleries) {
 
             _.each(galleries, function (gallery) {
                 var galleryPhotos = _.where(gallery.files, {type: 'photo'});
