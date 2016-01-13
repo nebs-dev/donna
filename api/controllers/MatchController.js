@@ -90,6 +90,7 @@ module.exports = {
                 match.save(function (err, match) {
                    if (err) return res.negotiate(err);
 
+                    match.messages = match.messages.reverse();
                     Match.publishAdd(match.id, 'messages', msg);
                     return res.ok(match.toJSON());
                 });
