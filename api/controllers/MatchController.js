@@ -52,7 +52,7 @@ module.exports = {
      * @param res
      */
     show: function (req, res) {
-        Match.findOne(req.params.id).populate('messages').then(function (match) {
+        Match.findOne(req.params.id).populate('messages', {sort: 'createdAt DESC'}).then(function (match) {
             return res.ok(match);
         }).catch(function (err) {
             return res.negotiate(err);
