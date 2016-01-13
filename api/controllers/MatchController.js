@@ -118,7 +118,7 @@ module.exports = {
      * @param res
      */
     connect: function (req, res) {
-        Match.findOne(req.params.id).populateAll().then(function (match) {
+        Match.findOne(req.params.id).populate('messages', {sort: 'createdAt DESC'}).then(function (match) {
             if (!match) return res.notFound('Match not found');
 
             Match.subscribe(req, match.id);
