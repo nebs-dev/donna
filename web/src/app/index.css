@@ -17,3 +17,9 @@ body .header .logo {
     overflow: auto;
     max-height: 660px;
 }
+
+.col-center-block {
+    float: none !important;
+    margin: auto;
+    display: block;
+}

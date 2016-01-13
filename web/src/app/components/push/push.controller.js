@@ -9,10 +9,12 @@
     function PushController(Push, SweetAlert) {
         var vm = this;
         vm.text = '';
+        vm.readyToUpload = true;
 
         vm.send = function () {
+            vm.readyToUpload = false;
             Push.send(vm.text).success(function (data) {
-                console.log(data);
+                vm.readyToUpload = true;
                 vm.text = '';
                 SweetAlert.swal({
                     title: 'Success',
@@ -22,6 +24,7 @@
                     type: 'success'
                 });
             }).error(function (err) {
+                vm.readyToUpload = true;
                 SweetAlert.swal(err.error, err.summary, 'error');
             });
         }

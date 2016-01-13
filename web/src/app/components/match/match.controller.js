@@ -9,6 +9,7 @@
     function MatchController($state, Match, SweetAlert) {
         var vm = this;
         var stateMethod = $state.current.method;
+        vm.readyToUpload = true;
 
         // List
         if (stateMethod == 'list') {
@@ -50,27 +51,35 @@
 
 
         vm.newMsg = function () {
-            Match.newMessage($state.params.id, vm.msg).success(function (match) {
-                vm.messages = match.messages;
+            if (vm.msg.length) {
+                vm.readyToUpload = false;
+                Match.newMessage($state.params.id, vm.msg).success(function (match) {
+                    vm.messages = match.messages;
+                    vm.readyToUpload = true;
+                    vm.msg = '';
 
-                SweetAlert.swal({
-                    title: 'Success',
-                    text: 'Message successfully sent',
-                    timer: 1000,
-                    showConfirmButton: false,
-                    type: 'success'
+                    SweetAlert.swal({
+                        title: 'Success',
+                        text: 'Message successfully sent',
+                        timer: 1000,
+                        showConfirmButton: false,
+                        type: 'success'
+                    });
+
+                }).error(function (err) {
+                    vm.readyToUpload = true;
+                    SweetAlert.swal(err.error, err.summary, 'error');
                 });
-
-            }).error(function (err) {
-                SweetAlert.swal(err.error, err.summary, 'error');
-            });
+            }
         };
 
         vm.save = function () {
+            vm.readyToUpload = false;
             vm.match.date = moment(vm.match.date).utc();
             var action = (stateMethod == 'update') ? Match.update($state.params.id, vm.match) : Match.create(vm.match);
 
             action.success(function (news) {
+                vm.readyToUpload = true;
                 SweetAlert.swal({
                     title: 'Success',
                     text: 'Data successfully saved',

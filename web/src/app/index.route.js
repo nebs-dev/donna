@@ -27,6 +27,20 @@
                 controller: 'AnonController',
                 controllerAs: 'anonCtrl',
                 method: 'resetPassword'
+            })
+            .state('anon.tos', {
+                url: '/ToS',
+                templateUrl: 'app/components/anon/ToS.html',
+                controller: 'AnonController',
+                controllerAs: 'anonCtrl',
+                method: 'tos'
+            })
+            .state('anon.PrivacyPolicy', {
+                url: '/PrivacyPolicy',
+                templateUrl: 'app/components/anon/PrivacyPolicy.html',
+                controller: 'AnonController',
+                controllerAs: 'anonCtrl',
+                method: 'tos'
             });
 
         $stateProvider
