@@ -97,10 +97,10 @@ module.exports = {
             if (!user) return res.notFound('User with that id not found!');
 
             if (!user.encryptedPassword && !params.oldPassword) {
-                UploadHelper.uploadFile(req, 'user').then(function (file) {
-                    if (file) {
+                UploadHelper.uploadFile(req, 'user').then(function (files) {
+                    if (files) {
                         user.hasFiles = true;
-                        user.file = file.id;
+                        user.file = files[0].id;
                     }
 
                     _.extend(user, params);
@@ -119,12 +119,11 @@ module.exports = {
                 User.validPassword(params.oldPassword, user, function (err, valid) {
                     if (!valid) return res.customBadRequest('Invalid password');
 
-                    UploadHelper.uploadFile(req, 'user').then(function (file) {
-                        if (file) {
+                    UploadHelper.uploadFile(req, 'user').then(function (files) {
+                        if (files) {
                             user.hasFiles = true;
-                            user.file = file.id;
+                            user.file = files[0].id;
                         }
-
                         _.extend(user, params);
 
                         user.save(function (err, user) {
