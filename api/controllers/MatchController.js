@@ -106,7 +106,8 @@ module.exports = {
      * @param res
      */
     destroyMsg: function (req, res) {
-        MatchMessage.destroy(req.params.id).then(function () {
+        MatchMessage.destroy(req.params.id).then(function (err, deleted) {
+            Match.publishRemove(deleted.id, 'messages', deleted);
             return res.ok();
         }).catch(function (err) {
             return res.negotiate(err);

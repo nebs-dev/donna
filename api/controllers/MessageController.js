@@ -87,7 +87,7 @@ module.exports = {
                         if (err) return res.negotiate(err);
 
                         var donnaOnline = vipUser ? vipUser.isOnline : false;
-                        return res.ok({messages: LikeHelper.checkLike(req, messages), total: Message.watchers().length, donnaOnline: donnaOnline});
+                        return res.ok({messages: LikeHelper.checkLike(req, messages), total: Message.watchers().length, donnaOnline: donnaOnline, flagLimit: 10});
                     });
                 });
             });

@@ -6,6 +6,7 @@
         .constant('API', {
             //URL: 'http://localhost:1337',
             URL: 'http://52.16.220.86:667',
+            //URL: 'http://donnavekicapp.com:666',
 
             formData: function (data) {
                 var formData = new FormData();

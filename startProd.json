@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "donna-DEV",
+      "name": "donna-PROD",
       "script": "app.js",
       "watch": false,
       "env": {
