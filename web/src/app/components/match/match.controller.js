@@ -51,7 +51,7 @@
 
 
         vm.newMsg = function () {
-            if (vm.msg.length) {
+            if (vm.msg.text && vm.msg.text != '') {
                 vm.readyToUpload = false;
                 Match.newMessage($state.params.id, vm.msg).success(function (match) {
                     vm.messages = match.messages;
