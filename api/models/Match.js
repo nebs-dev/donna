@@ -224,7 +224,8 @@ module.exports = {
             id: id,
             verb: 'removedFrom',
             attribute: alias,
-            removed: removedEntry
+            removedId: idRemoved,
+            data: removedEntry
         }, socketToOmit);
 
 
