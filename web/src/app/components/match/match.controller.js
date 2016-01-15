@@ -111,6 +111,7 @@
                     type: 'success'
                 });
             }).error(function (err) {
+                console.log(err);
                 SweetAlert.swal(err.error, err.summary, 'error');
             });
         };

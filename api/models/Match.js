@@ -174,6 +174,87 @@ module.exports = {
             this.afterPublishAdd(id, alias, idAdded, req);
         }
 
+    },
+
+    publishRemove: function(id, alias, idRemoved, req, options) {
+
+        var removedEntry = idRemoved;
+        idRemoved = removedEntry.id || idRemoved;
+
+        // Make sure there's an options object
+        options = options || {};
+
+        // Enforce valid usage
+        var invalidId = !id || _.isObject(id);
+        var invalidAlias = !alias || !_.isString(alias);
+        var invalidRemovedId = !idRemoved || _.isObject(idRemoved);
+        if ( invalidId || invalidAlias || invalidRemovedId ) {
+            return sails.log.error(
+                'Invalid usage of `' + this.identity +
+                '.publishRemove(id, alias, idRemoved, [socketToOmit])`'
+            );
+        }
+        if (sails.util.isFunction(this.beforePublishRemove)) {
+            this.beforePublishRemove(id, alias, idRemoved, req);
+        }
+
+        // Coerce id to match the attribute type of the primary key of the model
+        try {
+            var pkAttrDef = this.attributes[this.primaryKey];
+            if (pkAttrDef.type === 'integer') {  id = +id; }
+            else if (pkAttrDef.type === 'string') { id = id+''; }
+        }
+        catch(e){
+            // well... worth a shot
+        }
+
+        // If a request object was sent, get its socket, otherwise assume a socket was sent.
+        var socketToOmit = (req && req.socket ? req.socket : req);
+
+        // In development environment, blast out a message to everyone
+        sails.sockets.publishToFirehose({
+            id: id,
+            model: this.identity,
+            verb: 'removedFrom',
+            attribute: alias,
+            removedId: idRemoved
+        });
+
+        this.publish(id, this.identity, 'remove:' + alias, {
+            id: id,
+            verb: 'removedFrom',
+            attribute: alias,
+            removed: removedEntry
+        }, socketToOmit);
+
+
+        if (!options.noReverse) {
+
+            // Get the reverse association, if any
+            var reverseModel = sails.models[_.find(this.associations, {alias: alias}).collection];
+            var reverseAssociation = _.find(reverseModel.associations, {alias: _.find(this.associations, {alias: alias}).via});
+
+            if (reverseAssociation) {
+                // If this is a many-to-many association, do a publishAdd for the
+                // other side.
+                if (reverseAssociation.type == 'collection') {
+                    reverseModel.publishRemove(idRemoved, reverseAssociation.alias, id, req, {noReverse:true});
+                }
+
+                // Otherwise, do a publishUpdate
+                else {
+                    var data = {};
+                    data[reverseAssociation.alias] = null;
+                    reverseModel.publishUpdate(idRemoved, data, req, {noReverse:true});
+                }
+            }
+
+        }
+
+        if (sails.util.isFunction(this.afterPublishRemove)) {
+            this.afterPublishRemove(id, alias, idRemoved, req);
+        }
+
     }
 };
 
