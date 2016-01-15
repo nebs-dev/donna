@@ -17,7 +17,7 @@
 
                 element.on("dp.change", function (e) {
                     scope.$apply(function () {
-                        ngModelCtrl.$setViewValue(e.date);
+                        ngModelCtrl.$setViewValue(e.date.toISOString());
                     })
                 });
 

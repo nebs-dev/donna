@@ -39,6 +39,9 @@
 
         vm.save = function () {
             vm.readyToUpload = false;
+
+            console.log(vm.event);
+
             var action = (stateMethod == 'update') ? Event.update($state.params.id, vm.event) : Event.create(vm.event);
 
             action.success(function (event) {

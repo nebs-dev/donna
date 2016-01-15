@@ -31,7 +31,7 @@ var moment = require('moment');
 
 module.exports = {
     connect: function (req, res) {
-        Message.find().populate('user').then(function (messages) {
+        Message.find().limit(100).populate('user').then(function (messages) {
 
             // subscribe this req to message model create events
             Message.watch(req);
