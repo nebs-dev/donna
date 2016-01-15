@@ -54,6 +54,11 @@ module.exports = {
             defaultsTo: false
         },
 
+        reported: {
+            type: 'date',
+            required: false
+        },
+
         file: {
             model: 'media'
         },

@@ -44,7 +44,7 @@ module.exports = {
 
 
             // TODO: update donna status in database
-            if(req.user.isVIP) {
+            if (req.user.isVIP) {
                 sails.sockets.blast('donnaIn', {}, req.socket);
                 req.user.isOnline = true;
             }
@@ -87,7 +87,12 @@ module.exports = {
                         if (err) return res.negotiate(err);
 
                         var donnaOnline = vipUser ? vipUser.isOnline : false;
-                        return res.ok({messages: LikeHelper.checkLike(req, messages), total: Message.watchers().length, donnaOnline: donnaOnline, flagLimit: 10});
+                        return res.ok({
+                            messages: LikeHelper.checkLike(req, messages),
+                            total: Message.watchers().length,
+                            donnaOnline: donnaOnline,
+                            flagLimit: 10
+                        });
                     });
                 });
             });
@@ -97,14 +102,22 @@ module.exports = {
         });
     },
 
+    /**
+     * Create message
+     * @param req
+     * @param res
+     * @returns {*}
+     */
     create: function (req, res) {
         var params = req.params.all();
         var time = moment().subtract(1, 'minute');
+        var reportTime = moment().subtract(30, 'minute');
 
         if (!params.text) return res.badRequest();
 
-        Message.find({where: {createdAt: {'>=': time.format()}}}).then(function (messages) {
-            //if (messages.length >= 3 && (!req.user.role || req.user.role.name != 'superadmin')) return res.forbidden("Spam!");
+        Message.find({where: {createdAt: {'>=': time.format()}, user: req.user.id}}).then(function (messages) {
+            if (messages.length >= 10 && (!req.user.role || req.user.role.name != 'superadmin')) return res.forbidden("Spam!");
+            if (req.user.reported && req.user.reported > reportTime) return res.forbidden("Report spam!");
 
             Message.create({
                 text: params.text,
@@ -113,8 +126,7 @@ module.exports = {
 
                 // fill data for user... create doesn't populate
                 message.user = req.user.toJSON();
-
-                if(req.user.file) {
+                if (req.user.file) {
                     Media.findOne(req.user.file).then(function (media) {
                         req.user.file = media;
                         message.user = req.user;
@@ -165,7 +177,19 @@ module.exports = {
      */
     report: function (req, res) {
         Social.reportUnreport(req, 'message').then(function (message) {
-            res.ok(message);
+            if (message.reports.length > 4) {
+                message.user.reported = new Date();
+
+                delete message.user.role;
+                User.update(message.user.id, message.user).then(function (user) {
+                    message.user = user[0];
+                    message.user.role = {};
+                    return res.ok(message);
+                });
+            } else {
+                return res.ok(message);
+            }
+
         }).catch(function (err) {
             return res.negotiate(err);
         });
