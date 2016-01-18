@@ -44,11 +44,7 @@
 
                     break;
                 case 'destroyed':
-                    var msg = _.findWhere($rootScope.messages, {id: data.id});
-                    if (msg) {
-                        msg.text = "MESSAGE DELETED!";
-                    }
-
+                    $scope.persons.splice(_.indexOf($rootScope.messages, _.findWhere($rootScope.messages, {id: data.id}), 1), 1);
                     break;
             }
         });
