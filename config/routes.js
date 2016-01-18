@@ -425,6 +425,12 @@ module.exports.routes = {
     'POST /api/message/report/:id': 'Message.report',
 
 
+    /**
+     * @api {post} /api/message/destroy/:id destroy message
+     * @apiGroup Messages
+     */
+    'POST /api/message/destroy/:id': 'Message.destroy',
+
     ////////////
     /// PUSH ///
     ////////////
