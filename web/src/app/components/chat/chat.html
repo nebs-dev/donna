@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="media-body">
                                     <span class="text-muted pull-right">
-                                        <a href="#" ng-click="chatCtrl.destroy(message.id)">DELETE</a>
+                                        <button ng-click="chatCtrl.destroy(message.id)">DELETE</button>
                                         <small><em>{{ message.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</em></small>
                                     </span>
 
@@ -59,7 +59,9 @@
                             </div>
 
                             <div ng-if="message.event" class="pull-left">
-                                <small><strong>{{ message.user.firstName }} {{ message.user.lastName }}</strong> {{ message.event }}</small>
+                                <small>
+                                    <strong>{{ message.user.firstName }} {{ message.user.lastName }}</strong> {{ message.event }}
+                                </small>
                             </div>
 
                         </li>
