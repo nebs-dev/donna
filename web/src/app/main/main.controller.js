@@ -44,7 +44,7 @@
 
                     break;
                 case 'destroyed':
-                    $scope.persons.splice(_.indexOf($rootScope.messages, _.findWhere($rootScope.messages, {id: data.id}), 1), 1);
+                    $rootScope.messages.splice(_.indexOf($rootScope.messages, _.findWhere($rootScope.messages, {id: data.id}), 1), 1);
                     break;
             }
         });
