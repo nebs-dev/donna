@@ -201,8 +201,8 @@ module.exports = {
      * @param res
      */
     destroy: function (req, res) {
-        Message.destroy(req.params.id).then(function () {
-            Message.publishDestroy(req.params.id);
+        Message.destroy(req.params.id).then(function (deleted) {
+            Message.publishDestroy(deleted[0]);
             return res.ok();
         }).catch(function (err) {
             return res.negotiate(err);
