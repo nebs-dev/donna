@@ -193,6 +193,20 @@ module.exports = {
         }).catch(function (err) {
             return res.negotiate(err);
         });
+    },
+
+    /**
+     * Destroy message entry (you must be superadmin)
+     * @param req
+     * @param res
+     */
+    destroy: function (req, res) {
+        Message.destroy(req.params.id).then(function () {
+            Message.publishDestroy(req.params.id);
+            return res.ok();
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
     }
 };
 

@@ -82,6 +82,11 @@ module.exports.policies = {
         'connect': ['tokenAuth'],
         'list': ['tokenAuth'],
         'show': ['tokenAuth']
+    },
+
+    'MessageController': {
+        '*': ['tokenAuth'],
+        'destroy': ['tokenAuth', 'isSuperadmin']
     }
 
 
