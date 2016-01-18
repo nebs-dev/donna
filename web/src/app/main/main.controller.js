@@ -43,6 +43,13 @@
                     }
 
                     break;
+                case 'destroyed':
+                    var msg = _.findWhere($rootScope.messages, {id: data.id});
+                    if (msg) {
+                        msg.text = "MESSAGE DELETED!";
+                    }
+
+                    break;
             }
         });
 

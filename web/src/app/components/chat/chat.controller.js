@@ -37,6 +37,28 @@
             }
         };
 
+        vm.destroy = function (id) {
+
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this message!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }, function () {
+                Chat.emit('post', {
+                    url: '/api/message/destroy/' + id,
+                    data: {token: token}
+                }, function (data) {
+                    if (data.statusCode != 200) return SweetAlert.swal('Chat error', data.body.error, 'error');
+                    swal("Deleted!", "Message has been deleted.", "success");
+                });
+            });
+
+        };
+
         vm.like = function (message) {
             Chat.emit('post', {
                 url: '/api/message/like/' + message.id,
