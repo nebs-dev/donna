@@ -117,5 +117,11 @@ npm-debug.log
 nbproject
 .idea
 .node_history
-uploads/*
 docs
+
+#ignore uploads folder... but keep the default image
+/uploads/*
+!video.png
+#____
+
+
