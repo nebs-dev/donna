@@ -67,6 +67,13 @@
                 vm.news = _.reject(vm.news, function (news) {
                     return id == news.id;
                 });
+                SweetAlert.swal({
+                    title: 'Success',
+                    text: 'Data successfully deleted',
+                    timer: 1000,
+                    showConfirmButton: false,
+                    type: 'success'
+                });
             }).error(function (err) {
                 SweetAlert.swal(err.error, err.summary, 'error');
             });
@@ -77,6 +84,13 @@
             Main.destroyComment(id).success(function () {
                 vm.news.comments = _.reject(vm.news.comments, function (comments) {
                     return id == comments.id;
+                });
+                SweetAlert.swal({
+                    title: 'Success',
+                    text: 'Data successfully deleted',
+                    timer: 1000,
+                    showConfirmButton: false,
+                    type: 'success'
                 });
             }).error(function (err) {
                 SweetAlert.swal(err.error, err.summary, 'error');

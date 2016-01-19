@@ -77,13 +77,11 @@
                         </tr>
                         <tr dir-paginate="comment in newsCtrl.news.comments | filter:q | itemsPerPage: pageSize">
                             <td>{{ comment.user.email }}</td>
-                            <td>{{ comment.createdAt }}</td>
+                            <td>{{ comment.createdAt | date : 'dd.MM.yyyy hh:mm' : 'utc' }}</td>
                             <td>{{ comment.text }}</td>
                             <td>
-                                <button ng-click="newsCtrl.destroyComment(news.id)" class="btn btn-sm btn-danger"><i
+                                <button ng-click="newsCtrl.destroyComment(comment.id)" class="btn btn-sm btn-danger"><i
                                         class="fa fa-remove"></i></button>
-                                <a ui-sref="user.newsUpdate({id: news.id})" class="btn btn-sm btn-info"><i
-                                        class="fa fa-pencil-square-o"></i></a>
                             </td>
                         </tr>
                         </tbody>

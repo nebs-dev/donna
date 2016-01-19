@@ -6,7 +6,7 @@
         .controller('EventController', EventController);
 
     /** @ngInject */
-    function EventController($state, Event, SweetAlert) {
+    function EventController($state, Event, SweetAlert, Main) {
         var vm = this;
         var stateMethod = $state.current.method;
         vm.readyToUpload = true;
@@ -39,9 +39,6 @@
 
         vm.save = function () {
             vm.readyToUpload = false;
-
-            console.log(vm.event);
-
             var action = (stateMethod == 'update') ? Event.update($state.params.id, vm.event) : Event.create(vm.event);
 
             action.success(function (event) {
@@ -68,6 +65,31 @@
             Event.destroy(id).success(function () {
                 vm.events = _.reject(vm.events, function (events) {
                     return id == events.id;
+                });
+                SweetAlert.swal({
+                    title: 'Success',
+                    text: 'Data successfully deleted',
+                    timer: 1000,
+                    showConfirmButton: false,
+                    type: 'success'
+                });
+            }).error(function (err) {
+                SweetAlert.swal(err.error, err.summary, 'error');
+            });
+        };
+
+        // Destroy comment
+        vm.destroyComment = function (id) {
+            Main.destroyComment(id).success(function () {
+                vm.event.comments = _.reject(vm.event.comments, function (comments) {
+                    return id == comments.id;
+                });
+                SweetAlert.swal({
+                    title: 'Success',
+                    text: 'Data successfully deleted',
+                    timer: 1000,
+                    showConfirmButton: false,
+                    type: 'success'
                 });
             }).error(function (err) {
                 SweetAlert.swal(err.error, err.summary, 'error');
