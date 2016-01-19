@@ -71,5 +71,11 @@
             $rootScope.donnaOnline = false;
         });
 
+
+        // check if object is empty
+        vm.isEmpty = function (obj) {
+            return _.isEmpty(obj);
+        }
+
     }
 })();

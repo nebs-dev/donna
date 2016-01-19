@@ -6,7 +6,7 @@
         .controller('NewsController', NewsController);
 
     /** @ngInject */
-    function NewsController(News, SweetAlert, $state) {
+    function NewsController(News, SweetAlert, $state, Main) {
         var vm = this;
         var stateMethod = $state.current.method;
         vm.readyToUpload = true;
@@ -66,6 +66,17 @@
             News.destroyNews(id).success(function () {
                 vm.news = _.reject(vm.news, function (news) {
                     return id == news.id;
+                });
+            }).error(function (err) {
+                SweetAlert.swal(err.error, err.summary, 'error');
+            });
+        };
+
+        // Destroy comment
+        vm.destroyComment = function (id) {
+            Main.destroyComment(id).success(function () {
+                vm.news.comments = _.reject(vm.news.comments, function (comments) {
+                    return id == comments.id;
                 });
             }).error(function (err) {
                 SweetAlert.swal(err.error, err.summary, 'error');

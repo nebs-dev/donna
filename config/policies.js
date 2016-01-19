@@ -87,6 +87,10 @@ module.exports.policies = {
     'MessageController': {
         '*': ['tokenAuth'],
         'destroy': ['tokenAuth', 'isSuperadmin']
+    },
+
+    'CommentController': {
+        'destroy': ['tokenAuth', 'isSuperadmin']
     }
 
 

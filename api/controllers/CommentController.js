@@ -31,6 +31,19 @@ module.exports = {
         }).catch(function (err) {
             return res.negotiate(err);
         });
+    },
+
+    /**
+     * Destroy single comment
+     * @param req
+     * @param res
+     */
+    destroy: function (req, res) {
+        Comment.destroy(req.params.id).then(function () {
+            return res.ok();
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
     }
 
 };
