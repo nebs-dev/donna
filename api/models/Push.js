@@ -12,7 +12,8 @@ module.exports = {
     attributes: {
         deviceToken: {
             type: 'string',
-            required: true
+            required: true,
+            unique: true
         },
 
         udid: {
