@@ -71,16 +71,15 @@ module.exports = {
                         cb(true);
                     });
 
-                // Android push
+                    // Android push
                 } else if (obj.device == 'android') {
                     obj.save(function (err, obj) {
                         if (err) return cb(false);
                         var regToken = obj.deviceToken;
 
-                        sender.send(message, { to: regToken }, function (err, response) {
-                            if(err) cb(false);
+                        sender.send(message, {to: regToken}, function (err, response) {
+                            if (err) cb(false);
 
-                            
                             console.log(response);
                             cb(true);
                         });
@@ -92,7 +91,7 @@ module.exports = {
             });
 
         }).catch(function (err) {
-           return res.negotiate(err);
+            return res.negotiate(err);
         });
     },
 
@@ -107,7 +106,7 @@ module.exports = {
         Push.create(params).then(function (data) {
             return res.ok(data);
         }).catch(function (err) {
-            return res.negotiate(err);
+            return res.status(err.status || 500).json(err);
         });
     },
 
@@ -126,7 +125,7 @@ module.exports = {
             });
 
         }).catch(function (err) {
-           return res.negotiate(err);
+            return res.negotiate(err);
         });
     }
 
