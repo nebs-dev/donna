@@ -80,6 +80,7 @@ module.exports = {
                         sender.send(message, { to: regToken }, function (err, response) {
                             if(err) cb(false);
 
+                            
                             console.log(response);
                             cb(true);
                         });
