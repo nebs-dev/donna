@@ -38,9 +38,8 @@ module.exports = {
             priority: 'high',
             contentAvailable: true,
             delayWhileIdle: true,
-            timeToLive: 3,
+            timeToLive: 100,
             restrictedPackageName: "com.gauss.donavekic",
-            dryRun: true,
             data: {
                 title: 'DonnaVekic App',
                 body: params.text
@@ -51,7 +50,8 @@ module.exports = {
             //    body: params.text
             //}
         });
-
+        // All android tokens
+        var regTokens = [];
 
         // Find all devices
         Push.find().then(function (data) {
@@ -71,23 +71,21 @@ module.exports = {
                         cb(true);
                     });
 
-                    // Android push
+                // Android push
                 } else if (obj.device == 'android') {
                     obj.save(function (err, obj) {
                         if (err) return cb(false);
-                        var regToken = obj.deviceToken;
-
-                        sender.send(message, {to: regToken}, function (err, response) {
-                            if (err) cb(false);
-
-                            console.log(response);
-                            cb(true);
-                        });
+                        regTokens.push(obj.deviceToken);
+                        cb(true);
                     });
                 }
 
             }, function (results) {
-                return res.ok(results);
+                sender.send(message, {registrationTokens: regTokens}, function (err, response) {
+                    if (err) cb(false);
+
+                    return res.ok(results);
+                });
             });
 
         }).catch(function (err) {
