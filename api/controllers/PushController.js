@@ -87,7 +87,6 @@ module.exports = {
                 }
 
             }, function (results) {
-                console.log('----------------------------------------------', results);
                 return res.ok(results);
             });
 
