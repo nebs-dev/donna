@@ -44,12 +44,12 @@ module.exports = {
             data: {
                 title: 'DonnaVekic App',
                 body: params.text
-            },
-            notification: {
-                title: "DonnaVekic App",
-                icon: "ic_launcher",
-                body: params.text
             }
+            //notification: {
+            //    title: "DonnaVekic App",
+            //    icon: "ic_launcher",
+            //    body: params.text
+            //}
         });
 
 
