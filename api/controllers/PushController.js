@@ -5,6 +5,18 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+
+
+Object.defineProperty(Array.prototype, 'chunk', {
+    value: function(chunkSize) {
+        var R = [];
+        for (var i=0; i<this.length; i+=chunkSize)
+            R.push(this.slice(i,i+chunkSize));
+        return R;
+    }
+});
+
+
 module.exports = {
 
     /**
@@ -44,11 +56,6 @@ module.exports = {
                 title: 'DonnaVekic App',
                 body: params.text
             }
-            //notification: {
-            //    title: "DonnaVekic App",
-            //    icon: "ic_launcher",
-            //    body: params.text
-            //}
         });
         // All android tokens
         var regTokens = [];
@@ -81,16 +88,34 @@ module.exports = {
                 }
 
             }, function (results) {
-                sender.send(message, {registrationTokens: regTokens}, function (err, response) {
-                    if (err) cb(false);
+                var androidChunks = regTokens.chunk(500);
 
-                    return res.ok(results);
+                sendChunks(message, androidChunks, function(err, done){
+                    if(err) return res.serverError(err);
+                    if(done) return res.ok(results);
                 });
+
             });
 
         }).catch(function (err) {
             return res.negotiate(err);
         });
+
+
+        function sendChunks(message, chunks, cb) {
+            var chunk = chunks.shift();
+            if (!chunk) return cb(false, true);
+
+            sender.send(message, {registrationTokens: chunk}, function (err, response) {
+                if (err) {
+                    console.log("ne ide mi ovaj chunk bas", err, chunk);
+                }
+
+                console.log(response);
+                sendChunks(message, chunks, cb);
+            });
+        }
+
     },
 
     /**

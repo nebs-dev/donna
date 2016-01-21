@@ -9,6 +9,7 @@
     function UserController($state, User, SweetAlert) {
         var vm = this;
         var stateMethod = $state.current.method;
+        vm.stateMethod = $state.current.method;
         vm.readyToUpload = true;
         vm.roles = [];
 
