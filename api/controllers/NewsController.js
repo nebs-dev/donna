@@ -39,6 +39,7 @@ module.exports = {
     update: function (req, res) {
         var params = req.params.all();
         delete params.file;
+        delete params.comments;
 
         News.update(req.params.id, params).then(function (news) {
             return [news[0], UploadHelper.uploadFile(req, 'news')];

@@ -41,7 +41,9 @@ module.exports = {
     update: function (req, res) {
         var params = req.params.all();
         delete params.file;
+        delete params.comments;
 
+        console.log(params);
         Event.update(req.params.id, params).then(function (event) {
 
             return [event[0], UploadHelper.uploadFile(req, 'event')];
@@ -53,7 +55,9 @@ module.exports = {
             }
 
             event.save(function (err, event) {
+                console.log(err);
                 if (err) return res.negotiate(err);
+
                 return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, event)));
             });
 

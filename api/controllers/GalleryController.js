@@ -105,6 +105,7 @@ module.exports = {
     update: function (req, res) {
         var params = req.params.all();
         delete params.file;
+        delete params.comments;
 
         Gallery.update(req.params.id, params).then(function (gallery) {
 
