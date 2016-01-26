@@ -8,9 +8,6 @@
 
     function photoGallery() {
         function link(scope, element, attrs) {
-            jQuery(function ($) {
-                $( '.swipebox' ).swipebox();
-            });
 
             scope.$watch('photos', function (newVal, oldVal) {
                 if (newVal) {
@@ -24,10 +21,41 @@
             templateUrl: 'app/components/gallery/directive/gallery.html',
             scope: {
                 photos: '=',
-                delete: '&'
+                delete: '&',
+                fileComments: '&'
             },
             link: link
         }
     }
 
 })();
+
+
+(function () {
+    'use strict';
+
+    angular
+        .module('donna')
+        .directive('lg', lg);
+
+
+    function lg() {
+        function link(scope, element, attrs) {
+            jQuery(function ($) {
+                setTimeout(function () {
+                    element.lightGallery({
+                        selector: '.item'
+                    });
+                }, 1000);
+            });
+        }
+
+        return {
+            restrict: 'A',
+            link: link
+        }
+    }
+
+})();
+
+

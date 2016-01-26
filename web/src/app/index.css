@@ -23,3 +23,18 @@ body .header .logo {
     margin: auto;
     display: block;
 }
+
+
+
+.lg-outer {
+    padding-right: 400px;
+}
+
+.lg-sub-html {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    width: 400px;
+    background: #fff;
+}

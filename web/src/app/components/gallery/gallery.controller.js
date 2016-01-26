@@ -121,6 +121,21 @@
             });
         };
 
+        // Get comments for each file
+        vm.getComments = function (item) {
+            if (item) {
+                var html = '<div class="fb-comments"><ul>';
+
+                _.each(item.comments, function (comment) {
+                    html += '<li>' + comment.text + '</li>';
+                });
+
+                html += '</ul></div>';
+
+                return html;
+            }
+        }
+
     }
 
 
