@@ -34,6 +34,10 @@
 
             destroyFile: function (id) {
                 return $http.post(API.URL + '/api/file/destroy/' + id);
+            },
+
+            getOneFile: function (id) {
+                return $http.get(API.URL + '/api/file/show/' + id);
             }
         }
     }

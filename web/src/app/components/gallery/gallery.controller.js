@@ -127,7 +127,8 @@
                 var html = '<div class="fb-comments"><ul>';
 
                 _.each(item.comments, function (comment) {
-                    html += '<li>' + comment.text + '</li>';
+                    html += '<li><img src="'+ comment.user.file.thumb +'">';
+                    html += '<div class="content"><span>'+comment.user.email+'</span><p>' + comment.text + '</p></div></li>';
                 });
 
                 html += '</ul></div>';

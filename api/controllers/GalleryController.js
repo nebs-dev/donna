@@ -27,7 +27,28 @@ module.exports = {
 
                 async.map(gallery.files, function (file, callback) {
                     Media.findOne(file.id).populate('comments').then(function (mediaFile) {
-                        callback(false, mediaFile.toJSON());
+
+                        // Populate user/his media for each comment
+                        async.each(mediaFile.comments, function (comment, cb) {
+                            User.findOne(comment.user).then(function (user) {
+                                if (!user) return res.notFound('User not found');
+
+                                Media.findOne(user.file).then(function (media) {
+                                    if (!media) return res.notFound('Media not found');
+
+                                    user.file = media;
+                                    comment.user = UploadHelper.getFullUrl(req, user);
+                                    return cb();
+                                });
+                            }).catch(function (err) {
+                                return cb(err);
+                            });
+
+                        }, function (err) {
+                            if (err) return res.negotiate(err);
+
+                            callback(false, mediaFile.toJSON());
+                        });
 
                     }).catch(function (err) {
                         console.log(err);
