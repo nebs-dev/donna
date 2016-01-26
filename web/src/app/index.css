@@ -1,3 +1,7 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+
 body .header .logo {
     float: left;
     font-size: 20px;
@@ -24,8 +28,6 @@ body .header .logo {
     display: block;
 }
 
-
-
 .lg-outer {
     padding-right: 400px;
 }
@@ -36,4 +38,28 @@ body .header .logo {
     left: auto;
     width: 400px;
     background: #fff;
+}
+
+.fb-comments ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.fb-comments ul li {
+    display: table;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    padding: 20px;
+    text-align: left;
+}
+
+.fb-comments ul li img {
+    width: 50px;
+    float: left;
+    border-radius: 100%;
+}
+
+.fb-comments ul li .comment-content {
+    padding-left: 70px;
+    color: black;
 }

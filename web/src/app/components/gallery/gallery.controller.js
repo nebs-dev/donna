@@ -128,7 +128,7 @@
 
                 _.each(item.comments, function (comment) {
                     html += '<li><img src="'+ comment.user.file.thumb +'">';
-                    html += '<div class="content"><span>'+comment.user.email+'</span><p>' + comment.text + '</p></div></li>';
+                    html += '<div class="comment-content"><span>'+comment.user.email+'</span><p>' + comment.text + '</p></div></li>';
                 });
 
                 html += '</ul></div>';
