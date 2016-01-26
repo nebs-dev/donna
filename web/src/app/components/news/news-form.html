@@ -1,5 +1,17 @@
 <div class="row">
     <div class="col-md-12">
+        <!--breadcrumbs start -->
+        <ul class="breadcrumb">
+            <li><a href="#/"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li><a href="#/news"> News</a></li>
+            <li class="active">{{ newsCtrl.news.title }}</li>
+        </ul>
+        <!--breadcrumbs end -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
         <section class="panel">
             <header class="panel-heading">
                 News data
@@ -28,6 +40,7 @@
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-10">
                             <input type="submit" class="btn btn-info" value="Save" ng-show="newsCtrl.readyToUpload">
+                            <a href="#/news" class="btn btn-default">Cancel</a>
                             <img ng-src="img/loading.gif" ng-show="!newsCtrl.readyToUpload">
                         </div>
                     </div>
@@ -46,7 +59,7 @@
     </div>
 
     <!-- Comments -->
-    <div class="row" ng-hide="mainCtrl.isEmpty(newsCtrl.news)">
+    <div class="row" ng-hide="mainCtrl.isEmpty(newsCtrl.news.comments)">
         <div class="col-md-12">
             <section class="panel">
                 <header class="panel-heading">

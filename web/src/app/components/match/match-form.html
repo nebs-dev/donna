@@ -1,5 +1,17 @@
 <div class="row">
     <div class="col-md-12">
+        <!--breadcrumbs start -->
+        <ul class="breadcrumb">
+            <li><a href="#/"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li><a href="#/matches"> Matches</a></li>
+            <li class="active">{{ matchCtrl.match.title }}</li>
+        </ul>
+        <!--breadcrumbs end -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
         <section class="panel">
             <header class="panel-heading">
                 Match data
@@ -42,6 +54,7 @@
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-10">
                             <input type="submit" class="btn btn-info" value="Save" ng-show="matchCtrl.readyToUpload">
+                            <a href="#/matches" class="btn btn-default">Cancel</a>
                             <img ng-src="img/loading.gif" ng-hide="matchCtrl.readyToUpload">
                         </div>
                     </div>
