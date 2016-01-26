@@ -32,6 +32,7 @@ module.exports = {
                         async.each(mediaFile.comments, function (comment, cb) {
                             User.findOne(comment.user).then(function (user) {
                                 if (!user) return res.notFound('User not found');
+                                if (!user.file) return cb();
 
                                 Media.findOne(user.file).then(function (media) {
                                     if (!media) return res.notFound('Media not found');
