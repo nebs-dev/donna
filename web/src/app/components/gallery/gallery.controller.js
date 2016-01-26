@@ -127,8 +127,23 @@
                 var html = '<div class="fb-comments"><ul>';
 
                 _.each(item.comments, function (comment) {
-                    html += '<li><img src="'+ comment.user.file.thumb +'">';
-                    html += '<div class="comment-content"><span>'+comment.user.email+'</span><p>' + comment.text + '</p></div></li>';
+                    var thumb;
+                    var userCredential = '';
+
+                    if (comment.user.email) {
+                        userCredential = comment.user.email;
+                    }
+
+                    if (comment.user.file) {
+                        thumb = comment.user.file.thumb;
+                    } else if (comment.user.facebookId) {
+                        thumb = 'https://graph.facebook.com//'+ message.user.facebookId +'/picture?width=1080&height=1080';
+                    } else {
+                        thumb = 'http://api.adorable.io/avatars/100/' + userCredential;
+                    }
+
+                    html += '<li><img src="'+ thumb +'">';
+                    html += '<div class="comment-content"><span>'+userCredential+'</span><p>' + comment.text + '</p></div></li>';
                 });
 
                 html += '</ul></div>';
