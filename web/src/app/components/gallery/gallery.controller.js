@@ -184,7 +184,9 @@
                     // replace item in gallery with item without comment
                     _.extend(_.findWhere(vm.gallery.files, { id: item.id }), item);
                     komentar.remove();
+
                     swal("Deleted!", "Comment has been deleted.", "success");
+
                 }).error(function (err) {
                     SweetAlert.swal(err.error, err.summary, 'error');
                 });
