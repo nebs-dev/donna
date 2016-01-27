@@ -42,7 +42,7 @@ module.exports = {
                                     return cb();
                                 });
                             }).catch(function (err) {
-                                return cb(err);
+                                return cb(err)
                             });
 
                         }, function (err) {
