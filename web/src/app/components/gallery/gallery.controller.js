@@ -143,9 +143,9 @@
                         thumb = 'http://api.adorable.io/avatars/100/' + userCredential;
                     }
 
-                    html += '<li><img src="'+ thumb +'">';
+                    html += '<li class="komentar"><img src="'+ thumb +'">';
                     html += '<div class="comment-content"><span>'+userCredential+'</span><p>' + comment.text + '</p>';
-                    html += '<button onclick="window.proxyDestroyComment(\''+comment.id+'\')" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button></div></li>';
+                    html += '<button onclick="window.proxyDestroyComment(\''+comment.id+'\', \''+item.id+'\', this)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button></div></li>';
                 });
 
                 html += '</ul></div>';
@@ -155,9 +155,8 @@
         };
 
 
-
         // Destroy comment
-        vm.destroyComment = function (id) {
+        vm.destroyComment = function (id, itemId, komentar) {
             swal({
                 title: "Are you sure?",
                 text: "You will not be able to recover this message!",
@@ -168,8 +167,20 @@
                 closeOnConfirm: false
             }, function () {
                 Main.destroyComment(id).success(function (data) {
-                    console.log('-------------', data);
-                    if (data.statusCode != 200) return SweetAlert.swal('Comment error', data.body.error, 'error');
+                    if (data.statusCode) return SweetAlert.swal('Comment error', 'Delete error', 'error');
+
+                    // get item object
+                    var item = _.findWhere(vm.gallery.files, {id: itemId});
+                    item.commentsNum -= 1;
+
+                    // remove comment from item by id
+                    item.comments = _.reject(item.comments, function (comment) {
+                        return id == comment.id;
+                    });
+
+                    // replace item in gallery with item without comment
+                    _.extend(_.findWhere(vm.gallery.files, { id: item.id }), item);
+                    komentar.remove();
                     swal("Deleted!", "Comment has been deleted.", "success");
                 }).error(function (err) {
                     SweetAlert.swal(err.error, err.summary, 'error');
@@ -177,9 +188,8 @@
             });
         };
 
-
-        window.proxyDestroyComment = function(id) {
-            vm.destroyComment(id);
+        window.proxyDestroyComment = function(id, itemId, btn) {
+            vm.destroyComment(id, itemId, jQuery(btn).parents('.komentar'));
         };
 
     }
