@@ -104,20 +104,25 @@
         };
 
         vm.deleteFile = function (id) {
-            Gallery.destroyFile(id).success(function () {
-                vm.gallery.files = _.reject(vm.gallery.files, function (file) {
-                    return id == file.id;
-                });
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }, function () {
+                Gallery.destroyFile(id).success(function () {
+                    vm.gallery.files = _.reject(vm.gallery.files, function (file) {
+                        return id == file.id;
+                    });
 
-                SweetAlert.swal({
-                    title: 'Success',
-                    text: 'File successfully deleted',
-                    timer: 1000,
-                    showConfirmButton: false,
-                    type: 'success'
+                    swal("Deleted!", "File has been deleted.", "success");
+
+                }).error(function (err) {
+                    SweetAlert.swal(err.error, err.summary, 'error');
                 });
-            }).error(function (err) {
-                SweetAlert.swal(err.error, err.summary, 'error');
             });
         };
 
@@ -167,8 +172,6 @@
                 closeOnConfirm: false
             }, function () {
                 Main.destroyComment(id).success(function (data) {
-                    if (data.statusCode) return SweetAlert.swal('Comment error', 'Delete error', 'error');
-
                     // get item object
                     var item = _.findWhere(vm.gallery.files, {id: itemId});
                     item.commentsNum -= 1;
