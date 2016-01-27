@@ -6,7 +6,7 @@
         .controller('GalleryController', GalleryController);
 
     /** @ngInject */
-    function GalleryController($scope, Gallery, SweetAlert, $state) {
+    function GalleryController($scope, Gallery, SweetAlert, $state, Main, $sce) {
         var vm = this;
 
         vm.readyToUpload = true;
@@ -121,6 +121,7 @@
             });
         };
 
+
         // Get comments for each file
         vm.getComments = function (item) {
             if (item) {
@@ -143,14 +144,43 @@
                     }
 
                     html += '<li><img src="'+ thumb +'">';
-                    html += '<div class="comment-content"><span>'+userCredential+'</span><p>' + comment.text + '</p></div></li>';
+                    html += '<div class="comment-content"><span>'+userCredential+'</span><p>' + comment.text + '</p>';
+                    html += '<button onclick="window.proxyDestroyComment(\''+comment.id+'\')" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button></div></li>';
                 });
 
                 html += '</ul></div>';
 
                 return html;
             }
-        }
+        };
+
+
+
+        // Destroy comment
+        vm.destroyComment = function (id) {
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this message!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }, function () {
+                Main.destroyComment(id).success(function (data) {
+                    console.log('-------------', data);
+                    if (data.statusCode != 200) return SweetAlert.swal('Comment error', data.body.error, 'error');
+                    swal("Deleted!", "Comment has been deleted.", "success");
+                }).error(function (err) {
+                    SweetAlert.swal(err.error, err.summary, 'error');
+                });
+            });
+        };
+
+
+        window.proxyDestroyComment = function(id) {
+            vm.destroyComment(id);
+        };
 
     }
 

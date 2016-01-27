@@ -39,8 +39,8 @@ module.exports = {
      * @param res
      */
     destroy: function (req, res) {
-        Comment.destroy(req.params.id).then(function () {
-            return res.ok();
+        Comment.destroy(req.params.id).then(function (destroyed) {
+            return res.ok(destroyed);
         }).catch(function (err) {
             return res.negotiate(err);
         });
