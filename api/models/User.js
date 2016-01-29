@@ -156,12 +156,14 @@ module.exports = {
         if (!values.password && !values.file) return next();
 
         if (values.file) {
+            console.log(11111);
             User.findOne(values.id).populate('file').then(function (userOld) {
                 if (!values.hasFiles || !userOld.file) return next();
 
                 // destroy old file in database && file
                 Media.destroy(userOld.file.id).then(function () {
                     if (values.password) {
+                        console.log(22222);
                         bcrypt.genSalt(10, function (err, salt) {
                             if (err) return next(err);
 
@@ -183,8 +185,10 @@ module.exports = {
 
         } else {
             if (values.password) {
+                console.log(3333);
                 bcrypt.genSalt(10, function (err, salt) {
                     if (err) return next(err);
+                    console.log('TEST');
 
                     bcrypt.hash(values.password, salt, function (err, hash) {
                         if (err) return next(err);
