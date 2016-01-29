@@ -24,7 +24,7 @@ module.exports = {
 
             User.validPassword(password, user, function (err, valid) {
                 if (err) return res.accessDenied();
-                if (!user.isActive && user.role.name != 'superadmin') return res.accessDenied('User is inactive, check your email for activation link');
+                if (!user.isActive && (!user.role || user.role.name != 'superadmin')) return res.accessDenied('User is inactive, check your email for activation link');
 
                 if (!valid) {
                     return res.accessDenied('Invalid email or password');
