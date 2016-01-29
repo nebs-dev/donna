@@ -169,13 +169,14 @@ module.exports = {
 
             var token = sailsTokenAuth.issueResetToken({userId: user.id, secret: user.secret});
 
-            var link = sails.getHost() + '/donna/#/reset/' + token;
+            var link = sails.getHost() + '/#/reset/' + token;
             var options = {
                 to: user.email
             };
 
             EmailService.sendEmail(options, {link: link}, function (err, data) {
-                if(err) return res.negotiate(err);
+                if(err) return res.customBadRequest(err.errors[0].response);
+
                 return res.ok();
             });
 
@@ -198,6 +199,25 @@ module.exports = {
 
         User.update(params.id, params).then(function (user) {
             return res.ok(user);
+        }).catch(function (err) {
+            return res.negotiate(err);
+        });
+    },
+
+    /**
+     * Activate User by token
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    activateUser: function (req, res) {
+        User.findOne(req.token.userId).then(function (user) {
+            user.isActive = true;
+
+            user.save(function (err, user) {
+                if (err) return res.negotiate(err);
+                return res.ok(user);
+            })
         }).catch(function (err) {
             return res.negotiate(err);
         });

@@ -27,6 +27,25 @@
             });
         }
 
+        // Activate user
+        if (stateMethod == 'activateUser') {
+            User.activateUser($state.params.token).success(function (data) {
+                SweetAlert.swal({
+                    title: 'Success',
+                    text: 'User '+data.firstName+ ' '+data.lastName+' successfully activated',
+                    timer: 3500,
+                    showConfirmButton: false,
+                    type: 'success'
+                });
+
+                $state.go('anon.login');
+
+            }).error(function (err) {
+                console.log('Error: ', err);
+                SweetAlert.swal(err.error, err.status, 'error');
+            });
+        }
+
         // save new password data
         vm.save = function () {
             User.changePassword(vm.user.id, vm.user).success(function (user) {

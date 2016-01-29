@@ -38,6 +38,10 @@
 
             getRoles: function () {
                 return $http.get(API.URL + '/api/roles');
+            },
+
+            activateUser: function (token) {
+                return $http.post(API.URL + '/api/user/activateUser/' + token);
             }
         }
     }

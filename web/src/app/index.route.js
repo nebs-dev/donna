@@ -28,6 +28,13 @@
                 controllerAs: 'anonCtrl',
                 method: 'resetPassword'
             })
+            .state('anon.activate', {
+                url: '/activateUser/:token',
+                templateUrl: 'app/components/anon/activate-user.html',
+                controller: 'AnonController',
+                controllerAs: 'anonCtrl',
+                method: 'activateUser'
+            })
             .state('anon.tos', {
                 url: '/ToS',
                 templateUrl: 'app/components/anon/ToS.html',

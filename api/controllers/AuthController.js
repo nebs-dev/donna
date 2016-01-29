@@ -24,6 +24,7 @@ module.exports = {
 
             User.validPassword(password, user, function (err, valid) {
                 if (err) return res.accessDenied();
+                if (!user.isActive) return res.accessDenied('User is inactive, check your email for activation link');
 
                 if (!valid) {
                     return res.accessDenied('Invalid email or password');
@@ -72,8 +73,17 @@ module.exports = {
                 user.save(function (err, user) {
                    if (err) return res.negotiate(err);
 
+                    // Send activation email to user
                     var token = sailsTokenAuth.issueToken({userId: user.id, ip: req.ip, secret: user.secret});
-                    res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
+                    var link = sails.getHost() + '/#/activateUser/' + token;
+                    var options = {
+                        to: user.email
+                    };
+                    EmailService.sendEmail(options, {link: link}, function (err, data) {
+                        if(err) return res.customBadRequest(err.errors[0].response);
+
+                        res.ok({user: UploadHelper.getFullUrl(req, user), token: token});
+                    });
                 });
             });
 

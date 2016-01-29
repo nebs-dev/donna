@@ -45,6 +45,7 @@ module.exports.policies = {
         'create': ['tokenAuth', 'isSuperadmin'],
         'resetPassword': true,
         'reset': ['resetAuth'],
+        'activateUser': ['resetAuth'],
         'getOneByToken': ['resetAuth'],
         '*': false
     },

@@ -129,6 +129,8 @@ module.exports.routes = {
 
     'POST /api/user/reset/:id': 'User.reset',
 
+    'POST /api/user/activateUser/:token': 'User.activateUser',
+
     'POST /api/user/create': 'User.create',
 
     'POST /api/user/destroy/:id': 'User.destroy',

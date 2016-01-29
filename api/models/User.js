@@ -44,6 +44,11 @@ module.exports = {
             defaultsTo: null
         },
 
+        isActive: {
+            type: 'boolean',
+            defaultsTo: false
+        },
+
         isVIP: {
             type: 'boolean',
             defaultsTo: false
