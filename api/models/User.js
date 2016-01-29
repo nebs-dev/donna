@@ -155,7 +155,7 @@ module.exports = {
     beforeUpdate: function (values, next) {
         if (!values.password && !values.file) return next();
 
-        if (values.file) {
+        if (values.file && values.hasFiles) {
             console.log(11111);
             User.findOne(values.id).populate('file').then(function (userOld) {
                 if (!values.hasFiles || !userOld.file) return next();
