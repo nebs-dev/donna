@@ -49,7 +49,8 @@ module.exports = {
                 req.user.isOnline = true;
             }
 
-            req.user.save(function (err, user) {
+            //req.user.save(function (err, user) {
+
                 // Find VIP user
                 User.findOne({where: {isVIP: true}}).then(function (vipUser) {
                     var baseURL = sails.getBaseurl();
@@ -95,7 +96,7 @@ module.exports = {
                         });
                     });
                 });
-            });
+            //});
 
         }).catch(function (err) {
             res.negotiate(err);
