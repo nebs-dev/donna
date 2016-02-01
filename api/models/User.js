@@ -185,7 +185,6 @@ module.exports = {
             if (values.password) {
                 bcrypt.genSalt(10, function (err, salt) {
                     if (err) return next(err);
-                    console.log('TEST');
 
                     bcrypt.hash(values.password, salt, function (err, hash) {
                         if (err) return next(err);
@@ -194,9 +193,9 @@ module.exports = {
                         return next();
                     });
                 });
+            } else {
+                return next();
             }
-
-            return next();
         }
     },
 
