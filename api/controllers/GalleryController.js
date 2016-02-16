@@ -21,7 +21,7 @@ module.exports = {
                 users = _.indexBy(users, 'id');
 
                 _.each(gallery.comments, function (comment) {
-                    comment.user = users[comment.user];
+                    comment.user = UploadHelper.getFullUrl(req, users[comment.user]);
                 });
 
 

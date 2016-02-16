@@ -93,7 +93,7 @@ module.exports = {
                 users = _.indexBy(users, 'id');
 
                 _.each(event.comments, function (comment) {
-                    comment.user = users[comment.user];
+                    comment.user = UploadHelper.getFullUrl(req, users[comment.user]);
                 });
 
                 return res.ok(LikeHelper.checkLike(req, UploadHelper.getFullUrl(req, event)));

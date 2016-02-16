@@ -214,7 +214,7 @@ module.exports.routes = {
     'POST /api/comment/report/:id': 'Comment.report',
 
     /**
-     * @api {post} /api/comment/destroy/:id cestroy
+     * @api {post} /api/comment/destroy/:id destroy
      * @apiGroup Comment
      */
     'POST /api/comment/destroy/:id': 'Comment.destroy',
