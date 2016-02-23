@@ -27,6 +27,11 @@ module.exports = {
             required: true
         },
 
+        showTime: {
+            type: 'boolean',
+            defaultsTo: false
+        },
+
         location: {
             type: 'string'
         },
