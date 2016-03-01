@@ -32,10 +32,10 @@ module.exports = {
         /// IOS ///
         var apn = require('apn');
         var optionsIOS = {
-            cert: sails.config.appPath + '/certs/DonnaVekicCertDev.pem',
-            key: sails.config.appPath + '/certs/DonnaVekicKeyDev.pem',
-            passphrase: '1234',
-            gateway: 'gateway.sandbox.push.apple.com',
+            cert: sails.config.appPath + '/certs/DonnaVekicCertProd.pem',
+            key: sails.config.appPath + '/certs/DonnaVekicKeyProd.pem',
+            passphrase: '6EpkQkU1ZW',
+            gateway: 'ssl://gateway.push.apple.com:2195',
             port: 2195
         };
         var serviceIOS = new apn.connection(optionsIOS);
