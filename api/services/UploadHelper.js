@@ -1,6 +1,7 @@
 var path = require('path');
 var fs = require('fs-extra');
 var easyimg = require('easyimage');
+var ffmpeg = require('fluent-ffmpeg');
 module.exports = {
 
     uploadFile: function (req, model) {
@@ -22,6 +23,7 @@ module.exports = {
                 var newFiles = [];
 
                 async.filter(uploadedFiles, function (file, cb) {
+                    var fileName = path.basename(file.fd);
 
                     // Check allowed file types
                     //if(allowedTypes.indexOf(file.type) !== -1) {
@@ -29,14 +31,14 @@ module.exports = {
 
                     if (mediaType == 'photo') {
                         easyimg.thumbnail({
-                            src: sails.config.appPath + '/uploads/' + model + '/' + path.basename(file.fd),
-                            dst: sails.config.appPath + '/uploads/' + model + '/thumb/' + path.basename(file.fd),
+                            src: sails.config.appPath + '/uploads/' + model + '/' + fileName,
+                            dst: sails.config.appPath + '/uploads/' + model + '/thumb/' + fileName,
                             width:300, height:300
                         }).then(function(image) {
                             var fileDb = {
-                                'url': model + '/' + path.basename(file.fd),
+                                'url': model + '/' + fileName,
                                 'type': mediaType,
-                                'thumb': model + '/thumb/' + path.basename(file.fd)
+                                'thumb': model + '/thumb/' + fileName
                             };
 
                             Media.create(fileDb).then(function (f) {
@@ -55,28 +57,37 @@ module.exports = {
                             console.log(err);
                         });
                     } else {
-                        var fileDb = {
-                            'url': model + '/' + path.basename(file.fd),
-                            'type': mediaType,
-                            'thumb': 'video.png'
-                        };
+                        var thumb = fileName.substr(0, fileName.lastIndexOf(".")) + ".png";
 
-                        Media.create(fileDb).then(function (f) {
-                            newFiles.push(f);
-                            return cb(true);
-                        }).catch(function (err) {
-                            console.log(err);
+                        ffmpeg(sails.config.appPath + '/uploads/' + model + '/' + fileName)
+                            .screenshots({
+                                timestamps: [5],
+                                filename: thumb,
+                                folder: sails.config.appPath + '/uploads/' + model + '/thumb/',
+                                size: '300x300'
+                            })
+                            .on('end', function () {
 
-                            fs.remove(file.fd, function (err) {
-                                if (err) return reject(err);
+                                var fileDb = {
+                                    'url': model + '/' + fileName,
+                                    'type': mediaType,
+                                    'thumb': model + '/thumb/' + thumb
+                                };
 
-                                return cb(false);
+                                Media.create(fileDb).then(function (f) {
+                                    newFiles.push(f);
+                                    return cb(true);
+                                }).catch(function (err) {
+                                    console.log(err);
+
+                                    fs.remove(file.fd, function (err) {
+                                        if (err) return reject(err);
+
+                                        return cb(false);
+                                    });
+                                });
                             });
-                        });
                     }
-
-
-                    //}
 
                 }, function (results) {
                     return resolve(newFiles);
