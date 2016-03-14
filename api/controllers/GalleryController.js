@@ -207,8 +207,8 @@ module.exports = {
                 gallery.save(function (err, gallery) {
                     if (err) return res.negotiate(err);
 
-                    User.findOne(comment.user).then(function (user) {
-                        comment.user = user;
+                    User.findOne(comment.user).populate('file').then(function (user) {
+                        comment.user = UploadHelper.getFullUrl(req, user);
                         return res.ok(comment);
                     }).catch(function (err) {
                         return res.negotiate(err);

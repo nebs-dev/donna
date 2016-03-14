@@ -121,7 +121,7 @@ module.exports = {
                     if (err) return res.negotiate(err);
 
                     User.findOne(comment.user).populate('file').then(function (user) {
-                        comment.user = UploadHelper.getFullUrl(req, user);
+                        comment.user = user;
                         return res.ok(comment);
                     }).catch(function (err) {
                         return res.negotiate(err);
